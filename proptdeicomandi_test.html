@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Quesito – CMD (solo Prompt) – Organizzazione dei file per gravità</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Font leggibili per DSA -->
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Palette chiara con buon contrasto + dark mode */
+  :root { --fg:#111; --bg:#fff; --muted:#444; --accent:#0b5; --card:#f6f6f6; --codebg:#0001; }
+  @media (prefers-color-scheme: dark){
+    :root { --fg:#eee; --bg:#0c0c0c; --muted:#bbb; --accent:#4dd; --card:#171717; --codebg:#fff1; }
+  }
+
+  /* Font stack: Lexend/Atkinson, poi OpenDyslexic locale, quindi fallback comuni */
+  html,body{
+    margin:0; padding:0;
+    background:var(--bg); color:var(--fg);
+    font-family:"Lexend","Atkinson Hyperlegible","OpenDyslexic",Verdana,Arial,sans-serif;
+    font-size:18px; line-height:1.65; letter-spacing:.015em;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+
+  main{ max-width:900px; margin:0 auto; padding:28px 16px 64px; }
+  h1,h2,h3{ line-height:1.3; margin:0 0 .55em; font-weight:600; }
+  h1{ font-size:1.85rem; }
+  h2{ font-size:1.45rem; margin-top:1.4em; }
+  h3{ font-size:1.15rem; margin-top:1.1em; color:var(--muted); }
+  p,li{ margin:.45em 0; }
+  .card{ background:var(--card); border:2px solid rgba(0,0,0,.06); border-radius:14px; padding:16px 18px; }
+  .badge{ display:inline-block; background:var(--accent); color:#003; padding:.22em .7em; border-radius:999px; font-weight:700; font-size:.95rem; }
+  pre,code{ font-family:Consolas,"Courier New",ui-monospace,Menlo,monospace; font-size:.96em; }
+  pre{ background:var(--codebg); padding:12px; border-radius:10px; overflow:auto; }
+  .warn{ background:#fff3cd; color:#3b2f00; border-left:6px solid #f0ad4e; padding:10px 12px; border-radius:10px; }
+  @media (prefers-color-scheme: dark){ .warn{ background:#3b2f00; color:#ffecb5; border-color:#ffcf66; } }
+  ul.check > li{ list-style:"✔ "; padding-left:.3em; }
+  .muted{ color:var(--muted); }
+  .footer{ margin-top:28px; font-size:.95rem; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Organizzazione dei file per gravità — <span class="badge">CMD (solo Prompt)</span></h1>
+    <p class="muted">Durata massima prova: 40 minuti (resto dell’ora per setup/chiusura). Ambiente: Windows 10/11.</p>
+  </header>
+
+  <section class="card">
+    <h2>Scenario</h2>
+    <p>I file di ticket hanno il formato:</p>
+    <pre><code>Ticket_N_XXX_DATA.doc</code></pre>
+    <ul>
+      <li><strong>N</strong>: gravità (1=Miglioria, 2=Anomalia, 3=Malfunzionamento, 4=Errore bloccante)</li>
+      <li><strong>XXX</strong>: numerazione progressiva (es. 001, 045…)</li>
+      <li><strong>DATA</strong>: data in formato <code>YYYYMMDD</code></li>
+    </ul>
+
+    <h3>Struttura di lavoro</h3>
+    <p>Lavora dentro la cartella <code>tickets\</code>. Le cartelle di gravità (<code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>) si trovano <strong>nel livello superiore</strong> (<code>..\</code> rispetto a <code>tickets\</code>).</p>
+    <pre><code>tickets\
+├── Ticket_1_001_20250402.doc
+├── Ticket_2_045_20250328.doc
+└── … (altri file)
+..\
+ ├── 1\
+ ├── 2\
+ ├── 3\
+ └── 4\</code></pre>
+  </section>
+
+  <section>
+    <h2>Obiettivo</h2>
+    <p>Scrivere uno script <strong>.bat</strong> che, eseguito <em>da dentro</em> <code>tickets\</code>, sposti tutti i file <code>.doc</code> nella rispettiva cartella di gravità (<code>..\1</code>, <code>..\2</code>, <code>..\3</code>, <code>..\4</code>), <strong>senza usare variabili né parametri</strong>.</p>
+  </section>
+
+  <section>
+    <h2>Vincoli didattici</h2>
+    <ul class="check">
+      <li><strong>Niente variabili</strong> (<code>%NOME%</code>) e <strong>niente parametri</strong> (<code>%1</code>, <code>%2</code>…)</li>
+      <li>Usa <strong>solo comandi base</strong> visti a lezione (es.: <code>dir</code>, <code>move</code>, <code>md</code>/<code>mkdir</code>, <code>ren</code>, <code>echo</code>, <code>find</code>)</li>
+      <li>Lo script deve funzionare da <code>tickets\</code> usando correttamente <code>..\</code></li>
+      <li>Nome file: <strong>sposta_gravita.bat</strong></li>
+    </ul>
+    <p class="warn"><strong>Non ammesso:</strong> FOR, parsing avanzato di IF, PowerShell, strumenti esterni. Basiamoci su <strong>wildcard/pattern</strong> coerenti con il nome file.</p>
+  </section>
+
+  <section class="card">
+    <h2>Attività richieste</h2>
+    <ol>
+      <li><strong>Script principale.</strong> Crea <code>sposta_gravita.bat</code> che sposta i <code>.doc</code> nelle cartelle <code>..\1</code>, <code>..\2</code>, <code>..\3</code>, <code>..\4</code> in base al numero <code>N</code> nel nome.</li>
+      <li><strong>Messaggi a schermo.</strong> Lo script deve mostrare chiaramente i file spostati.</li>
+      <li><strong>Cartelle destinazione.</strong> Se mancanti, devono essere create con comando adeguato.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Domande di approfondimento (facoltative)</h2>
+    <ol>
+      <li>Stampare un messaggio personalizzato per ogni file spostato (es. “Spostato: Ticket_1_001_20250402.doc”).</li>
+      <li>Creare automaticamente le cartelle di destinazione se non esistono.</li>
+      <li>Scrivere un secondo script che rinomini i file spostati aggiungendo <code>_GESTITO</code> prima di <code>.doc</code>.</li>
+      <li>Scrivere uno script “inverso” che riporti tutti i file nelle cartelle in <code>tickets\</code>.</li>
+      <li>Scrivere uno script che conti quanti <code>.doc</code> ci sono per ogni gravità e mostri i conteggi.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Consegna su Moodle</h2>
+    <ul>
+      <li>Carica il file <strong>.bat</strong> (<code>sposta_gravita.bat</code>) funzionante.</li>
+      <li>Allega un <strong>.txt</strong> o <strong>.pdf</strong> con Nome, Cognome, Classe, breve spiegazione e difficoltà incontrate.</li>
+    </ul>
+    <p class="muted">Suggerimento: prova con 6–8 file di esempio (gravità miste) prima dell’upload.</p>
+  </section>
+
+  <section>
+    <h2>Valutazione sintetica</h2>
+    <ul>
+      <li><strong>Correttezza funzionale</strong> (spostamenti ok): 40%</li>
+      <li><strong>Rispetto vincoli</strong> (no variabili/parametri; solo comandi visti): 30%</li>
+      <li><strong>Chiarezza output</strong> (messaggi leggibili): 20%</li>
+      <li><strong>Ordine e nomenclatura</strong> (nome file corretto, commenti essenziali): 10%</li>
+    </ul>
+    <p class="muted">Tempo utile per lo svolgimento: max 40 minuti.</p>
+  </section>
+
+  <section>
+    <h2>Esempi di comandi consentiti</h2>
+    <p class="muted">Non è la soluzione completa; sono esempi coerenti con i vincoli.</p>
+    <pre><code>dir
+move "Ticket_1_*.doc" "..\1\"
+md "..\1"
+ren "*.doc" "*_GESTITO.doc"
+echo ...</code></pre>
+  </section>
+
+  <p class="footer">© Classe 3 TPSIT — Verifica laboratorio (CMD). Usa solo il Prompt dei comandi.</p>
+</main>
+</body>
+</html>
