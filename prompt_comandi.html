@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Cheat Sheet CMD – Comandi per l’esercizio “Organizzazione file per gravità”</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Font ad alta leggibilità -->
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --fg:#111; --bg:#fff; --muted:#444; --accent:#0b5; --card:#f6f6f6; --code:#0001; }
+  @media (prefers-color-scheme: dark){
+    :root { --fg:#eee; --bg:#0c0c0c; --muted:#bbb; --accent:#4dd; --card:#171717; --code:#fff1; }
+  }
+  html,body{
+    margin:0; padding:0; background:var(--bg); color:var(--fg);
+    font-family:"Lexend","Atkinson Hyperlegible","OpenDyslexic",Verdana,Arial,sans-serif;
+    font-size:18px; line-height:1.65; letter-spacing:.015em;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  main{ max-width:1000px; margin:0 auto; padding:28px 16px 64px; }
+  h1,h2,h3{ line-height:1.25; margin:0 0 .5em; font-weight:600; }
+  h1{ font-size:1.9rem; }
+  h2{ font-size:1.45rem; margin-top:1.4em; }
+  h3{ font-size:1.15rem; margin-top:1.1em; color:var(--muted); }
+  p,li{ margin:.45em 0; }
+  .card{ background:var(--card); border:2px solid rgba(0,0,0,.06); border-radius:14px; padding:16px 18px; }
+  .badge{ display:inline-block; background:var(--accent); color:#003; padding:.22em .7em; border-radius:999px; font-weight:700; font-size:.95rem; }
+  pre,code{ font-family:Consolas,"Courier New",ui-monospace,Menlo,monospace; font-size:.96em; }
+  pre{ background:var(--code); padding:12px; border-radius:10px; overflow:auto; }
+  kbd{ border:1px solid #9994; border-bottom-width:2px; padding:.1em .35em; border-radius:6px; background:#fff2; }
+  ul.check > li{ list-style:"✔ "; padding-left:.3em; }
+  .muted{ color:var(--muted); }
+  .grid{ display:grid; grid-template-columns:1fr; gap:12px; }
+  @media (min-width:900px){ .grid{ grid-template-columns:1fr 1fr; } }
+  .footer{ margin-top:28px; font-size:.95rem; color:var(--muted); }
+  .tip{ background:#e6f7ef; border-left:6px solid #0b5; padding:10px 12px; border-radius:10px; }
+  .warn{ background:#fff3cd; color:#3b2f00; border-left:6px solid #f0ad4e; padding:10px 12px; border-radius:10px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Cheat Sheet — <span class="badge">CMD (Prompt dei comandi)</span></h1>
+    <p class="muted">Comandi essenziali per l’esercizio: “Organizzazione dei file per gravità” (durata prova: max 40 minuti).</p>
+  </header>
+
+  <section class="card">
+    <h2>1) Come leggere la sintassi dei comandi (convenzioni degli help)</h2>
+    <ul>
+      <li><strong>[quadre]</strong> → <em>argomento opzionale</em>. Esempio: <code>dir [/b]</code> (puoi usare <code>/b</code> oppure no).</li>
+      <li><strong>&lt;angolari&gt;</strong> → <em>segnaposto</em> da sostituire con un valore. Esempio: <code>move &lt;file&gt; &lt;destinazione&gt;</code>.</li>
+      <li><strong>{graffe|pipe}</strong> → <em>scelta</em> tra alternative. Esempio: <code>dir { /p | /w }</code>.</li>
+      <li><strong>...</strong> → l’elemento precedente si può ripetere più volte.</li>
+      <li><strong>MAIUSCOLO/minuscolo</strong> → in CMD non fa differenza (<em>case-insensitive</em>).</li>
+      <li><strong>Virgolette " "</strong> → obbligatorie se il percorso contiene spazi. Esempio: <code>move "C:\Miei file\*.doc" "C:\Destinazione\"</code>.</li>
+    </ul>
+    <p class="tip"><strong>Help veloci:</strong> <code>help</code> mostra l’elenco comandi; <code>nomecomando /?</code> mostra l’help dettagliato (es.: <code>move /?</code>).</p>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>2) Spostarsi tra cartelle — <code>cd</code> / <code>chdir</code></h2>
+      <p><code>cd</code> (o <code>chdir</code>) cambia o mostra la cartella corrente.</p>
+      <ul>
+        <li><code>cd</code> (senza parametri) → <em>mostra</em> la cartella corrente.</li>
+        <li><code>cd ..</code> → sali di un livello (alla cartella padre).</li>
+        <li><code>cd ..\..</code> → sali di due livelli.</li>
+        <li><code>cd \</code> → vai alla radice dell’unità (es.: <code>C:\</code>).</li>
+        <li><code>cd perc\orso\</code> → vai a una cartella relativa; <code>cd C:\percorso\assoluto\</code> per un percorso assoluto.</li>
+      </ul>
+      <p><strong>Per l’esercizio:</strong> lavora <em>dentro</em> <code>tickets\</code>. Le cartelle di gravità sono nel livello superiore: <code>..\1</code>, <code>..\2</code>, <code>..\3</code>, <code>..\4</code>.</p>
+    </div>
+
+    <div class="card">
+      <h2>3) Vedere i file — <code>dir</code></h2>
+      <p>Elenca i file e le cartelle.</p>
+      <ul>
+        <li><code>dir</code> → elenco standard.</li>
+        <li><code>dir /b</code> → elenco “bare” (solo nomi).</li>
+        <li><code>dir *.doc</code> → solo i file <code>.doc</code>.</li>
+        <li><code>dir Ticket_1_*.doc</code> → ticket di gravità 1.</li>
+      </ul>
+      <p class="muted">Wildcard utili: <code>*</code> = qualsiasi sequenza; <code>?</code> = un singolo carattere.</p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>4) Creare cartelle — <code>md</code> / <code>mkdir</code></h2>
+      <p>Crea cartelle (anche nidificate).</p>
+      <ul>
+        <li><code>md nomecartella</code> o <code>mkdir nomecartella</code></li>
+        <li><strong>Per l’esercizio:</strong> dalla cartella <code>tickets\</code>:
+          <pre><code>md "..\1"
+md "..\2"
+md "..\3"
+md "..\4"</code></pre>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5) Spostare file — <code>move</code></h2>
+      <p>Sposta file nella cartella di destinazione.</p>
+      <pre><code>move &lt;sorgente&gt; &lt;destinazione&gt;</code></pre>
+      <ul>
+        <li><code>move "Ticket_1_*.doc" "..\1\"</code></li>
+        <li><code>move "Ticket_2_*.doc" "..\2\"</code></li>
+        <li><code>move "Ticket_3_*.doc" "..\3\"</code></li>
+        <li><code>move "Ticket_4_*.doc" "..\4\"</code></li>
+      </ul>
+      <p class="muted">Il comando stampa già i file spostati (utile come “log”).</p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>6) Rinominare — <code>ren</code> / <code>rename</code></h2>
+      <p>Cambia nome a file (supporta wildcard).</p>
+      <pre><code>ren &lt;vecchio&gt; &lt;nuovo&gt;</code></pre>
+      <ul>
+        <li><code>ren "*.doc" "*_GESTITO.doc"</code> → aggiunge <code>_GESTITO</code> prima di <code>.doc</code>.</li>
+        <li>In una cartella specifica: <code>ren "..\1\*.doc" "*_GESTITO.doc"</code></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>7) Stampare testo / righe vuote — <code>echo</code></h2>
+      <p><code>echo</code> mostra un testo sullo schermo (o in un file con redirezione).</p>
+      <ul>
+        <li><code>echo Spostamento completato.</code></li>
+        <li><code>echo.</code> → stampa una riga vuota.</li>
+      </ul>
+      <p>Esempio: <code>echo Sposto i ticket di gravità 1...</code></p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>8) Creare file “al volo” — <code>copy con</code></h2>
+      <p><code>copy con</code> crea un file leggendo dalla tastiera fino a <kbd>Ctrl</kbd>+<kbd>Z</kbd> (poi <kbd>Invio</kbd>).</p>
+      <pre><code>copy con Ticket_1_001_20250402.doc
+( digita una riga qualsiasi come contenuto di prova )
+^Z
+        1 file copiato.</code></pre>
+      <p>Utile per generare file di esempio senza aprire un editor.</p>
+    </div>
+
+    <div class="card">
+      <h2>9) Vedere il contenuto — <code>type</code></h2>
+      <p>Mostra il contenuto di un file di testo.</p>
+      <ul>
+        <li><code>type Ticket_1_001_20250402.doc</code></li>
+      </ul>
+      <p class="warn"><strong>Nota:</strong> se il file <code>.doc</code> è realmente binario (Word), l’output sarà illeggibile. Con file di prova creati con <code>copy con</code> va bene.</p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>10) Cancellare file — <code>del</code></h2>
+      <p>Elimina file (attenzione: non chiede conferma con wildcard!).</p>
+      <ul>
+        <li><code>del *.doc</code> → elimina tutti i <code>.doc</code> nella cartella corrente.</li>
+        <li><code>del "..\1\*.doc"</code> → elimina i <code>.doc</code> in <code>..\1</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>11) Redirezione & conteggi (extra)</h2>
+      <p>Reindirizza l’output verso file o altri comandi.</p>
+      <ul>
+        <li><code>&gt;</code> → scrivi/ sovrascrivi file: <code>echo Ciao &gt; note.txt</code></li>
+        <li><code>&gt;&gt;</code> → accoda: <code>echo altra riga &gt;&gt; note.txt</code></li>
+        <li><code>2&gt; NUL</code> → scarta gli errori</li>
+      </ul>
+      <p><strong>Contare file</strong> (bare + trova-righe):</p>
+      <pre><code>dir /b "..\1\*.doc" | find /c /v ""</code></pre>
+      <p class="muted"><code>find /c /v ""</code> conta le righe (tutte, perché “non vuote” con stringa vuota è sempre vero).</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>12) Sequenza suggerita per l’esercizio</h2>
+    <ol class="check">
+      <li><strong>Vai nella cartella</strong> del lavoro:
+        <pre><code>cd percorso\...\tickets\</code></pre>
+      </li>
+      <li><strong>Crea le cartelle di gravità</strong> (se mancano):
+        <pre><code>md "..\1"
+md "..\2"
+md "..\3"
+md "..\4"</code></pre>
+      </li>
+      <li><strong>Controlla i file presenti</strong>:
+        <pre><code>dir *.doc</code></pre>
+      </li>
+      <li><strong>Sposta per gravità</strong>:
+        <pre><code>move "Ticket_1_*.doc" "..\1\"
+move "Ticket_2_*.doc" "..\2\"
+move "Ticket_3_*.doc" "..\3\"
+move "Ticket_4_*.doc" "..\4\"</code></pre>
+      </li>
+      <li><strong>(Facoltativo) Rinomina con suffisso</strong>:
+        <pre><code>ren "..\1\*.doc" "*_GESTITO.doc"
+ren "..\2\*.doc" "*_GESTITO.doc"
+ren "..\3\*.doc" "*_GESTITO.doc"
+ren "..\4\*.doc" "*_GESTITO.doc"</code></pre>
+      </li>
+      <li><strong>(Facoltativo) Conta i file per gravità</strong>:
+        <pre><code>dir /b "..\1\*.doc" | find /c /v ""
+dir /b "..\2\*.doc" | find /c /v ""
+dir /b "..\3\*.doc" | find /c /v ""
+dir /b "..\4\*.doc" | find /c /v ""</code></pre>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Problemi comuni & consigli</h2>
+    <ul>
+      <li><strong>Percorsi con spazi:</strong> usa sempre le virgolette <code>"…"</code>.</li>
+      <li><strong>Sei nella cartella giusta?</strong> usa <code>cd</code> (senza parametri) per vedere il percorso corrente.</li>
+      <li><strong>Test rapidi:</strong> crea 2–3 file campione con <code>copy con</code> prima di provare gli spostamenti.</li>
+      <li><strong>Annullo errori in pipe:</strong> puoi aggiungere <code>2&gt; NUL</code> per non vedere errori di “file non trovato”.</li>
+    </ul>
+  </section>
+
+  <p class="footer">© Classe 3 TPSIT — Foglio di riferimento (CMD). Font: Lexend / Atkinson Hyperlegible.</p>
+</main>
+</body>
+</html>
