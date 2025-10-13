@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Bash e WSL — Introduzione (tema chiaro/scuro)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="/lezioni-classeterza/assets/style.css">
+  <link rel="stylesheet" href="/lezioni-classeterza/assets/theme.css">
+  <script defer src="/lezioni-classeterza/assets/theme.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const root = document.documentElement;
+      const saved = localStorage.getItem('theme');
+      if(saved) root.setAttribute('data-theme', saved);
+      const btn = document.getElementById('themeToggle');
+      btn.addEventListener('click', () => {
+        const cur = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', cur);
+        localStorage.setItem('theme', cur);
+        btn.querySelector('span').textContent = cur === 'dark' ? 'Tema scuro' : 'Tema chiaro';
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <div>
+          <h1>💻 Introduzione a Bash e WSL</h1>
+          <p>Pagina con font ad alta leggibilità e non indicizzabile.</p>
+        </div>
+        <button id="themeToggle" class="toggle" type="button" aria-label="Cambia tema">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 14a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm7-5a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4 11a1 1 0 0 1 1-1H6a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm12.95 6.536a1 1 0 0 1 1.414 0l.707.708a1 1 0 1 1-1.414 1.414l-.707-.708a1 1 0 0 1 0-1.414ZM4.929 4.929a1 1 0 0 1 1.414 0l.707.707A1 1 0 1 1 5.636 7.05l-.707-.707a1 1 0 0 1 0-1.414Zm12.728-0a1 1 0 0 1 0 1.414l-.707.707A1 1 0 1 1 15.536 5.636l.707-.707a1 1 0 0 1 1.414 0ZM6.343 17.657a1 1 0 0 1 0 1.414l-.707.708A1 1 0 1 1 4.222 18.364l.707-.707a1 1 0 0 1 1.414 0Z"/></svg>
+          <span>Tema chiaro</span>
+        </button>
+      </div>
+    </header>
+    
+    <section class="panel">
+      <h2>Cos’è Bash?</h2>
+      <p><strong>Bash</strong> (acronimo di <em>Bourne Again Shell</em>) è una <strong>shell</strong>, cioè un interprete di comandi che permette di interagire con il sistema operativo Linux digitando istruzioni testuali.</p>
+      <p>Bash è estremamente potente: consente non solo di eseguire comandi, ma anche di creare <strong>script</strong> che automatizzano operazioni complesse.</p>
+    </section>
+
+    <section>
+      <h2>🆚 Bash vs Prompt dei Comandi (CMD)</h2>
+      <div class="panel">
+        <table>
+          <thead>
+            <tr><th>Caratteristica</th><th>Bash (Linux)</th><th>Prompt dei Comandi (DOS/Windows)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Sistema</td><td>Linux, macOS, WSL</td><td>Windows</td></tr>
+            <tr><td>Estensione script</td><td><code>.sh</code></td><td><code>.bat</code> o <code>.cmd</code></td></tr>
+            <tr><td>Struttura comandi</td><td>Basata su Unix, con <strong>pipe</strong>, <strong>redirezioni</strong> e <strong>variabili</strong></td><td>Più limitata, meno flessibile</td></tr>
+            <tr><td>Comandi principali</td><td><code>ls, cat, grep, wc, tail</code></td><td><code>dir, type, find</code></td></tr>
+            <tr><td>Programmazione</td><td>Supporta costrutti logici (<code>if, for, while</code>)</td><td>Molto più basilare</td></tr>
+            <tr><td>Ambiente</td><td>Multi-utente, multi-processo</td><td>Monoutente, meno adatto ad automazione</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">💡 In sintesi: <strong>Bash</strong> è uno strumento per chi vuole automatizzare, programmare e gestire in profondità il sistema. <strong>CMD</strong> serve per operazioni di base su Windows.</div>
+    </section>
+
+    <section class="panel">
+      <h2>🧩 Cos’è WSL?</h2>
+      <p><strong>WSL</strong> (Windows Subsystem for Linux) è una funzionalità di Windows che permette di installare e usare un vero ambiente Linux direttamente all’interno di Windows, senza macchina virtuale.</p>
+      <ul>
+        <li>Permette di eseguire comandi Linux come <code>ls</code> o <code>grep</code>.</li>
+        <li>Si installa dal Microsoft Store (es. Ubuntu, Debian).</li>
+        <li>I file di Windows e Linux possono essere condivisi.</li>
+      </ul>
+      <p><strong>Avvio:</strong> cerca “WSL” o “Ubuntu” dal menu Start oppure digita <code>wsl</code> nel prompt di Windows.</p>
+    </section>
+
+    <section>
+      <h2>⚙️ Bash Cheat Sheet (base)</h2>
+      <div class="panel">
+        <table>
+          <thead>
+            <tr><th>Comando</th><th>Descrizione</th><th>Esempio</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>pwd</code></td><td>Mostra la cartella corrente</td><td><code>pwd</code></td></tr>
+            <tr><td><code>ls</code></td><td>Elenca i file nella directory</td><td><code>ls -l</code></td></tr>
+            <tr><td><code>cd</code></td><td>Cambia cartella</td><td><code>cd /home</code></td></tr>
+            <tr><td><code>mkdir</code></td><td>Crea una nuova cartella</td><td><code>mkdir progetti</code></td></tr>
+            <tr><td><code>rm</code></td><td>Elimina file o directory</td><td><code>rm file.txt</code></td></tr>
+            <tr><td><code>cp</code></td><td>Copia file o directory</td><td><code>cp a.txt b.txt</code></td></tr>
+            <tr><td><code>mv</code></td><td>Sposta o rinomina</td><td><code>mv a.txt cartella/</code></td></tr>
+            <tr><td><code>cat</code></td><td>Visualizza contenuto file</td><td><code>cat prova.txt</code></td></tr>
+            <tr><td><code>grep</code></td><td>Cerca testo in un file</td><td><code>grep "errore" log.txt</code></td></tr>
+            <tr><td><code>wc -l</code></td><td>Conta le righe di un file</td><td><code>wc -l *.txt</code></td></tr>
+            <tr><td><code>echo</code></td><td>Stampa un messaggio</td><td><code>echo "Ciao mondo"</code></td></tr>
+            <tr><td><code>chmod +x</code></td><td>Rende un file eseguibile</td><td><code>chmod +x script.sh</code></td></tr>
+            <tr><td><code>./nomefile.sh</code></td><td>Esegue uno script</td><td><code>./backup.sh</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>🧠 Mini esercizio</h2>
+      <ol>
+        <li>Apri il terminale WSL.</li>
+        <li>Crea una nuova directory chiamata <code>bash_test</code>.</li>
+        <li>Dentro la cartella, crea un file <code>ciao.sh</code> con il contenuto:</li>
+      </ol>
+      <pre><code>#!/bin/bash
+echo "Ciao, questo è il mio primo script Bash!"</code></pre>
+      <ol start="4">
+        <li>Rendi eseguibile il file con <code>chmod +x ciao.sh</code>.</li>
+        <li>Eseguilo con <code>./ciao.sh</code>.</li>
+      </ol>
+      <div class="callout">🧩 Prova anche a usare i comandi <code>ls</code>, <code>pwd</code>, <code>cat</code>, <code>tail</code> e <code>wc</code> sui file creati.</div>
+    </section>
+
+    <footer>Lezione a cura del prof. Marco Cocciniglia — font e colori accessibili per DSA — Pagina non indicizzabile.</footer>
+  </div>
+</body>
+</html>
