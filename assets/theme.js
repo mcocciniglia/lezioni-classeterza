@@ -45,3 +45,8 @@
     if (btn) btn.addEventListener("click", toggleTheme);
   });
 })();
+
+<button id="themeToggle" class="theme-toggle" aria-label="Cambia tema" aria-pressed="false">
+  <span class="btn-label">Tema chiaro</span>
+  <span aria-hidden="true" class="btn-icon">🌓</span>
+</button>

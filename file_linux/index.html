@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Permessi Linux: chmod, utenti (u), gruppi (g) e altri (o)</title>
+
+  <!-- Assets esterni unificati -->
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/style.css">
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/theme.css">
+  <script defer src="https://mcocciniglia.github.io/common/assets/theme.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="title">Permessi Linux: <code>chmod</code>, <code>u</code>, <code>g</code>, <code>o</code></h1>
+
+      <!-- Controlli tema / contrasto (markup identico all’altra classe) -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button"
+                aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">Guida pratica • Sistemi Linux • Permessi file</p>
+    </div>
+  </header>
+
+  <main class="container content">
+    <section>
+      <h2>Le due notazioni di <code>chmod</code></h2>
+      <p>Sono disponibili la <strong>notazione simbolica</strong> e la <strong>notazione numerica (ottale)</strong>.</p>
+
+      <div class="card">
+        <h3>Notazione simbolica</h3>
+        <pre><code>chmod u+x file.txt</code></pre>
+        <ul>
+          <li>Aggiunge il bit di esecuzione (<code>x</code>) al proprietario (<code>u</code>).</li>
+          <li>Modifica solo ciò che indichi (tocco mirato, più sicuro).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Notazione numerica</h3>
+        <pre><code>chmod 744 file.txt</code></pre>
+        <ul>
+          <li>Imposta l’intero set permessi: <code>rwx r-- r--</code> (utente, gruppo, altri).</li>
+          <li>Compatta per preset completi, ma sovrascrive tutto.</li>
+        </ul>
+      </div>
+
+      <div class="callout warning">
+        <p><strong>Nota:</strong> forme ibride come <code>chmod u+3</code> non sono valide: con la simbolica si usano <code>+ - =</code> e i bit <code>r</code>, <code>w</code>, <code>x</code>.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Confronto rapido</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspetto</th>
+              <th>Simbolica (<code>u+x</code>)</th>
+              <th>Numerica (<code>744</code>)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Leggibilità</td>
+              <td>Alta (“aggiungi esecuzione all’utente”)</td>
+              <td>Media (4=r, 2=w, 1=x)</td>
+            </tr>
+            <tr>
+              <td>Rischio errori</td>
+              <td>Basso (delta mirato)</td>
+              <td>Medio/Alto (sovrascrive tutto)</td>
+            </tr>
+            <tr>
+              <td>Uso tipico</td>
+              <td>Modifiche puntuali</td>
+              <td>Preset completi uniformi</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Cosa cambia ai bit, passo passo</h2>
+      <pre><code># Stato iniziale
+touch file.txt
+chmod 644 file.txt      # rw-r--r-- (644)
+ls -l file.txt          # verifica
+
+# Aggiungo esecuzione all'utente (simbolica)
+chmod u+x file.txt      # diventa rwx r-- r-- (744)
+
+# Impostazione completa (numerica)
+chmod 744 file.txt      # stesso risultato, via sovrascrittura</code></pre>
+      <p>Con la simbolica applichi un <em>delta</em> (solo il bit indicato). Con la numerica riscrivi l’intero set <code>u,g,o</code>.</p>
+    </section>
+
+    <section>
+      <h2>Chi sono <code>u</code>, <code>g</code>, <code>o</code></h2>
+      <ul>
+        <li><strong><code>u</code> (user/owner):</strong> il proprietario del file.</li>
+        <li><strong><code>g</code> (group):</strong> tutti i membri del <em>gruppo</em> associato al file.</li>
+        <li><strong><code>o</code> (others):</strong> chiunque non sia né proprietario né nel gruppo.</li>
+      </ul>
+
+      <h3>Come decide il kernel</h3>
+      <ol>
+        <li>Se sei il proprietario → permessi di <code>u</code>.</li>
+        <li>Altrimenti, se appartieni al gruppo del file → permessi di <code>g</code>.</li>
+        <li>Altrimenti → permessi di <code>o</code>.</li>
+      </ol>
+      <p>Si applica <strong>una sola</strong> categoria (non la somma delle tre).</p>
+
+      <div class="card">
+        <h3>Esempio</h3>
+        <pre><code>-rw-r----- 1 marco docenti 0 file.txt</code></pre>
+        <ul>
+          <li><code>marco</code> (owner) → <code>rw-</code> (legge/scrive).</li>
+          <li>Membro di <code>docenti</code> → <code>r--</code> (solo lettura).</li>
+          <li>Utente esterno → <code>---</code> (nessun accesso).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Comandi utili da sistemista</h2>
+      <pre><code># Gruppi di un utente
+groups nomeutente
+
+# Proprietario, gruppo e permessi
+ls -l file.txt
+stat file.txt
+
+# Cambio proprietario/gruppo
+sudo chown luca file.txt
+sudo chgrp studenti file.txt
+sudo chown luca:studenti file.txt
+
+# Modifiche mirate
+chmod u+x script.sh
+chmod g+w /share
+chmod o-rwx file_segreto</code></pre>
+    </section>
+
+    <section class="callout info">
+      <h3>Consiglio operativo</h3>
+      <p>Usa la <strong>simbolica</strong> per cambi mirati (<code>u+x</code>, <code>g-w</code>…), la <strong>numerica</strong> (<code>755</code>, <code>640</code>…) per preset completi coerenti.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Materiale tecnico su permessi Linux • Solo risposte/teoria (senza domande)</p>
+    </div>
+  </footer>
+</body>
+</html>
