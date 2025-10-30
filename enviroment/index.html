@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Esercitarsi con i comandi Linux</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- CSS/JS condivisi -->
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/style.css">
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/theme.css">
+  <script defer src="https://mcocciniglia.github.io/common/assets/theme.js"></script>
+  <link rel="icon" href="https://mcocciniglia.github.io/common/assets/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .pill {
+      background: var(--accent-soft, #ffe7c7);
+      display: inline-block;
+      padding: .35rem .85rem;
+      border-radius: 999px;
+      font-weight: 600;
+      margin-top: .75rem;
+    }
+    .callout {
+      border-left: 6px solid var(--accent, #ff8b3d);
+      background: rgba(255,139,61,0.08);
+      padding: .75rem 1rem;
+      border-radius: .6rem;
+      margin: 1rem 0;
+    }
+    pre {
+      background: rgba(0,0,0,0.045);
+      padding: .7rem .9rem;
+      border-radius: .5rem;
+      overflow-x: auto;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="page-header">
+    <div class="topbar">
+      <h1>Esercitarsi con i comandi Linux</h1>
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio + esercizi da casa</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <p>
+        In laboratorio abbiamo usato il terminale Linux per creare cartelle, spostare file, cambiare permessi e scrivere piccoli script.
+        Qui trovi ambienti online o installabili per esercitarti anche da casa, e una serie di esercizi di ripasso.
+      </p>
+    </section>
+
+    <section>
+      <h2>1. Ambienti online</h2>
+      <p>
+        Se vuoi esercitarti senza installare nulla, puoi usare un terminale Linux direttamente dal browser.
+        Cerca su Google <strong>“online linux terminal”</strong> oppure visita siti come:
+      </p>
+      <ul>
+        <li><a href="https://bellard.org/jslinux/" target="_blank">JSLinux</a></li>
+        <li><a href="https://www.tutorialspoint.com/linux_terminal_online.php" target="_blank">TutorialsPoint Linux Terminal</a></li>
+        <li><a href="https://copy.sh/v86/" target="_blank">Copy.sh – Linux emulator</a></li>
+      </ul>
+      <p>
+        Questi ambienti permettono di usare i comandi di base come <code>ls</code>, <code>pwd</code>, <code>mkdir</code>, <code>cd</code> e <code>cat</code>.
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Ambienti per Windows</h2>
+      <h3>Git Bash (consigliato)</h3>
+      <p>
+        Installando <a href="https://git-scm.com/download/win" target="_blank">Git for Windows</a> ottieni anche <strong>Git Bash</strong>, una vera shell bash dove puoi eseguire gli stessi comandi visti a scuola.
+      </p>
+      <pre><code>ls
+pwd
+mkdir cartella
+cd cartella</code></pre>
+
+      <h3>PowerShell</h3>
+      <p>
+        Anche PowerShell accetta alcuni comandi simili:
+      </p>
+      <pre><code>ls
+pwd
+mkdir nomecartella
+cd nomecartella</code></pre>
+
+      <h3>WSL (Windows Subsystem for Linux)</h3>
+      <p>
+        Su Windows 10 o 11 puoi attivare WSL e installare Ubuntu o Debian per avere una vera esperienza Linux.
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Ambienti per macOS</h2>
+      <p>
+        Su Mac hai già tutto: apri <strong>Terminale</strong> da Spotlight e puoi usare gli stessi comandi di Linux.
+      </p>
+      <pre><code>ls
+cd
+pwd
+mkdir
+rm
+cp
+mv
+cat</code></pre>
+    </section>
+
+    <section>
+      <h2>4. Esercizi di ripasso</h2>
+
+      <article class="callout">
+        <h3>Esercizio 1 – Navigazione e cartelle</h3>
+        <p><strong>Obiettivo:</strong> usare i comandi <code>pwd</code>, <code>ls</code>, <code>mkdir</code>, <code>cd</code>.</p>
+        <ol>
+          <li>Crea una cartella chiamata <code>laboratorio_linux</code>.</li>
+          <li>Entra nella cartella.</li>
+          <li>All’interno crea tre cartelle: <code>docs</code>, <code>script</code> e <code>dati</code>.</li>
+          <li>Visualizza il contenuto della cartella.</li>
+        </ol>
+        <pre><code>mkdir laboratorio_linux
+cd laboratorio_linux
+mkdir docs script dati
+ls</code></pre>
+      </article>
+
+      <article class="callout">
+        <h3>Esercizio 2 – Smistare i file “Ticket”</h3>
+        <p>
+          Crea quattro file:
+        </p>
+        <pre><code>touch Ticket_1_backup_2025.doc
+touch Ticket_2_stampante_2025.doc
+touch Ticket_1_mouse_2025.doc
+touch Ticket_3_altro_2025.doc</code></pre>
+        <p>
+          Poi crea le cartelle:
+        </p>
+        <pre><code>mkdir gravita_1 gravita_2 gravita_3</code></pre>
+        <p>
+          Infine scrivi lo script <code>smista.sh</code> che sposta ogni file nella cartella della gravità corretta.
+        </p>
+        <pre><code>#!/bin/bash
+for f in Ticket_*; do
+  gravita=$(echo "$f" | cut -d "_" -f 2)
+  mv "$f" "gravita_$gravita/"
+done</code></pre>
+      </article>
+
+      <article class="callout">
+        <h3>Esercizio 3 – Permessi su un file</h3>
+        <p><strong>Obiettivo:</strong> modificare i permessi di lettura e scrittura.</p>
+        <pre><code>echo "Accesso solo docente" > segreto.txt
+ls -l segreto.txt
+chmod 600 segreto.txt
+ls -l segreto.txt</code></pre>
+      </article>
+
+      <article class="callout">
+        <h3>Esercizio 4 – Script di utilità</h3>
+        <p>
+          Scrivi uno script chiamato <code>info.sh</code> che mostri:
+        </p>
+        <ul>
+          <li>il nome dell’utente</li>
+          <li>la cartella attuale</li>
+          <li>lo spazio disponibile sul disco</li>
+        </ul>
+        <pre><code>#!/bin/bash
+echo "Utente:"
+whoami
+echo "Cartella attuale:"
+pwd
+echo "Spazio su disco:"
+df -h .</code></pre>
+        <p>Eseguilo con:</p>
+        <pre><code>chmod +x info.sh
+./info.sh</code></pre>
+      </article>
+    </section>
+
+    <footer style="margin-top: 3rem; padding: 1rem 0; font-size: .9rem;">
+      Pagina didattica – Laboratorio TPSI / Informatica – © IIS Archimede
+    </footer>
+  </main>
+</body>
+</html>
