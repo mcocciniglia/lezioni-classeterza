@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>CMD – Comandi base per l’esercizio sui ticket</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- NON indicizzare -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- CSS comune del progetto -->
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/style.css">
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/theme.css">
+
+  <!-- JS tema / contrasto -->
+  <script defer src="https://mcocciniglia.github.io/common/assets/theme.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://mcocciniglia.github.io/common/assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <h1>Cheat Sheet – Prompt dei comandi (Windows)</h1>
+      <p class="subtitle">Comandi essenziali per l’esercizio: <strong>“Organizzazione dei file per gravità”</strong></p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT/TPSIT • Modalità: laboratorio • Verifica max 40′</p>
+    </header>
+
+    <main class="page-content">
+      <section class="callout callout-info">
+        <h2>Obiettivo della scheda</h2>
+        <p>
+          Questa pagina ti aiuta a <strong>lavorare più veloce</strong> in laboratorio
+          quando devi spostare i file <code>Ticket_N_...</code> dentro le cartelle di gravità
+          (<code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>) usando il <strong>prompt dei comandi</strong>.
+        </p>
+        <p>
+          I comandi sono pensati per l’esercizio che avete visto in aula e che sarà su <strong>Moodle</strong>.
+        </p>
+      </section>
+
+      <!-- 1. Convenzioni -->
+      <section>
+        <h2>1) Come leggere la sintassi dei comandi</h2>
+        <ul>
+          <li><strong>[quadre]</strong> → argomento <em>opzionale</em>.<br>Es.: <code>dir [/b]</code></li>
+          <li><strong>&lt;angolari&gt;</strong> → da sostituire con un valore tuo.<br>Es.: <code>move &lt;file&gt; &lt;destinazione&gt;</code></li>
+          <li><strong>{graffe | pipe}</strong> → scegli una delle due opzioni.<br>Es.: <code>dir { /p | /w }</code></li>
+          <li><strong>...</strong> → puoi ripetere l’elemento più volte.</li>
+          <li><strong>MAIUSCOLO/minuscolo</strong> → in CMD non cambia.</li>
+          <li><strong>Virgolette " "</strong> → obbligatorie se ci sono <em>spazi</em> nel percorso.</li>
+        </ul>
+        <p>
+          Aiuti veloci:
+          <code>help</code> → elenco comandi •
+          <code>nomecomando /?</code> → help di un comando (es.: <code>move /?</code>)
+        </p>
+      </section>
+
+      <!-- 2. Spostarsi tra cartelle -->
+      <section>
+        <h2>2) Spostarsi tra cartelle — <code>cd</code> / <code>chdir</code></h2>
+        <p><code>cd</code> cambia o mostra la cartella corrente.</p>
+        <ul>
+          <li><code>cd</code> → mostra dove sei</li>
+          <li><code>cd ..</code> → sali di un livello</li>
+          <li><code>cd ..\..</code> → sali di due livelli</li>
+          <li><code>cd \</code> → vai alla radice (<code>C:\</code>)</li>
+          <li><code>cd perc\orso\</code> → vai ad una cartella relativa</li>
+          <li><code>cd C:\percorso\assoluto\</code> → vai ad una cartella assoluta</li>
+        </ul>
+        <p>
+          <strong>Per l’esercizio:</strong> lavora dentro <code>tickets\</code>.
+          Le cartelle di gravità stanno nel livello sopra: <code>..\1</code>, <code>..\2</code>, <code>..\3</code>, <code>..\4</code>.
+        </p>
+      </section>
+
+      <!-- 3. Vedere i file -->
+      <section>
+        <h2>3) Vedere i file — <code>dir</code></h2>
+        <p>Serve per elencare file e cartelle.</p>
+        <ul>
+          <li><code>dir</code> → elenco standard</li>
+          <li><code>dir /b</code> → solo nomi (pulito)</li>
+          <li><code>dir *.doc</code> → solo i file <code>.doc</code></li>
+          <li><code>dir Ticket_1_*.doc</code> → solo i ticket di gravità 1</li>
+        </ul>
+        <p>
+          <strong>Wildcard:</strong> <code>*</code> = qualsiasi sequenza • <code>?</code> = un carattere.
+        </p>
+      </section>
+
+      <!-- 4. Creare cartelle -->
+      <section>
+        <h2>4) Creare cartelle — <code>md</code> / <code>mkdir</code></h2>
+        <p>Crea una o più cartelle.</p>
+        <pre><code>md nomecartella
+mkdir nomecartella</code></pre>
+        <p><strong>Per l’esercizio (dentro <code>tickets\</code>):</strong></p>
+        <pre><code>md "..\1"
+md "..\2"
+md "..\3"
+md "..\4"</code></pre>
+      </section>
+
+      <!-- 5. Spostare file -->
+      <section>
+        <h2>5) Spostare file — <code>move</code></h2>
+        <p><code>move &lt;sorgente&gt; &lt;destinazione&gt;</code></p>
+        <p><strong>Esempi per i ticket:</strong></p>
+        <pre><code>move "Ticket_1_*.doc" "..\1\"
+move "Ticket_2_*.doc" "..\2\"
+move "Ticket_3_*.doc" "..\3\"
+move "Ticket_4_*.doc" "..\4\"</code></pre>
+      </section>
+
+      <!-- 6. Rinominare -->
+      <section>
+        <h2>6) Rinominare file — <code>ren</code> / <code>rename</code></h2>
+        <p><code>ren &lt;vecchio&gt; &lt;nuovo&gt;</code></p>
+        <p>Esempi:</p>
+        <pre><code>ren "*.doc" "*_GESTITO.doc"
+ren "..\1\*.doc" "*_GESTITO.doc"</code></pre>
+      </section>
+
+      <!-- 7. Echo -->
+      <section>
+        <h2>7) Stampare testo — <code>echo</code></h2>
+        <ul>
+          <li><code>echo Spostamento completato.</code></li>
+          <li><code>echo.</code> → riga vuota</li>
+        </ul>
+      </section>
+
+      <!-- 8. Creare file al volo -->
+      <section>
+        <h2>8) Creare file di prova — <code>copy con</code></h2>
+        <pre><code>copy con Ticket_1_001_20250402.doc
+( digita testo )
+^Z   ← CTRL+Z e Invio
+1 file copiato.</code></pre>
+      </section>
+
+      <!-- 9. Vedere contenuto -->
+      <section>
+        <h2>9) Vedere il contenuto — <code>type</code></h2>
+        <p><code>type nomefile.txt</code> mostra il contenuto a schermo.</p>
+      </section>
+
+      <!-- 10. Cancellare -->
+      <section>
+        <h2>10) Cancellare file — <code>del</code></h2>
+        <p><strong>Attenzione:</strong> con i jolly non chiede conferma.</p>
+        <pre><code>del *.doc
+del "..\1\*.doc"</code></pre>
+      </section>
+
+      <!-- 11. Redirezione -->
+      <section>
+        <h2>11) Redirezione &amp; conteggi (extra)</h2>
+        <ul>
+          <li><code>echo Ciao &gt; note.txt</code> → scrive nel file</li>
+          <li><code>echo altra riga &gt;&gt; note.txt</code> → accoda</li>
+          <li><code>2&gt; NUL</code> → nasconde gli errori</li>
+        </ul>
+        <p><strong>Contare i file per gravità:</strong></p>
+        <pre><code>dir /b "..\1\*.doc" | find /c /v ""
+dir /b "..\2\*.doc" | find /c /v ""
+dir /b "..\3\*.doc" | find /c /v ""
+dir /b "..\4\*.doc" | find /c /v ""</code></pre>
+      </section>
+
+      <!-- Sequenza -->
+      <section class="callout callout-warning">
+        <h2>12) Sequenza consigliata (40′)</h2>
+        <ol>
+          <li><code>cd ...\tickets\</code></li>
+          <li><code>md "..\1"</code> … <code>md "..\4"</code></li>
+          <li><code>dir *.doc</code></li>
+          <li><code>move "Ticket_1_*.doc" "..\1\"</code> …</li>
+          <li>(Opz.) rinomina con <code>ren</code></li>
+          <li>(Opz.) conta i file</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p>© Classe 3 TPSIT – Foglio di riferimento CMD</p>
+    </footer>
+  </div>
+</body>
+</html>

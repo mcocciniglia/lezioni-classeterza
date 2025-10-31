@@ -1,6 +1,23 @@
 <!doctype html>
 <html lang="it">
 <head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- NON indicizzare la pagina -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <title>Cheat Sheet CMD – Comandi per l’esercizio sui ticket</title>
+
+  <!-- CSS del progetto -->
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/style.css">
+  <link rel="stylesheet" href="https://mcocciniglia.github.io/common/assets/theme.css">
+
+  <!-- JS per tema e contrasto -->
+  <script defer src="https://mcocciniglia.github.io/common/assets/theme.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://mcocciniglia.github.io/common/assets/favicon.svg" type="image/svg+xml">
 <meta charset="utf-8">
 <title>Cheat Sheet CMD – Comandi per l’esercizio “Organizzazione file per gravità”</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -45,7 +62,15 @@
     <h1>Cheat Sheet — <span class="badge">CMD (Prompt dei comandi)</span></h1>
     <p class="muted">Comandi essenziali per l’esercizio: “Organizzazione dei file per gravità” (durata prova: max 40 minuti).</p>
   </header>
-
+<!-- Controlli tema / contrasto -->
+<div class="theme-controls">
+  <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+    <span class="btn-label">Tema scuro 🌙</span>
+  </button>
+  <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+    Contrasto alto ☀️
+  </button>
+</div>
   <section class="card">
     <h2>1) Come leggere la sintassi dei comandi (convenzioni degli help)</h2>
     <ul>
@@ -230,5 +255,14 @@ dir /b "..\4\*.doc" | find /c /v ""</code></pre>
 
   <p class="footer">© Classe 3 TPSIT — Foglio di riferimento (CMD). Font: Lexend / Atkinson Hyperlegible.</p>
 </main>
+<style>
+  html[data-theme="dark"] .callout,
+  html[data-theme="dark"] section,
+  html[data-theme="dark"] .card,
+  html[data-theme="dark"] .content {
+    color: #e8e8e8 !important;
+    background-color: #1c1c1c !important;
+  }
+</style>
 </body>
 </html>
