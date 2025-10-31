@@ -43,7 +43,7 @@ Ogni lezione segue la struttura comune:
 
 **Prof. Marco Angelo Cocciniglia**  
 Docente di Laboratorio TPSIT  
-[IIS “Archimede” – Catania](https://www.iisarchimede.edu.it)
+[I.T. “Archimede” – Catania](https://www.itarchimede.com/)
 
 ---
 
