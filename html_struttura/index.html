@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>Lezione: Struttura di una pagina HTML</title>
+
+  <!-- CSS comune -->
+	<link rel="stylesheet" href="../../common/assets/style.css">
+	<link rel="stylesheet" href="../../common/assets/theme.css">
+	<link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Prism.js per evidenziazione codice (senza bande) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+
+  <!-- Fix per evitare "bande" nei blocchi di codice -->
+ 
+
+  <!-- Script tema --> 
+  <script defer src="../../common/assets/theme.js"></script>
+  <link rel="icon" href="https://mcocciniglia.github.io/common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Prism JS -->
+  <script defer
+          src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer
+          src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<style>
+  
+  code[class*="language-"],
+  pre[class*="language-"] {
+    text-shadow: none !important;
+    -webkit-text-stroke: 0 !important;
+    font-weight: 400;
+  }
+</style>
+
+</head>
+<body>
+<a href="#contenuto" class="skip-link">Salta al contenuto principale</a>
+
+<header class="page-header">
+  <div class="container narrow">
+    <h1>Struttura di una pagina HTML</h1>
+    <p class="subtitle">
+      Tag, elementi, attributi e un primo assaggio di CSS
+    </p>
+
+    <!-- Controlli tema / contrasto -->
+    <div class="theme-controls">
+      <button id="themeToggle" class="btn btn-theme" type="button"
+              aria-pressed="false" aria-label="Cambia tema">
+        <span class="btn-label">Tema scuro 🌙</span>
+      </button>
+      <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button"
+              aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+        Contrasto alto ☀️
+      </button>
+    </div>
+
+    <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+  </div>
+</header>
+
+<main id="contenuto" class="container narrow">
+
+  <section class="panel callout">
+    <h2>Obiettivi della lezione</h2>
+    <ul>
+      <li>Capire che una pagina HTML è un semplice file di testo strutturato.</li>
+      <li>Riconoscere <strong>tag</strong>, <strong>elementi</strong> e <strong>attributi</strong>.</li>
+      <li>Scrivere una mini-pagina con titolo, intestazioni e paragrafi.</li>
+      <li>Applicare una prima regola di stile CSS.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>1. Anatomia di una pagina HTML</h2>
+    <p>
+      Una pagina HTML è composta da una struttura base con gli elementi
+      <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> e <code>&lt;body&gt;</code>.
+      Nel <code>&lt;head&gt;</code> mettiamo le informazioni “di servizio” (titolo, meta, link a CSS),
+      nel <code>&lt;body&gt;</code> i contenuti che l’utente vede.
+    </p>
+
+    <div class="box">
+      <p><strong>Snippet 1 – Scheletro minimo di pagina</strong></p>
+      <pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html lang="it"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;La mia prima pagina&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;h1&gt;Ciao, mondo!&lt;/h1&gt;
+    &lt;p&gt;Questa è la mia prima pagina HTML.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+      <p>
+        In classe puoi far riscrivere questo codice in un file <code>.html</code> e aprirlo nel browser.
+      </p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>2. Tag, elementi e attributi</h2>
+    <p>
+      Ogni <strong>tag</strong> apre o chiude un’area di contenuto. Insieme al contenuto formano
+      un <strong>elemento</strong>. Gli <strong>attributi</strong> aggiungono informazioni
+      all’elemento (es. lingua, collegamenti, identificatori).
+    </p>
+
+    <div class="box">
+      <p><strong>Snippet 2 – Esempio di elementi con attributi</strong></p>
+      <pre><code class="language-markup">&lt;p lang="it"&gt;Paragrafo in italiano.&lt;/p&gt;
+
+&lt;a href="https://www.example.com" target="_blank"&gt;
+  Vai al sito di esempio
+&lt;/a&gt;
+</code></pre>
+      <ul>
+        <li><code>lang="it"</code> indica la lingua del testo all’interno del paragrafo.</li>
+        <li><code>href</code> è l’indirizzo del link; <code>target="_blank"</code> lo apre in una nuova scheda.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>3. Intestazioni e paragrafi</h2>
+    <p>
+      Per creare una gerarchia di contenuti usiamo i titoli da <code>&lt;h1&gt;</code> a
+      <code>&lt;h6&gt;</code> e i paragrafi con <code>&lt;p&gt;</code>.
+    </p>
+
+    <div class="box">
+      <p><strong>Snippet 3 – Piccolo articolo</strong></p>
+      <pre><code class="language-markup">&lt;h1&gt;Guida rapida a HTML&lt;/h1&gt;
+&lt;p&gt;HTML permette di descrivere la struttura delle pagine web.&lt;/p&gt;
+
+&lt;h2&gt;Titoli e paragrafi&lt;/h2&gt;
+&lt;p&gt;I titoli evidenziano gli argomenti principali e i paragrafi il testo.&lt;/p&gt;
+
+&lt;h2&gt;Link&lt;/h2&gt;
+&lt;p&gt;Con il tag &lt;code&gt;a&lt;/code&gt; creiamo collegamenti ad altre pagine.&lt;/p&gt;
+</code></pre>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>4. Un pizzico di CSS</h2>
+    <p>
+      Il CSS si occupa dell’aspetto grafico. Possiamo scriverlo in un file esterno, 
+      ma per i primi test è comodo usare l’elemento <code>&lt;style&gt;</code> dentro il
+      <code>&lt;head&gt;</code>.
+    </p>
+
+    <div class="box">
+      <p><strong>Snippet 4 – Colorare il titolo</strong></p>
+      <pre><code class="language-markup">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Pagina colorata&lt;/title&gt;
+  &lt;style&gt;
+    h1 {
+      color: darkblue;
+      text-align: center;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+</code></pre>
+      <p>
+        Prova a cambiare il colore (<code>color</code>) e a vedere subito il risultato nel browser.
+      </p>
+    </div>
+  </section>
+
+  <section class="panel exercise">
+    <h2>Mini-esercizio (10-15 minuti)</h2>
+    <ol>
+      <li>Crea un nuovo file chiamato <code>notizia.html</code>.</li>
+      <li>Scrivi lo scheletro della pagina (doctype, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>).</li>
+      <li>
+        Nel <code>&lt;body&gt;</code> inserisci:
+        <ul>
+          <li>un <code>&lt;h1&gt;</code> con il titolo di una notizia inventata,</li>
+          <li>un <code>&lt;h2&gt;</code> con un sottotitolo,</li>
+          <li>due paragrafi <code>&lt;p&gt;</code> con il testo,</li>
+          <li>un link <code>&lt;a&gt;</code> che porti a un sito reale a tua scelta.</li>
+        </ul>
+      </li>
+      <li>Aggiungi uno stile interno che colori il titolo e cambi il font-size dei paragrafi.</li>
+      <li>Salva e apri il file nel browser per controllare il risultato.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>Per casa (facoltativo)</h2>
+    <p>
+      Duplica il file <code>notizia.html</code> e crea una piccola “homepage” con due link:
+      uno alla notizia che hai scritto e uno a un sito esterno. Prova a cambiare colori e
+      allineamenti con il CSS.
+    </p>
+  </section>
+
+  <footer class="container narrow small
