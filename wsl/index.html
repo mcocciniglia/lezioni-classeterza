@@ -1,198 +1,206 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Laboratorio: Bash su Windows (Git Bash / WSL) — Guida Studente</title>
-<link rel="icon" href="https://mcocciniglia.github.io/lezioni_classi_prime/assets/favicon.svg" type="image/svg+xml">
-  <!-- CSS condiviso del corso (DSA-friendly) -->
-  <!-- CSS/JS condivisi -->
-  <link rel="stylesheet" href="../assets/style.css?v=2025-10-17" />
-  <link rel="stylesheet" href="../assets/theme.css?v=2025-10-17" />
-  <script defer src="../assets/theme.js?v=2025-10-17"></script>
+
+  <!-- Assets comuni -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <script defer src="../../common/assets/theme.js"></script>
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
-  <div class="wrap">
+<a href="#contenuto" class="skip-link">Salta al contenuto principale</a>
 
-    <header class="header panel">
-      <div class="header-top">
-        <h1>Laboratorio: <strong>Bash</strong> su Windows</h1>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambia tema">🌓</button>
-      </div>
-      <p class="muted">Obiettivo: usare il terminale per muoversi tra cartelle, creare/copiare file e scrivere un piccolo <code>.sh</code>.</p>
-      <div class="badges">
-        <span class="time">Durata: 60′</span>
-        <span class="badge">Font ad alta leggibilità</span>
-        <span class="badge">Modalità: laboratorio + mini-verifica</span>
-      </div>
-    </header>
+<header class="page-header">
+  <div class="container narrow">
+    <h1>Laboratorio: <strong>Bash</strong> su Windows</h1>
+    <p class="subtitle">
+      Usare il terminale per muoversi tra cartelle, creare/copiare file e scrivere un piccolo script <code>.sh</code>.
+    </p>
 
-    <section class="panel">
-      <h2>Cosa farai oggi</h2>
-      <ul>
-        <li>Aprire Bash su Windows (Git Bash o WSL) oppure un ambiente online.</li>
-        <li>Usare i comandi base: <code>pwd</code>, <code>ls</code>, <code>cd</code>, <code>mkdir</code>, <code>touch</code>, <code>cp</code>, <code>mv</code>, <code>rm</code>, <code>cat</code>.</li>
-        <li>Creare e lanciare uno script con estensione <code>.sh</code>.</li>
-      </ul>
-      <div class="callout warn">
-        <strong>Attenzione:</strong> il comando <code>rm</code> cancella i file senza cestino. Usa con prudenza.
-      </div>
-    </section>
+    <div class="theme-controls">
+      <button id="themeToggle" class="btn btn-theme" type="button"
+              aria-pressed="false" aria-label="Cambia tema">
+        <span class="btn-label">Tema scuro 🌙</span>
+      </button>
+      <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button"
+              aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+        Contrasto alto ☀️
+      </button>
+    </div>
 
-    <section>
-      <h2>1) Scegli l'ambiente</h2>
-      <div class="grid cols-3">
-        <div class="panel">
-          <h3>Git Bash <span class="badge">leggero</span></h3>
-          <p>Apri <em>Git Bash</em> dal menu Start. È un terminale con molti comandi Linux.</p>
-        </div>
-        <div class="panel">
-          <h3>WSL <span class="badge">Linux reale</span></h3>
-          <p>Apri <em>Ubuntu</em> (se installato). In caso contrario, in PowerShell come amministratore:</p>
-          <pre> wsl --install -d Ubuntu </pre>
-        </div>
-        <div class="panel">
-          <h3>Online <span class="badge">senza installare</span></h3>
-          <p>Se non puoi usare i PC di laboratorio, il docente potrà indicare una soluzione via browser.</p>
-        </div>
-      </div>
-    </section>
+    <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio + mini-verifica</p>
+  </div>
+</header>
 
-    <section>
-      <h2>2) Mini-cheatsheet (da tenere a portata)</h2>
-      <div class="grid cols-2 panel">
-        <div>
-          <h3>Muoversi e creare</h3>
-          <ul>
-            <li><code>pwd</code> → mostra dove ti trovi</li>
-            <li><code>ls</code> → elenca file/cartelle (<code>-l</code>, <code>-a</code>)</li>
-            <li><code>cd NOME</code> → entra in <code>NOME</code> (<code>cd ..</code> su; <code>cd ~</code> home)</li>
-            <li><code>mkdir N</code> → crea cartella <code>N</code></li>
-            <li><code>touch f.txt</code> → crea file vuoto</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Copia, sposta, leggi</h3>
-          <ul>
-            <li><code>cp src dst</code> → copia</li>
-            <li><code>mv src dst</code> → sposta/rinomina</li>
-            <li><code>rm f.txt</code> → elimina file</li>
-            <li><code>cat f.txt</code> → stampa contenuto</li>
-            <li><code>echo "testo"</code> → stampa/crea riga</li>
-          </ul>
-        </div>
-      </div>
-      <div class="callout info">
-        <strong>Suggerimento:</strong> evita spazi nei nomi: <code>lezione_bash</code>, <code>report_1.txt</code>…
-      </div>
-    </section>
+<main id="contenuto" class="container narrow">
 
-    <section>
-      <h2>3) Attività guidata (15–20′)</h2>
-      <ol class="tasks">
-        <li>
-          <strong>Preparazione</strong> — Crea una cartella di lavoro e due file:
-          <pre>mkdir -p prova_bash &amp;&amp; cd prova_bash
-echo "ciao" &gt; uno.txt
-echo "bash" &gt; due.txt</pre>
-        </li>
-        <li>
-          <strong>Operazioni sui file</strong> — Copia e rinomina:
-          <pre>cp uno.txt uno_copia.txt
-mv due.txt due_renamed.txt</pre>
-        </li>
-        <li>
-          <strong>Primo script</strong> — Crea <code>conta.sh</code> che mostra quante righe hanno i <code>.txt</code>:
-          <pre>cat &gt; conta.sh &lt;&lt; 'EOF'
+  <section class="panel">
+    <h2>Cosa farai oggi</h2>
+    <ul>
+      <li>Aprire Bash su Windows (Git Bash o WSL) oppure un ambiente online.</li>
+      <li>Usare i comandi base: <code>pwd</code>, <code>ls</code>, <code>cd</code>, <code>mkdir</code>, <code>touch</code>, <code>cp</code>, <code>mv</code>, <code>rm</code>, <code>cat</code>.</li>
+      <li>Creare e lanciare uno script con estensione <code>.sh</code>.</li>
+    </ul>
+    <div class="callout warn">
+      <strong>Attenzione:</strong> il comando <code>rm</code> cancella i file senza cestino. Usare con prudenza.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>1) Scegli l'ambiente</h2>
+    <div class="grid-3">
+      <div class="panel">
+        <h3>Git Bash <span class="badge">leggero</span></h3>
+        <p>Aprire <em>Git Bash</em> dal menu Start. È un terminale con molti comandi Linux.</p>
+      </div>
+      <div class="panel">
+        <h3>WSL <span class="badge">Linux reale</span></h3>
+        <p>Aprire <em>Ubuntu</em> (se installato). In caso contrario, in PowerShell come amministratore:</p>
+        <pre><code>wsl --install -d Ubuntu</code></pre>
+      </div>
+      <div class="panel">
+        <h3>Online <span class="badge">senza installare</span></h3>
+        <p>Se non è possibile usare i PC di laboratorio, il docente potrà indicare una soluzione via browser.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>2) Mini-cheatsheet (da tenere a portata)</h2>
+    <div class="grid-2">
+      <div>
+        <h3>Muoversi e creare</h3>
+        <ul>
+          <li><code>pwd</code> → mostra dove ci si trova</li>
+          <li><code>ls</code> → elenca file/cartelle (<code>-l</code>, <code>-a</code>)</li>
+          <li><code>cd NOME</code> → entra in <code>NOME</code> (<code>cd ..</code> su; <code>cd ~</code> home)</li>
+          <li><code>mkdir N</code> → crea cartella <code>N</code></li>
+          <li><code>touch f.txt</code> → crea file vuoto</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Copia, sposta, leggi</h3>
+        <ul>
+          <li><code>cp src dst</code> → copia</li>
+          <li><code>mv src dst</code> → sposta/rinomina</li>
+          <li><code>rm f.txt</code> → elimina file</li>
+          <li><code>cat f.txt</code> → stampa contenuto</li>
+          <li><code>echo "testo"</code> → stampa/crea riga</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout info">
+      <strong>Suggerimento:</strong> evitare spazi nei nomi: <code>lezione_bash</code>, <code>report_1.txt</code>…
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>3) Attività guidata (15–20′)</h2>
+    <ol class="tasks">
+      <li>
+        <strong>Preparazione</strong> — creare una cartella di lavoro e due file:
+<pre><code>mkdir -p prova_bash && cd prova_bash
+echo "ciao" > uno.txt
+echo "bash" > due.txt</code></pre>
+      </li>
+      <li>
+        <strong>Operazioni sui file</strong> — copiare e rinominare:
+<pre><code>cp uno.txt uno_copia.txt
+mv due.txt due_renamed.txt</code></pre>
+      </li>
+      <li>
+        <strong>Primo script</strong> — creare <code>conta.sh</code> che mostra quante righe hanno i <code>.txt</code>:
+<pre><code>cat > conta.sh << 'EOF'
 #!/usr/bin/env bash
 wc -l *.txt
 EOF
 chmod +x conta.sh
-./conta.sh</pre>
-        </li>
-        <li>
-          <strong>Controllo veloce</strong> — Confronta l'output con quello del compagno: i numeri coincidono?
-        </li>
-      </ol>
-    </section>
+./conta.sh</code></pre>
+      </li>
+      <li>
+        <strong>Controllo veloce</strong> — confrontare l'output con quello di un compagno: i numeri coincidono?
+      </li>
+    </ol>
+  </section>
 
-    <section>
-      <h2>4) Sfida (autonoma) — 10′</h2>
+  <section class="panel">
+    <h2>4) Sfida (autonoma) — 10′</h2>
+    <p>Crea uno script <code>backup.sh</code> che copia tutti i <code>.txt</code> nella sottocartella <code>backup/</code>. Se la cartella non esiste, crearla.</p>
+    <details>
+      <summary><strong>Hai bisogno di un indizio?</strong></summary>
+<pre><code>mkdir -p backup
+cp *.txt backup/ 2>/dev/null
+echo "Backup completato"</code></pre>
+    </details>
+  </section>
+
+  <section class="panel">
+    <h2>5) Mini-verifica in aula / Moodle (max 40′)</h2>
+    <div class="grid-2">
       <div class="panel">
-        <p>Crea uno script <code>backup.sh</code> che copia tutti i <code>.txt</code> nella sottocartella <code>backup/</code>. Se la cartella non esiste, creala.</p>
-        <details>
-          <summary><strong>Hai bisogno di un indizio?</strong></summary>
-          <pre>mkdir -p backup
-cp *.txt backup/ 2&gt;/dev/null
-echo "Backup completato"</pre>
-        </details>
+        <h3>Q1 — Saluto</h3>
+        <p>Scrivere <code>saluta.sh</code> che stampa <code>Ciao Bash!</code></p>
+<pre><code># Output atteso
+Ciao Bash!</code></pre>
       </div>
-    </section>
-
-    <section>
-      <h2>5) Mini-verifica in aula / Moodle (max 40′)</h2>
-      <div class="grid cols-2">
-        <div class="panel">
-          <h3>Q1 — Saluto</h3>
-          <p>Scrivi <code>saluta.sh</code> che stampa <code>Ciao Bash!</code></p>
-          <pre># Output atteso
-Ciao Bash!</pre>
-        </div>
-        <div class="panel">
-          <h3>Q2 — Setup</h3>
-          <p>Scrivi <code>setup.sh</code> che crea <code>progetto/README.txt</code> con dentro <code>Progetto Bash</code>.</p>
-        </div>
-        <div class="panel">
-          <h3>Q3 — Copia .txt</h3>
-          <p><code>copia_txt.sh</code> copia tutti i <code>.txt</code> nella cartella <code>testo/</code> senza sovrascrivere file esistenti.</p>
-          <pre># Spunto
+      <div class="panel">
+        <h3>Q2 — Setup</h3>
+        <p>Scrivere <code>setup.sh</code> che crea <code>progetto/README.txt</code> con dentro <code>Progetto Bash</code>.</p>
+      </div>
+      <div class="panel">
+        <h3>Q3 — Copia .txt</h3>
+        <p><code>copia_txt.sh</code> copia tutti i <code>.txt</code> nella cartella <code>testo/</code> senza sovrascrivere file esistenti.</p>
+<pre><code># Spunto
 mkdir -p testo
-cp -n *.txt testo/ 2&gt;/dev/null</pre>
-        </div>
-        <div class="panel">
-          <h3>Q4 — Rinomina</h3>
-          <p><code>rinomina.sh</code> rinomina <code>report.txt</code> in <code>report_old.txt</code> solo se esiste.</p>
-          <pre>[ -f report.txt ] &amp;&amp; mv report.txt report_old.txt</pre>
-        </div>
+cp -n *.txt testo/ 2>/dev/null</code></pre>
       </div>
-      <div class="callout info">
-        <strong>Consegna su Moodle:</strong> il docente potrà usare CodeRunner (tipo <em>bash</em>). Segui le istruzioni in piattaforma e carica i tuoi script quando richiesto.
-      </div>
-    </section>
-
-    <section>
-      <h2>Cosa consegnare su Moodle</h2>
       <div class="panel">
-        <ul>
-          <li>I seguenti file <code>.sh</code> compressi in un unico file ZIP nominato <code>COGNOME_NOME_BASH.zip</code>:</li>
-          <ul>
-            <li><code>saluta.sh</code></li>
-            <li><code>setup.sh</code></li>
-            <li><code>copia_txt.sh</code></li>
-            <li><code>rinomina.sh</code></li>
-          </ul>
-          <li>Assicurati che ogni file inizi con <code>#!/usr/bin/env bash</code> e sia eseguibile (<code>chmod +x</code>).</li>
-          <li>Verifica in CodeRunner che l’output sia corretto prima dell’invio definitivo.</li>
-        </ul>
-        <div class="callout tip">
-          <strong>Valutazione:</strong> correttezza logica (1 pt), esecuzione senza errori (1 pt), chiarezza del codice (0.5 pt), naming e consegna corretta (0.5 pt) → Totale 3 pt.
-        </div>
+        <h3>Q4 — Rinomina</h3>
+        <p><code>rinomina.sh</code> rinomina <code>report.txt</code> in <code>report_old.txt</code> solo se esiste.</p>
+<pre><code>[ -f report.txt ] && mv report.txt report_old.txt</code></pre>
       </div>
-    </section>
+    </div>
+    <div class="callout info">
+      <strong>Consegna su Moodle:</strong> il docente potrà usare CodeRunner (tipo <em>bash</em>). Seguire le istruzioni in piattaforma e caricare gli script quando richiesto.
+    </div>
+  </section>
 
-    <section>
-      <h2>Autovalutazione (2′)</h2>
+  <section class="panel">
+    <h2>Cosa consegnare su Moodle</h2>
+    <ul>
+      <li>I seguenti file <code>.sh</code> compressi in un unico file ZIP nominato <code>COGNOME_NOME_BASH.zip</code>:</li>
       <ul>
-        <li>So aprire Bash e trovarmi con <code>pwd</code>?</li>
-        <li>So creare/copiare/spostare file con <code>mkdir</code>, <code>touch</code>, <code>cp</code>, <code>mv</code>?</li>
-        <li>So creare un semplice script eseguibile <code>.sh</code> e avviarlo?</li>
+        <li><code>saluta.sh</code></li>
+        <li><code>setup.sh</code></li>
+        <li><code>copia_txt.sh</code></li>
+        <li><code>rinomina.sh</code></li>
       </ul>
-    </section>
+      <li>Ogni file deve iniziare con <code>#!/usr/bin/env bash</code> ed essere eseguibile (<code>chmod +x</code>).</li>
+      <li>Verificare in CodeRunner che l’output sia corretto prima dell’invio definitivo.</li>
+    </ul>
+    <div class="callout tip">
+      <strong>Valutazione:</strong> correttezza logica (1 pt), esecuzione senza errori (1 pt), chiarezza del codice (0.5 pt), naming e consegna corretta (0.5 pt) → Totale 3 pt.
+    </div>
+  </section>
 
-    <footer>
-      <p>Materiale per gli studenti — corso di Laboratorio di Informatica. Pagina ottimizzata per la leggibilità (font DSA-friendly). © Prof. Marco Cocciniglia.</p>
-    </footer>
-  </div>
+  <section class="panel">
+    <h2>Autovalutazione (2′)</h2>
+    <ul>
+      <li>So aprire Bash e trovarmi con <code>pwd</code>?</li>
+      <li>So creare/copiare/spostare file con <code>mkdir</code>, <code>touch</code>, <code>cp</code>, <code>mv</code>?</li>
+      <li>So creare un semplice script eseguibile <code>.sh</code> e avviarlo?</li>
+    </ul>
+  </section>
+
+  <footer class="container narrow small muted">
+    <p>Materiale per gli studenti — corso di Laboratorio di Informatica. Pagina ottimizzata per la leggibilità (font DSA-friendly).</p>
+  </footer>
+
+</main>
 </body>
 </html>
