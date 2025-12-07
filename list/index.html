@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>HTML – Le liste (&lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;)</title>
+
+  <!-- CSS Prism base, stile comune, dark mode -->
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- JS per tema / contrasto + Prism -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>Le liste in HTML: &lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;</h1>
+      <p class="subtitle">
+        Come strutturare elenchi ordinati, non ordinati e glossari in una pagina web.
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button"
+                aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button"
+                aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto">
+    <div class="container narrow">
+
+      <!-- OBIETTIVI -->
+      <section class="panel callout">
+        <h2>Obiettivi della lezione</h2>
+        <ul>
+          <li>Riconoscere i tre tipi principali di liste in HTML.</li>
+          <li>Scrivere correttamente liste ordinate (<code>&lt;ol&gt;</code>) e non ordinate (<code>&lt;ul&gt;</code>).</li>
+          <li>Creare liste di definizione (<code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>).</li>
+          <li>Usare liste annidate per strutturare meglio le informazioni.</li>
+        </ul>
+        <p class="muted">
+          Prerequisiti: conoscenza di base della struttura di una pagina HTML
+          (<code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>).
+        </p>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="panel">
+        <h2>Struttura della lezione (60 minuti)</h2>
+        <ol class="steps">
+          <li><strong>10 min</strong> – Quando usare una lista? Esempi dal mondo reale.</li>
+          <li><strong>15 min</strong> – Liste ordinate e non ordinate con esempi pratici.</li>
+          <li><strong>15 min</strong> – Liste di definizione e liste annidate.</li>
+          <li><strong>20 min</strong> – Esercizio guidato in laboratorio (ricetta + mini glossario).</li>
+        </ol>
+      </section>
+
+      <!-- 1. QUANDO USARE LE LISTE -->
+      <section class="panel">
+        <h2>1. Perché usare le liste in HTML?</h2>
+        <p>
+          Le liste servono a raggruppare informazioni che hanno qualcosa in comune:
+        </p>
+        <ul>
+          <li>Ingredienti di una ricetta.</li>
+          <li>Passi numerati di una procedura.</li>
+          <li>Elenco di funzionalità di un prodotto.</li>
+          <li>Glossario di termini tecnici.</li>
+        </ul>
+        <p>
+          Invece di simulare una lista andando a capo con <code>&lt;br&gt;</code>, in HTML
+          si usano <strong>gli appositi tag di lista</strong> per dare una struttura semantica
+          chiara alla pagina.
+        </p>
+      </section>
+
+      <!-- 2. LISTE ORDINATE -->
+      <section class="panel">
+        <h2>2. Liste ordinate: <code>&lt;ol&gt;</code></h2>
+        <p>
+          Una <strong>lista ordinata</strong> è una lista in cui l’ordine degli elementi è importante
+          (ad esempio, i passi di una ricetta o le fasi di una procedura).
+        </p>
+        <ul>
+          <li>La lista è racchiusa in <code>&lt;ol&gt; ... &lt;/ol&gt;</code>.</li>
+          <li>Ogni elemento è dentro un <code>&lt;li&gt; ... &lt;/li&gt;</code> (li = list item).</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;h2&gt;Metodo&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Sciogli il burro in una padella a fuoco medio.&lt;/li&gt;
+  &lt;li&gt;Mescola delicatamente uova e panna in una ciotola.&lt;/li&gt;
+  &lt;li&gt;Quando il burro è sciolto, versa nella padella il composto di uova e panna.&lt;/li&gt;
+  &lt;li&gt;Con una spatola, muovi le uova dai bordi verso il centro della padella.&lt;/li&gt;
+  &lt;li&gt;Quando le uova sono ancora morbide, togli la padella dal fuoco e servi.&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+        <div class="figure">
+          <div class="caption">
+            Il browser numererà automaticamente i passi: 1, 2, 3, …<br />
+            L’aspetto grafico (tipo di numerazione) si controlla con il CSS
+            (<code>list-style-type</code>), non con l’attributo HTML <code>type</code>.
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. LISTE NON ORDINATE -->
+      <section class="panel">
+        <h2>3. Liste non ordinate: <code>&lt;ul&gt;</code></h2>
+        <p>
+          Una <strong>lista non ordinata</strong> è una lista di elementi dove l’ordine non
+          è importante (ad esempio, un elenco di ingredienti).
+        </p>
+        <ul>
+          <li>La lista è racchiusa in <code>&lt;ul&gt; ... &lt;/ul&gt;</code>.</li>
+          <li>Anche qui ogni voce è un <code>&lt;li&gt;</code>.</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;h2&gt;Ingredienti&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;2 uova&lt;/li&gt;
+  &lt;li&gt;1 cucchiaio di burro&lt;/li&gt;
+  &lt;li&gt;2 cucchiai di panna da cucina&lt;/li&gt;
+  &lt;li&gt;Sale e pepe q.b.&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+        <div class="figure">
+          <div class="caption">
+            Per default, gli elementi della lista appaiono con un <strong>pallino</strong>.
+            Anche qui, il tipo di pallino (disco, cerchio, quadrato) si gestisce via CSS
+            con <code>list-style-type</code>.
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. LISTE DI DEFINIZIONE -->
+      <section class="panel">
+        <h2>4. Liste di definizione: <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code></h2>
+        <p>
+          Una <strong>lista di definizione</strong> è perfetta per creare glossari o elenchi di
+          termini con relative spiegazioni.
+        </p>
+        <ul>
+          <li><code>&lt;dl&gt;</code> contiene l’intera lista (definition list).</li>
+          <li><code>&lt;dt&gt;</code> contiene il termine (definition term).</li>
+          <li><code>&lt;dd&gt;</code> contiene la definizione (definition description).</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;dl&gt;
+  &lt;dt&gt;Sashimi&lt;/dt&gt;
+  &lt;dd&gt;Pesce crudo tagliato a fette sottili e servito con salse e condimenti.&lt;/dd&gt;
+
+  &lt;dt&gt;Bilancia da cucina&lt;/dt&gt;
+  &lt;dd&gt;Strumento usato per misurare il peso degli ingredienti.&lt;/dd&gt;
+
+  &lt;dt&gt;Rosolare&lt;/dt&gt;
+  &lt;dd&gt;Tecnica di cottura in cui un alimento viene fatto dorare a fuoco vivo con poco grasso.&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+        <div class="figure">
+          <div class="caption">
+            Uno stesso termine può avere più <code>&lt;dd&gt;</code> (più significati) e
+            viceversa due <code>&lt;dt&gt;</code> possono condividere la stessa
+            definizione.
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. LISTE ANNIDATE -->
+      <section class="panel">
+        <h2>5. Liste annidate (nested lists)</h2>
+        <p>
+          Potete inserire una lista dentro un elemento <code>&lt;li&gt;</code> per creare
+          sotto-elenchi.
+        </p>
+
+        <pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;Antipasti&lt;/li&gt;
+  &lt;li&gt;Primi piatti
+    &lt;ul&gt;
+      &lt;li&gt;Pasta&lt;/li&gt;
+      &lt;li&gt;Zuppe&lt;/li&gt;
+      &lt;li&gt;Risotti&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dolci
+    &lt;ul&gt;
+      &lt;li&gt;Torte&lt;/li&gt;
+      &lt;li&gt;Crostate&lt;/li&gt;
+      &lt;li&gt;Biscotti&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+        <div class="figure">
+          <div class="caption">
+            Il browser rientra automaticamente la lista annidata e, se necessario,
+            cambia lo stile dei pallini per differenziare i livelli.
+          </div>
+        </div>
+      </section>
+
+      <!-- ESERCIZIO GUIDATO -->
+      <section class="panel exercise">
+        <h2>Esercizio guidato (20 minuti)</h2>
+        <p>
+          In coppia, create una pagina HTML che descriva una vostra
+          <strong>ricetta preferita</strong>. La pagina deve contenere:
+        </p>
+        <ol>
+          <li>Un titolo principale con il nome della ricetta.</li>
+          <li>Un paragrafo introduttivo che spiega perché vi piace.</li>
+          <li>Una lista non ordinata (<code>&lt;ul&gt;</code>) con gli ingredienti.</li>
+          <li>Una lista ordinata (<code>&lt;ol&gt;</code>) con i passi del procedimento.</li>
+          <li>
+            Un piccolo glossario sotto forma di lista di definizione
+            (<code>&lt;dl&gt;</code>) con almeno 2 termini tecnici (es. “soffritto”, “al dente”).
+          </li>
+          <li>Almeno un esempio di lista annidata (es. “Dolci &gt; Torte &gt; Crostate”).</li>
+        </ol>
+        <div class="box">
+          <p>
+            Durante la verifica su Moodle / CodeRunner vi verrà chiesto di consegnare
+            un file <code>ricetta.html</code>; il sistema controllerà automaticamente
+            la presenza dei tag <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>,
+            <code>&lt;dl&gt;</code> e di almeno un <code>&lt;li&gt;</code> annidato.
+          </p>
+        </div>
+      </section>
+
+      <!-- RIASSUNTO -->
+      <section class="panel">
+        <h2>Riassunto finale</h2>
+        <ul>
+          <li>Usate <code>&lt;ul&gt;</code> per elenchi con pallini, quando l’ordine non conta.</li>
+          <li>Usate <code>&lt;ol&gt;</code> per elenchi numerati, quando l’ordine è importante.</li>
+          <li>
+            Usate <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code> per glossari
+            e liste “termine → definizione”.
+          </li>
+          <li>Potete annidare liste dentro altri <code>&lt;li&gt;</code> per creare sotto-elenchi.</li>
+          <li>
+            Lo stile grafico delle liste si gestisce con il <strong>CSS</strong>
+            (<code>list-style-type</code>), non con attributi obsoleti dell’HTML.
+          </li>
+        </ul>
+      </section>
+
+      <footer class="small muted">
+        Preparato per la classe 3ª IT – TPSIT. La pagina usa font ad alta leggibilità
+        (Atkinson Hyperlegible, Lexend) e supporta tema scuro e contrasto alto.
+      </footer>
+
+    </div>
+  </main>
+</body>
+</html>
