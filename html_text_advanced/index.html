@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Non indicizzare la pagina -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>HTML – Markup semantico avanzato</title>
+
+  <!-- CSS comune -->
+  <link rel="stylesheet" href="../../common/assets/style.css">
+  <link rel="stylesheet" href="../../common/assets/theme.css">
+  <!-- Prism (evidenziazione sintassi) -->
+  <link rel="stylesheet" href="../../common/assets/prism.css">
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Script tema / contrasto -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <!-- Script Prism -->
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container">
+      <h1>Markup semantico avanzato in HTML</h1>
+      <p class="subtitle">Citazioni, abbreviazioni, definizioni e modifiche al testo</p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio (approfondimento)</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+
+      <!-- Obiettivi -->
+      <section>
+        <h2>Obiettivi della lezione</h2>
+        <ul>
+          <li>Ripassare la differenza tra markup <strong>strutturale</strong> e <strong>semantico</strong>.</li>
+          <li>Saper marcare correttamente <strong>citazioni lunghe e brevi</strong> con <code>&lt;blockquote&gt;</code> e <code>&lt;q&gt;</code>.</li>
+          <li>Usare <code>&lt;abbr&gt;</code>, <code>&lt;dfn&gt;</code> e <code>&lt;cite&gt;</code> per abbreviazioni, definizioni e riferimenti a opere.</li>
+          <li>Inserire dati scientifici con <code>&lt;sup&gt;</code> e <code>&lt;sub&gt;</code>.</li>
+          <li>Descrivere i contatti dell’autore con <code>&lt;address&gt;</code>.</li>
+          <li>Gestire testo <strong>non più valido o modificato</strong> con <code>&lt;s&gt;</code>, <code>&lt;del&gt;</code>, <code>&lt;ins&gt;</code>.</li>
+          <li>Capire cos’è il <em>white space collapsing</em> e cosa fanno gli editor visuali.</li>
+        </ul>
+      </section>
+
+      <!-- Struttura temporale -->
+      <section>
+        <h2>Struttura della lezione (1 ora)</h2>
+        <ol>
+          <li><strong>5 min</strong> – Ripasso: strutturale vs semantico.</li>
+          <li><strong>15 min</strong> – Citazioni: <code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code>, <code>&lt;cite&gt;</code>.</li>
+          <li><strong>10 min</strong> – Abbreviazioni e definizioni: <code>&lt;abbr&gt;</code>, <code>&lt;dfn&gt;</code>.</li>
+          <li><strong>10 min</strong> – Dati scientifici e indirizzi: <code>&lt;sup&gt;</code>, <code>&lt;sub&gt;</code>, <code>&lt;address&gt;</code>.</li>
+          <li><strong>10 min</strong> – Testo non più valido: <code>&lt;s&gt;</code>, <code>&lt;del&gt;</code>, <code>&lt;ins&gt;</code>.</li>
+          <li><strong>10 min</strong> – Esercizio “pagina scientifica” per i più curiosi.</li>
+        </ol>
+      </section>
+
+      <hr />
+
+      <!-- Ripasso -->
+      <section>
+        <h2>1. Ripasso: strutturale vs semantico</h2>
+        <p>
+          Nella lezione precedente abbiamo visto elementi <strong>strutturali</strong> come
+          <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> e <code>&lt;p&gt;</code>, e
+          elementi <strong>semantici di base</strong> come <code>&lt;strong&gt;</code> ed
+          <code>&lt;em&gt;</code>.
+        </p>
+        <p>
+          Ora vediamo altri elementi che <strong>non cambiano la struttura della pagina</strong>,
+          ma aggiungono informazioni sul significato del testo (citazioni, abbreviazioni, definizioni,
+          testo non più valido, ecc.). Sono molto utili per:
+        </p>
+        <ul>
+          <li>lettori di schermo (accessibilità);</li>
+          <li>motori di ricerca;</li>
+          <li>manutenzione del testo nel tempo.</li>
+        </ul>
+      </section>
+
+      <!-- Citazioni -->
+      <section>
+        <h2>2. Citazioni: &lt;blockquote&gt;, &lt;q&gt;, &lt;cite&gt;</h2>
+
+        <h3>2.1 Citazioni lunghe: &lt;blockquote&gt;</h3>
+        <p>
+          <code>&lt;blockquote&gt;</code> si usa per citazioni che occupano un intero paragrafo
+          o più righe. Dentro si continua a usare <code>&lt;p&gt;</code>.
+        </p>
+
+        <pre><code class="language-html">&lt;blockquote cite="https://it.wikiquote.org/wiki/Albert_Einstein"&gt;
+  &lt;p&gt;La mente è come un paracadute: funziona solo se si apre.&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+
+        <ul>
+          <li>
+            L’attributo <code>cite</code> può contenere un URL con la fonte
+            della citazione.
+          </li>
+          <li>
+            Il browser di solito <strong>indenta</strong> il blocco, ma non usiamo
+            <code>&lt;blockquote&gt;</code> solo per “fare rientro”: la grafica si gestisce
+            con il CSS.
+          </li>
+        </ul>
+
+        <h3>2.2 Citazioni brevi in linea: &lt;q&gt;</h3>
+        <p>
+          <code>&lt;q&gt;</code> si usa per citazioni brevi <strong>dentro un paragrafo</strong>.
+          I browser dovrebbero aggiungere le virgolette automaticamente (anche se alcuni,
+          come versioni vecchie di IE, non lo fanno).
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;
+Come disse Feynman, &lt;q&gt;non capisci veramente qualcosa
+finché non sei in grado di spiegarla a tua nonna&lt;/q&gt;.
+&lt;/p&gt;</code></pre>
+
+        <h3>2.3 Riferimento all’opera: &lt;cite&gt;</h3>
+        <p>
+          <code>&lt;cite&gt;</code> indica il riferimento a un’opera (libro, film, articolo,
+          ricerca...). Di solito viene mostrato in corsivo.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;
+Il libro &lt;cite&gt;A Brief History of Time&lt;/cite&gt; ha reso
+famoso Stephen Hawking presso il grande pubblico.
+&lt;/p&gt;</code></pre>
+      </section>
+
+      <!-- Abbreviazioni e definizioni -->
+      <section>
+        <h2>3. Abbreviazioni, acronimi e definizioni</h2>
+
+        <h3>3.1 &lt;abbr&gt; – Abbreviazioni e acronimi</h3>
+        <p>
+          Con <code>&lt;abbr&gt;</code> indichiamo una sigla o un’abbreviazione.  
+          L’attributo <code>title</code> contiene la forma estesa, che spesso appare
+          come tooltip quando si passa il mouse.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;
+&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;
+è il linguaggio di base delle pagine web.
+&lt;/p&gt;</code></pre>
+
+        <p>
+          In HTML4 esisteva anche <code>&lt;acronym&gt;</code>, ma in HTML5 si usa
+          solo <code>&lt;abbr&gt;</code> per entrambi i casi.
+        </p>
+
+        <h3>3.2 &lt;dfn&gt; – Definizione di un nuovo termine</h3>
+        <p>
+          <code>&lt;dfn&gt;</code> si usa <strong>la prima volta</strong> che
+          introduci un termine tecnico o una parola nuova nel documento.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;
+Un &lt;dfn&gt;black hole&lt;/dfn&gt; è una regione dello spazio
+da cui nulla, nemmeno la luce, può sfuggire.
+&lt;/p&gt;</code></pre>
+      </section>
+
+      <!-- Sup / Sub e address -->
+      <section>
+        <h2>4. Superscript, subscript e indirizzo autore</h2>
+
+        <h3>4.1 &lt;sup&gt; e &lt;sub&gt;</h3>
+        <p>
+          <code>&lt;sup&gt;</code> (superscript) e <code>&lt;sub&gt;</code> (subscript)
+          servono per apici e pedici:
+        </p>
+        <ul>
+          <li>date: 4<code>&lt;sup&gt;</code>th<code>&lt;/sup&gt;</code>;</li>
+          <li>formule matematiche: E = mc<code>&lt;sup&gt;</code>2<code>&lt;/sup&gt;</code>;</li>
+          <li>formule chimiche: H<code>&lt;sub&gt;</code>2<code>&lt;/sub&gt;</code>O.</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;p&gt;
+Il 4&lt;sup&gt; settembre&lt;/sup&gt; studieremo E = mc&lt;sup&gt;2&lt;/sup&gt;.
+&lt;/p&gt;
+&lt;p&gt;
+La molecola dell'acqua è H&lt;sub&gt;2&lt;/sub&gt;O.
+&lt;/p&gt;</code></pre>
+
+        <h3>4.2 &lt;address&gt; – Dati di contatto dell’autore</h3>
+        <p>
+          <code>&lt;address&gt;</code> serve a contenere i dati di contatto
+          dell’autore della pagina o del sito (email, indirizzo fisico, numero di
+          telefono, link a profilo social...).
+        </p>
+
+        <pre><code class="language-html">&lt;address&gt;
+  &lt;p&gt;Pagina realizzata da
+     &lt;a href="mailto:marco.prof@example.org"&gt;
+       marco.prof@example.org
+     &lt;/a&gt;
+  &lt;/p&gt;
+  &lt;p&gt;Via Esempio 123, 95100 Catania&lt;/p&gt;
+&lt;/address&gt;</code></pre>
+      </section>
+
+      <!-- Testo non più valido -->
+      <section>
+        <h2>5. Testo non più valido o modificato: &lt;s&gt;, &lt;del&gt;, &lt;ins&gt;</h2>
+
+        <h3>5.1 &lt;s&gt; – Testo non più corretto ma visibile</h3>
+        <p>
+          <code>&lt;s&gt;</code> indica che qualcosa <strong>non è più vero o valido</strong>,
+          ma lo lasciamo visibile (es. vecchio prezzo, informazione superata).
+          Di solito appare con una linea in mezzo.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;Laptop:&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;Prezzo originale: 999€&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;Offerta speciale: 599€&lt;/p&gt;</code></pre>
+
+        <h3>5.2 &lt;del&gt; e &lt;ins&gt; – Contenuto cancellato e inserito</h3>
+        <p>
+          <code>&lt;del&gt;</code> indica testo eliminato; <code>&lt;ins&gt;</code> indica
+          testo aggiunto. Sono utili per mostrare revisioni o la “storia” di un testo.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;
+Era la &lt;del&gt;peggiore&lt;/del&gt;
+&lt;ins&gt;migliore&lt;/ins&gt; idea che avesse mai avuto.
+&lt;/p&gt;</code></pre>
+
+        <p>
+          Di solito <code>&lt;del&gt;</code> viene barrato, mentre <code>&lt;ins&gt;</code>
+          è sottolineato.
+        </p>
+      </section>
+
+      <!-- White space e editor -->
+      <section>
+        <h2>6. White space e editor visuali</h2>
+
+        <h3>6.1 White space collapsing</h3>
+        <p>
+          Gli autori HTML spesso aggiungono spazi e a capo per rendere il codice più leggibile.
+          Il browser però:
+        </p>
+        <ul>
+          <li>riduce <strong>più spazi consecutivi</strong> a un solo spazio;</li>
+          <li>tratta gli <strong>a capo</strong> come se fossero spazi.</li>
+        </ul>
+
+        <p>Quindi il browser mostrerà queste tre righe:</p>
+
+        <pre><code class="language-html">&lt;p&gt;La luna si sta allontanando dalla Terra.&lt;/p&gt;
+&lt;p&gt;La luna  si  sta allontanando   dalla   Terra.&lt;/p&gt;
+&lt;p&gt;La luna si sta allontanando
+   dalla Terra.&lt;/p&gt;</code></pre>
+
+        <p>
+          praticamente nello stesso modo. Questo comportamento si chiama
+          <strong>white space collapsing</strong>.
+        </p>
+
+        <h3>6.2 Editor visuali e vista codice</h3>
+        <p>
+          Molti CMS e editor (tipo WordPress, vecchio Dreamweaver, ecc.) hanno:
+        </p>
+        <ul>
+          <li>una <strong>vista visuale</strong>, simile a Word;</li>
+          <li>una <strong>vista codice</strong>, dove vedi l’HTML generato.</li>
+        </ul>
+        <p>
+          Gli editor spesso aggiungono spazi, a capo e indentazione automaticamente:
+          è normale e serve solo a rendere il codice più facile da leggere.
+        </p>
+      </section>
+
+      <hr />
+
+      <!-- Esercizio finale -->
+      <section>
+        <h2>7. Esercizio per i più curiosi: “mini pagina scientifica”</h2>
+        <p>
+          Per chi vuole mettersi alla prova: creare una pagina HTML chiamata
+          <code>articolo_scientifico.html</code> che contenga:
+        </p>
+        <ul>
+          <li>Un titolo principale <code>&lt;h1&gt;</code> e almeno un <code>&lt;h2&gt;</code>.</li>
+          <li>Un paragrafo con una <strong>citazione lunga</strong> in
+              <code>&lt;blockquote&gt;</code> e una citazione breve in <code>&lt;q&gt;</code>.</li>
+          <li>Almeno un <code>&lt;abbr&gt;</code> con <code>title</code> per una sigla tecnica.</li>
+          <li>La definizione di un termine scientifico usando <code>&lt;dfn&gt;</code>.</li>
+          <li>Il titolo di un libro o articolo importante marcato con <code>&lt;cite&gt;</code>.</li>
+          <li>Almeno un esempio di <code>&lt;sup&gt;</code> e uno di <code>&lt;sub&gt;</code>.</li>
+          <li>I tuoi dati di contatto in un blocco <code>&lt;address&gt;</code>.</li>
+          <li>Una riga in cui si vede un testo “corretto” usando <code>&lt;s&gt;</code>,
+              <code>&lt;del&gt;</code> e <code>&lt;ins&gt;</code>.</li>
+        </ul>
+
+        <p>
+          Chi completa l’attività può caricare il file su Moodle come consegna
+          facoltativa di approfondimento.
+        </p>
+      </section>
+
+      <!-- Riepilogo -->
+      <section>
+        <h2>8. Riepilogo finale</h2>
+        <ul>
+          <li>Il markup semantico descrive <strong>che cosa significa</strong> il testo, non solo come appare.</li>
+          <li><code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code> e <code>&lt;cite&gt;</code> gestiscono le citazioni.</li>
+          <li><code>&lt;abbr&gt;</code> e <code>&lt;dfn&gt;</code> aiutano con sigle e termini nuovi.</li>
+          <li><code>&lt;sup&gt;</code> e <code>&lt;sub&gt;</code> sono perfetti per formule e date.</li>
+          <li><code>&lt;address&gt;</code> contiene i contatti dell’autore.</li>
+          <li><code>&lt;s&gt;</code>, <code>&lt;del&gt;</code> e <code>&lt;ins&gt;</code> mostrano modifiche e correzioni.</li>
+          <li>Il <em>white space collapsing</em> rende più libera la formattazione del codice,
+              ma non cambia il testo mostrato.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+</body>
+</html>
