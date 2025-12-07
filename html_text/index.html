@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Non indicizzare la pagina -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>Markup di testo in HTML: titoli, paragrafi ed enfasi</title>
+
+  <!-- CSS comune -->
+  <link rel="stylesheet" href="../../common/assets/style.css">
+  <link rel="stylesheet" href="../../common/assets/theme.css">
+  <!-- Prism (evidenziazione sintassi) -->
+  <link rel="stylesheet" href="../../common/assets/prism.css">
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Script tema / contrasto -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <!-- Script Prism -->
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container">
+      <h1>Markup di testo in HTML</h1>
+      <p class="subtitle">Titoli, paragrafi, a capo e testo in evidenza</p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <!-- Sezione obiettivi -->
+      <section>
+        <h2>Obiettivi della lezione</h2>
+        <ul>
+          <li>Capire che cos’è il <strong>markup di testo</strong> in HTML.</li>
+          <li>Usare correttamente i tag <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> e <code>&lt;p&gt;</code>.</li>
+          <li>Gestire l’<strong>a capo</strong> con <code>&lt;br&gt;</code> e il separatore con <code>&lt;hr&gt;</code>.</li>
+          <li>Distinguere il markup <strong>strutturale</strong> da quello <strong>semantico</strong>.</li>
+          <li>Usare <code>&lt;strong&gt;</code> ed <code>&lt;em&gt;</code> per dare significato al testo.</li>
+        </ul>
+      </section>
+
+      <!-- Sezione prerequisiti -->
+      <section>
+        <h2>Prerequisiti</h2>
+        <ul>
+          <li>Saper creare un file <code>.html</code> e salvarlo in una cartella.</li>
+          <li>Conoscere la struttura base di una pagina:
+            <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Struttura della lezione (timeline) -->
+      <section>
+        <h2>Struttura della lezione (1 ora)</h2>
+        <ol>
+          <li><strong>10 min — Cos’è il markup di testo</strong> (introduzione frontale).</li>
+          <li><strong>15 min — Titoli e paragrafi</strong> (spiegazione + esempio guidato).</li>
+          <li><strong>10 min — A capo e separatori</strong> (tag <code>&lt;br&gt;</code> e <code>&lt;hr&gt;</code>).</li>
+          <li><strong>15 min — Enfasi e importanza</strong> (tag <code>&lt;strong&gt;</code> e <code>&lt;em&gt;</code>).</li>
+          <li><strong>10 min — Esercizio in laboratorio</strong> (file <code>story.html</code> da consegnare).</li>
+        </ol>
+      </section>
+
+      <hr />
+
+      <!-- 1. Cos’è il markup -->
+      <section>
+        <h2>1. Cos’è il markup di testo</h2>
+        <p>
+          Il <strong>markup</strong> è un insieme di <strong>tag</strong> che descrivono
+          la <strong>struttura</strong> e il <strong>significato</strong> del testo.
+          Non serve solo a “fare bello” il testo: serve anche ai browser, ai lettori di
+          schermo e ai motori di ricerca per capire come è organizzata la pagina.
+        </p>
+
+        <p>
+          In HTML usiamo i tag per dire:
+        </p>
+        <ul>
+          <li>“questo è un titolo principale”;</li>
+          <li>“questo è un paragrafo”;</li>
+          <li>“questa parte è importante”;</li>
+          <li>“qui voglio andare a capo”.</li>
+        </ul>
+      </section>
+
+      <!-- 2. Titoli e paragrafi -->
+      <section>
+        <h2>2. Markup strutturale: titoli e paragrafi</h2>
+
+        <h3>2.1 Tag per i titoli: &lt;h1&gt;, &lt;h2&gt;</h3>
+        <p>
+          I titoli definiscono la <strong>gerarchia</strong> del contenuto:
+        </p>
+        <ul>
+          <li><code>&lt;h1&gt;</code>: titolo principale della pagina (usato una sola volta).</li>
+          <li><code>&lt;h2&gt;</code>: titoli delle sezioni principali.</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;h1&gt;Il mio primo articolo&lt;/h1&gt;
+&lt;h2&gt;Introduzione&lt;/h2&gt;
+&lt;h2&gt;Conclusioni&lt;/h2&gt;</code></pre>
+
+        <h3>2.2 Tag per i paragrafi: &lt;p&gt;</h3>
+        <p>
+          Ogni blocco di testo che forma un “pensiero completo” va messo in un
+          <code>&lt;p&gt;</code>. Il browser aggiunge automaticamente spazio tra un
+          paragrafo e l’altro.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;Questo è il mio primo paragrafo.&lt;/p&gt;
+&lt;p&gt;Questo è un secondo paragrafo, con un'altra idea.&lt;/p&gt;</code></pre>
+      </section>
+
+      <!-- 3. A capo e separatori -->
+      <section>
+        <h2>3. A capo e separatori: &lt;br&gt; e &lt;hr&gt;</h2>
+
+        <h3>3.1 A capo dentro un paragrafo: &lt;br&gt;</h3>
+        <p>
+          Il tag <code>&lt;br&gt;</code> forza l’<strong>a capo</strong> all’interno
+          di un paragrafo, ad esempio in una poesia o in un indirizzo.
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;
+Via Roma 10&lt;br&gt;
+95100 Catania (CT)
+&lt;/p&gt;</code></pre>
+
+        <h3>3.2 Separatore di contenuto: &lt;hr&gt;</h3>
+        <p>
+          Il tag <code>&lt;hr&gt;</code> inserisce una <strong>linea orizzontale</strong>
+          che separa due parti diverse della pagina (cambio di argomento, conclusione, ecc.).
+        </p>
+
+        <pre><code class="language-html">&lt;p&gt;Questa è la parte principale del testo.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Qui inizia una nuova sezione o un nuovo argomento.&lt;/p&gt;</code></pre>
+      </section>
+
+      <!-- 4. Markup semantico: strong ed em -->
+      <section>
+        <h2>4. Markup semantico: &lt;strong&gt; ed &lt;em&gt;</h2>
+        <p>
+          Il <strong>markup semantico</strong> non indica solo l’aspetto grafico,
+          ma il <strong>significato</strong> di una parte di testo.
+        </p>
+
+        <ul>
+          <li><code>&lt;strong&gt;</code>: testo <strong>molto importante</strong>
+              (di solito visualizzato in grassetto).</li>
+          <li><code>&lt;em&gt;</code>: testo su cui mettere <em>enfasi</em>
+              (di solito visualizzato in corsivo).</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;p&gt;
+Domani c'è una &lt;strong&gt;verifica di HTML&lt;/strong&gt;:
+porta il quaderno e &lt;em&gt;arriva puntuale&lt;/em&gt;.
+&lt;/p&gt;</code></pre>
+
+        <p>
+          Esistono anche i tag <code>&lt;b&gt;</code> (bold) e <code>&lt;i&gt;</code> (italic),
+          ma questi descrivono solo la <strong>forma</strong>, non il significato.
+          In questa fase preferiamo usare <code>&lt;strong&gt;</code> e
+          <code>&lt;em&gt;</code>, che sono più chiari e accessibili.
+        </p>
+      </section>
+
+      <hr />
+
+      <!-- 5. Esercizio di laboratorio -->
+      <section>
+        <h2>5. Esercizio di laboratorio (10–15 minuti)</h2>
+        <p>
+          Crea un file chiamato <code>story.html</code> e inserisci al suo interno
+          la struttura base di una pagina HTML.
+        </p>
+
+        <h3>5.1 Struttura base</h3>
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;La mia storia&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- Qui andrà il contenuto della storia --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <h3>5.2 Contenuto richiesto</h3>
+        <p>Dentro il <code>&lt;body&gt;</code> inserisci:</p>
+        <ul>
+          <li>Un titolo principale con <code>&lt;h1&gt;</code> (es. “La mia giornata tipo”).</li>
+          <li>Un sottotitolo con <code>&lt;h2&gt;</code> (es. “Mattina a scuola”).</li>
+          <li>Almeno <strong>due paragrafi</strong> <code>&lt;p&gt;</code> che raccontano qualcosa di te.</li>
+          <li>
+            All’interno dei paragrafi:
+            <ul>
+              <li>almeno un esempio di <code>&lt;strong&gt;</code> (informazione importante);</li>
+              <li>almeno un esempio di <code>&lt;em&gt;</code> (enfasi su una parola o frase);</li>
+              <li>almeno un <code>&lt;br&gt;</code> per mandare a capo una riga.</li>
+            </ul>
+          </li>
+          <li>Opzionale: un <code>&lt;hr&gt;</code> per separare due parti della storia.</li>
+        </ul>
+
+        <p>
+          Al termine, salva il file e caricalo su Moodle come consegna della lezione.
+        </p>
+      </section>
+
+      <!-- 6. Riepilogo finale -->
+      <section>
+        <h2>6. Riepilogo finale (5 minuti)</h2>
+        <ul>
+          <li>Il markup HTML descrive la <strong>struttura</strong> e il <strong>significato</strong> del testo.</li>
+          <li><code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> e <code>&lt;p&gt;</code> servono per organizzare il contenuto.</li>
+          <li><code>&lt;br&gt;</code> manda a capo, <code>&lt;hr&gt;</code> separa le parti della pagina.</li>
+          <li><code>&lt;strong&gt;</code> e <code>&lt;em&gt;</code> danno <strong>importanza</strong> e <em>enfasi</em> alle parole.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
