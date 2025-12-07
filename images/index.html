@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Le immagini nelle pagine HTML</title>
+
+  <!-- CSS comune (font DSA-friendly, layout, tema) -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+
+  <!-- Evidenziazione codice -->
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- JS tema / contrasto + Prism -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>Le immagini nelle pagine HTML</h1>
+      <p class="subtitle">
+        Tag <code>&lt;img&gt;</code>, formati dei file e buone pratiche di accessibilità
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle"
+                class="btn btn-theme"
+                type="button"
+                aria-pressed="false"
+                aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle"
+                class="btn btn-outline btn-contrast"
+                type="button"
+                aria-pressed="false"
+                aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto">
+    <div class="container narrow">
+
+      <!-- Obiettivi -->
+      <section class="panel callout">
+        <h2>Obiettivi della lezione</h2>
+        <p>Alla fine di questa lezione dovreste saper:</p>
+        <ul>
+          <li>inserire immagini in una pagina HTML usando il tag <code>&lt;img&gt;</code>;</li>
+          <li>usare correttamente gli attributi <code>src</code>, <code>alt</code>, <code>title</code>, <code>width</code> e <code>height</code>;</li>
+          <li>scegliere un formato adatto (JPEG, PNG, GIF) in base al tipo di immagine;</li>
+          <li>organizzare le immagini in cartelle e ridimensionarle per il web.</li>
+        </ul>
+      </section>
+
+      <!-- 1. Perché usare immagini -->
+      <section class="panel">
+        <h2>1. Perché usare immagini (5')</h2>
+        <p>
+          Le immagini rendono una pagina più chiara e coinvolgente: un logo, una foto o una
+          icona comunicano molto più velocemente di un paragrafo di testo. Tuttavia ogni
+          immagine ha un costo: aumenta il peso della pagina e, se scelta male, la rende più
+          confusa invece che più chiara.
+        </p>
+        <p>Quando inserite immagini in un sito, ricordate che dovrebbero:</p>
+        <ul>
+          <li>essere <strong>rilevanti</strong> per il contenuto;</li>
+          <li>trasmettere l'<strong>informazione</strong> o l'<strong>atmosfera</strong> corretta;</li>
+          <li>adattarsi alla <strong>palette di colori</strong> della pagina.</li>
+        </ul>
+      </section>
+
+      <!-- 2. Cartelle -->
+      <section class="panel">
+        <h2>2. Dove mettiamo le immagini nel progetto (5')</h2>
+        <p>
+          Per tenere il progetto ordinato, tutte le immagini del sito vanno raccolte in una
+          cartella dedicata, ad esempio <code>images/</code>. Su siti più grandi potete creare
+          sottocartelle come <code>images/prodotti/</code>, <code>images/interfaccia/</code>, ecc.
+        </p>
+
+        <div class="box">
+          <p><strong>Attività veloce:</strong> nel vostro progetto create (se non esiste già) una cartella
+            <code>images/</code> accanto ai file HTML e copiate dentro almeno 2–3 immagini che useremo tra poco.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. Tag img -->
+      <section class="panel">
+        <h2>3. Il tag <code>&lt;img&gt;</code> in pratica (15')</h2>
+
+        <p>
+          Il tag <code>&lt;img&gt;</code> è un elemento <strong>vuoto</strong> (non ha tag di chiusura) e richiede
+          almeno due attributi obbligatori:
+        </p>
+        <ul>
+          <li><code>src</code>: percorso del file immagine (di solito relativo, es. <code>images/foto.jpg</code>);</li>
+          <li><code>alt</code>: breve descrizione testuale dell'immagine, utile per gli screen reader e quando l'immagine non si carica.</li>
+        </ul>
+
+        <p>Spesso aggiungiamo anche:</p>
+        <ul>
+          <li><code>title</code>: testo aggiuntivo che appare come tooltip al passaggio del mouse;</li>
+          <li><code>width</code> e <code>height</code>: dimensioni in pixel (meglio comunque gestirle via CSS).</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;img
+  src="images/quokka.jpg"
+  alt="Famiglia di quokka su un prato"
+  title="Il quokka è un piccolo marsupiale australiano"
+  width="600"
+  height="450"
+/&gt;</code></pre>
+
+        <details class="tip">
+          <summary>Accessibilità: come scrivere bene il testo alternativo</summary>
+          <p>
+            Il testo dell'attributo <code>alt</code> deve spiegare l'<strong>informazione</strong>, non l'estetica:
+            meglio <em>"Grafico a torta delle vendite 2025"</em> che <em>"immagine carina"</em>.
+            Se l'immagine è solo decorativa, potete lasciare <code>alt=""</code> (vuoto).
+          </p>
+        </details>
+      </section>
+
+      <!-- 4. figure / figcaption -->
+      <section class="panel">
+        <h2>4. <code>&lt;figure&gt;</code> e <code>&lt;figcaption&gt;</code> (5')</h2>
+        <p>
+          Quando un'immagine ha una didascalia, potete raggruppare i due elementi usando
+          <code>&lt;figure&gt;</code> e <code>&lt;figcaption&gt;</code>. In questo modo HTML capisce che testo e immagine
+          sono legati.
+        </p>
+
+        <pre><code class="language-html">&lt;figure&gt;
+  &lt;img src="images/otters.jpg"
+       alt="Due lontre marine che galleggiano tenendosi per mano" /&gt;
+  &lt;figcaption&gt;
+    Le lontre marine si tengono per mano mentre dormono per non allontanarsi.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+      </section>
+
+      <!-- 5. Formati -->
+      <section class="panel">
+        <h2>5. Formati delle immagini: quando usare JPEG, PNG, GIF (10')</h2>
+        <p>
+          Sul web si usano soprattutto tre formati di immagine. Scegliere il formato giusto
+          aiuta ad avere pagine leggere e immagini nitide.
+        </p>
+        <ul>
+          <li>
+            <strong>JPEG (.jpg)</strong> – Ideale per <strong>fotografie</strong> o immagini con molti colori
+            e sfumature (cieli, volti, paesaggi).
+          </li>
+          <li>
+            <strong>PNG (.png)</strong> – Ottimo per loghi, icone, illustrazioni con <strong>pochi colori</strong>,
+            linee nette e quando serve la <strong>trasparenza</strong>.
+          </li>
+          <li>
+            <strong>GIF (.gif)</strong> – Adatto a piccole immagini con pochi colori o a semplici
+            <strong>animazioni</strong>. Non è ideale per le foto.
+          </li>
+        </ul>
+
+        <details class="warning">
+          <summary>Trasparenza: PNG o GIF?</summary>
+          <p>
+            Se serve un bordo regolare e totalmente trasparente, basta un GIF trasparente.
+            Se servono bordi arrotondati, diagonali, ombre o trasparenze parziali,
+            usate un PNG.
+          </p>
+        </details>
+      </section>
+
+      <!-- 6. Dimensioni -->
+      <section class="panel">
+        <h2>6. Dimensioni e risoluzione per il web (5')</h2>
+        <p>
+          Un'immagine web andrebbe salvata alla <strong>stessa dimensione</strong> con cui sarà mostrata
+          nella pagina. Se nello schema del layout lo spazio è 300×150 px,
+          è inutile caricare un'immagine da 4000×3000 px e ridurla solo con il CSS:
+          pesa di più e rallenta il caricamento.
+        </p>
+        <p>
+          Sullo schermo bastano circa <strong>72 ppi</strong> (pixel per pollice). Usare immagini con risoluzione
+          molto più alta non migliora la qualità a video, ma aumenta solo il peso del file.
+        </p>
+      </section>
+
+      <!-- 7. Attività laboratorio -->
+      <section class="panel exercise">
+        <h2>7. Attività di laboratorio (20'–25')</h2>
+        <p>
+          Ora mettete in pratica quanto visto. Lavorate sul vostro progetto HTML (pagina
+          personale o mini-sito d'esempio).
+        </p>
+
+        <ol class="steps">
+          <li>
+            <strong>Preparazione file</strong><br />
+            Nella cartella <code>images/</code> inserite:
+            <ul>
+              <li>una foto (es. un paesaggio o un animale);</li>
+              <li>un logo o icona con pochi colori.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>Inserimento della foto</strong><br />
+            Nella home del sito aggiungete una foto con un tag <code>&lt;img&gt;</code> completo di
+            <code>src</code>, <code>alt</code> e <code>title</code>. Se possibile, indicate anche <code>width</code> e
+            <code>height</code> coerenti con la dimensione reale del file.
+          </li>
+
+          <li>
+            <strong>Figura con didascalia</strong><br />
+            Create una sezione “La mia foto preferita” e usate <code>&lt;figure&gt;</code> +
+            <code>&lt;figcaption&gt;</code> per mostrare la foto con una breve descrizione.
+          </li>
+
+          <li>
+            <strong>Logo con trasparenza</strong><br />
+            Inserite il logo o l'icona (meglio se in formato PNG) vicino al titolo della pagina.
+            Assicuratevi che il percorso <code>src</code> sia corretto e che l'<code>alt</code> descriva il logo.
+          </li>
+
+          <li>
+            <strong>Controllo finale</strong><br />
+            Aprite la pagina nel browser e verificate:
+            <ul>
+              <li>che tutte le immagini si vedano;</li>
+              <li>che il testo alternativo abbia senso (provate a disattivare le immagini o a
+                cambiare l'<code>src</code> per simulare un errore);</li>
+              <li>che le dimensioni delle immagini siano coerenti con il layout.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 8. Per casa -->
+      <section class="panel">
+        <h2>8. Per casa (facoltativo ma consigliato)</h2>
+        <p>
+          A casa potete creare una piccola <strong>galleria di 3 immagini</strong> nella stessa pagina:
+        </p>
+        <ul>
+          <li>per ogni immagine usate un formato adatto (JPEG per foto, PNG per icone, ecc.);</li>
+          <li>scrivete un <code>alt</code> significativo e un <code>title</code> breve;</li>
+          <li>provate a mettere le immagini tutte alla stessa larghezza (gestita via CSS).</li>
+        </ul>
+        <p>
+          Nella prossima lezione confronteremo i vostri file e vedremo come ottimizzare ancora
+          meglio le immagini per il web.
+        </p>
+      </section>
+
+      <footer class="small muted">
+        <p>Materiale didattico per la classe 3ª IT – TPSIT.</p>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Non indicizzare questa pagina -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>HTML – I collegamenti (link)</title>
+
+  <!-- CSS comune (font DSA-friendly, layout, ecc.) -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <!-- Sintassi colorata Prism (versione locale) -->
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Script tema chiaro/scuro + contrasto -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <!-- Script Prism -->
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>HTML – I collegamenti (link)</h1>
+      <p class="subtitle">
+        In questa lezione lavorate sui link in HTML, ispirandovi al capitolo
+        <em>Links</em> del manuale.
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button
+          id="themeToggle"
+          class="btn btn-theme"
+          type="button"
+          aria-pressed="false"
+          aria-label="Cambia tema"
+        >
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button
+          id="contrastToggle"
+          class="btn btn-outline btn-contrast"
+          type="button"
+          aria-pressed="false"
+          aria-label="Attiva/disattiva contrasto alto"
+        >
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container narrow">
+    <!-- Obiettivi della lezione -->
+    <section class="panel callout">
+      <h2>Obiettivi della lezione</h2>
+      <p>
+        Alla fine dell’ora sapete:
+      </p>
+      <ul>
+        <li>creare link con il tag <code>&lt;a&gt;</code> e l’attributo <code>href</code>;</li>
+        <li>distinguere tra URL assoluti e relativi;</li>
+        <li>organizzare i file in cartelle e collegare le pagine del sito;</li>
+        <li>usare link speciali: email, apertura in nuova scheda, link a sezioni della pagina.</li>
+      </ul>
+    </section>
+
+    <!-- 1. Che cos'è un link -->
+    <section class="panel">
+      <h2>1. Che cos’è un link?</h2>
+      <p>
+        I link sono la “vera magia” del Web: permettono di passare da una pagina all’altra e
+        persino da un punto preciso di una pagina a un altro. Senza link non esisterebbe il
+        concetto di <strong>navigare</strong> o <strong>fare zapping</strong> tra i siti.
+      </p>
+      <p>
+        Durante la lezione fate attenzione a questi tipi di collegamenti:
+      </p>
+      <ul>
+        <li>link verso altri siti;</li>
+        <li>link verso un’altra pagina dello stesso sito;</li>
+        <li>link verso un punto specifico della stessa pagina;</li>
+        <li>link che aprono una nuova scheda/finestra;</li>
+        <li>link che aprono il programma di posta (email).</li>
+      </ul>
+    </section>
+
+    <!-- 2. Il tag <a> e l'attributo href -->
+    <section class="panel">
+      <h2>2. Il tag <code>&lt;a&gt;</code> e l’attributo <code>href</code></h2>
+      <p>
+        Un link in HTML si crea con il tag <code>&lt;a&gt;</code> (anchor). L’attributo
+        fondamentale è <code>href</code>, che indica <strong>dove</strong> porta il link.
+      </p>
+
+      <pre><code class="language-html">&lt;p&gt;Vai al sito dell'Internet Movie Database:
+  &lt;a href="https://www.imdb.com"&gt;IMDB&lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+      <p>
+        Il testo compreso tra <code>&lt;a&gt;</code> e <code>&lt;/a&gt;</code> è il
+        <strong>testo cliccabile</strong>. Usate un testo chiaro:
+      </p>
+      <ul>
+        <li>meglio <strong>“Schede dei film su IMDB”</strong> che “clicca qui”;</li>
+        <li>il testo del link deve far capire dove porta il collegamento;</li>
+        <li>
+          questo aiuta sia chi legge velocemente la pagina, sia chi usa
+          <em>screen reader</em>.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3. URL assoluti e URL relativi -->
+    <section class="panel">
+      <h2>3. URL assoluti e URL relativi</h2>
+      <p>
+        Ogni pagina ha un indirizzo chiamato URL (<em>Uniform Resource Locator</em>).
+      </p>
+
+      <h3>3.1 URL assoluti</h3>
+      <p>
+        Un URL assoluto include il nome del dominio e, se serve, il percorso completo della
+        pagina:
+      </p>
+
+      <pre><code class="language-html">&lt;a href="https://www.metacritic.com"&gt;Metacritic&lt;/a&gt;
+&lt;a href="https://www.rottentomatoes.com"&gt;Rotten Tomatoes&lt;/a&gt;</code></pre>
+
+      <p>
+        Usate URL assoluti quando collegate pagine che non appartengono al vostro sito.
+      </p>
+
+      <h3>3.2 URL relativi</h3>
+      <p>
+        Se collegate pagine <strong>dello stesso sito</strong>, potete usare URL relativi:
+        sono più brevi e continuano a funzionare anche se cambiate dominio o spostate il
+        progetto su un’altra macchina.
+      </p>
+
+      <pre><code class="language-html">&lt;!-- Tutti i file sono nella stessa cartella --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="about.html"&gt;Chi siamo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="contatti.html"&gt;Contatti&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+      <p>
+        Quando il sito è organizzato in più cartelle, usate la sintassi tipo “mappa delle
+        cartelle”:
+      </p>
+
+      <ul>
+        <li><code>music/index.html</code> → file in una <strong>sottocartella</strong>;</li>
+        <li><code>../index.html</code> → salite di una cartella (cartella “madre”);</li>
+        <li><code>../../index.html</code> → salite di due cartelle, e così via.:contentReference[oaicite:1]{index=1}</li>
+      </ul>
+    </section>
+
+    <!-- 4. Link speciali -->
+    <section class="panel">
+      <h2>4. Link “speciali”</h2>
+
+      <h3>4.1 Link email</h3>
+      <p>
+        Per aprire il programma di posta con un nuovo messaggio già indirizzato usate
+        <code>mailto:</code>:
+      </p>
+
+      <pre><code class="language-html">&lt;a href="mailto:filmfolk@example.org"&gt;
+  Scrivi a Film Folk
+&lt;/a&gt;</code></pre>
+
+      <h3>4.2 Apertura in nuova scheda</h3>
+      <p>
+        Per aprire un link in una nuova scheda aggiungete l’attributo
+        <code>target="_blank"</code>:
+      </p>
+
+      <pre><code class="language-html">&lt;a href="https://www.sundance.org" target="_blank"&gt;
+  Sito del Sundance Film Festival
+&lt;/a&gt;</code></pre>
+
+      <p>
+        Usate questa opzione solo quando ha davvero senso (per esempio, link verso siti
+        esterni) e avvisate l’utente che la pagina si aprirà in una nuova scheda.
+      </p>
+
+      <h3>4.3 Link a una parte della stessa pagina</h3>
+      <p>
+        Per linkare un punto preciso della pagina:
+      </p>
+      <ol>
+        <li>
+          assegnate un <code>id</code> all’elemento di arrivo;
+        </li>
+        <li>
+          create un link con <code>href="#nome-id"</code>.
+        </li>
+      </ol>
+
+      <pre><code class="language-html">&lt;h1 id="top"&gt;Film-Making Terms&lt;/h1&gt;
+
+&lt;a href="#arc_shot"&gt;Arc Shot&lt;/a&gt; |
+&lt;a href="#interlude"&gt;Interlude&lt;/a&gt; |
+&lt;a href="#prologue"&gt;Prologue&lt;/a&gt;
+
+&lt;h2 id="arc_shot"&gt;Arc Shot&lt;/h2&gt;
+&lt;p&gt;Definizione...&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="#top"&gt;Torna su&lt;/a&gt;&lt;/p&gt;</code></pre>
+
+      <p>
+        Lo stesso trucco funziona anche tra pagine diverse, aggiungendo alla fine dell’URL
+        <code>#id</code> corrispondente alla sezione di arrivo.
+      </p>
+    </section>
+
+    <!-- 5. Attività guidata in laboratorio -->
+    <section class="panel exercise">
+      <h2>5. Attività guidata in laboratorio (≈ 25 minuti)</h2>
+      <p>
+        Lavorate in coppia su una cartella di progetto chiamata
+        <strong><code>links_lab</code></strong>.
+      </p>
+      <ol>
+        <li>
+          Create la cartella <code>links_lab</code> nella vostra area di lavoro
+          (es. Desktop o cartella di classe).
+        </li>
+        <li>
+          All’interno create tre file:
+          <code>index.html</code>, <code>festival.html</code>,
+          <code>contatti.html</code>.
+        </li>
+        <li>
+          In <code>index.html</code> inserite un titolo “Film Folk” e un menu di
+          navigazione con link relativi alle altre due pagine.
+        </li>
+        <li>
+          In <code>festival.html</code> elencate almeno tre festival del cinema con
+          link ai loro siti ufficiali (URL assoluti) e indicate luogo e date.
+        </li>
+        <li>
+          In <code>contatti.html</code> create un paragrafo con un link email
+          (mailto) verso un indirizzo fittizio, ad esempio
+          <code>filmfolk@example.org</code>.
+        </li>
+        <li>
+          Aggiungete in fondo a ogni pagina un link “Torna alla home” che rimanda a
+          <code>index.html</code> usando un URL relativo.
+        </li>
+        <li>
+          Verificate che tutti i link funzionino aprendo i file nel browser e cliccando
+          su ogni collegamento.
+        </li>
+      </ol>
+      <p>
+        Quando avete finito, salvate il lavoro: questa struttura vi servirà anche per
+        la verifica su Moodle.
+      </p>
+    </section>
+
+    <!-- 6. Piccolo esercizio di riflessione -->
+    <section class="panel">
+      <h2>6. Mini-esercizio di verifica immediata (5 minuti)</h2>
+      <p>
+        Rispondete sul quaderno (o in un file di testo) alle seguenti domande:
+      </p>
+      <ol>
+        <li>
+          Qual è la differenza principale tra un URL assoluto e uno relativo?
+        </li>
+        <li>
+          Che cosa succede se su una pagina usate due volte lo stesso valore di
+          <code>id</code>?
+        </li>
+        <li>
+          Scrivete un esempio di link che:
+          <ul>
+            <li>apre il sito della vostra scuola in una nuova scheda;</li>
+            <li>usa come testo del link una frase significativa (non “clicca qui”).</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 7. Preparazione alla verifica -->
+    <section class="panel">
+      <h2>7. Preparazione alla verifica su Moodle</h2>
+      <p>
+        In vista della prossima verifica su Moodle:
+      </p>
+      <ul>
+        <li>riguardate gli esempi di codice visti oggi;</li>
+        <li>
+          ripassate la differenza tra collegamenti a siti esterni e link tra pagine
+          interne;
+        </li>
+        <li>
+          provate a riscrivere almeno due esempi della lezione cambiando i testi dei
+          link con frasi più descrittive.
+        </li>
+      </ul>
+      <p>
+        Nella verifica troverete anche domande in cui dovete completare o correggere
+        link HTML usando esattamente la sintassi vista oggi.
+      </p>
+    </section>
+  </main>
+
+  <footer class="container narrow small">
+    <p class="muted">
+      TPSIT / Laboratorio di Informatica – Collegamenti in HTML • materiale per uso didattico interno
+    </p>
+  </footer>
+</body>
+</html>

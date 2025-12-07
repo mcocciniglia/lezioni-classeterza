@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>HTML – Tabelle per dati tabellari</title>
+
+  <!-- CSS comune -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Script sintassi e tema -->
+  <script src="../../common/assets/prism.js" defer></script>
+  <script src="../../common/assets/theme.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>HTML: tabelle per dati tabellari</h1>
+      <p class="subtitle">
+        Struttura di base (&lt;table&gt;, &lt;tr&gt;, &lt;td&gt;, &lt;th&gt;), celle che si estendono e
+        sezioni &lt;thead&gt; / &lt;tbody&gt; / &lt;tfoot&gt;.
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button
+          id="themeToggle"
+          class="btn btn-theme"
+          type="button"
+          aria-pressed="false"
+          aria-label="Cambia tema"
+        >
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button
+          id="contrastToggle"
+          class="btn btn-outline btn-contrast"
+          type="button"
+          aria-pressed="false"
+          aria-label="Attiva/disattiva contrasto alto"
+        >
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container narrow">
+
+      <!-- 1. Perché usare una tabella -->
+      <section class="panel callout">
+        <h2>1. Quando usare una tabella</h2>
+        <p>
+          Una tabella serve per rappresentare informazioni in forma di
+          <strong>griglia</strong>, con righe e colonne: risultati sportivi, orari dei treni,
+          listini prezzi, prospetti economici.
+        </p>
+        <ul>
+          <li>Ogni incrocio riga/colonna è una <strong>cella</strong> della tabella.</li>
+          <li>Le tabelle aiutano a confrontare valori su due assi (es. giorno ↔ ora).</li>
+          <li>Non si usano per fare layout grafici della pagina (per quello si usa il CSS).</li>
+        </ul>
+      </section>
+
+      <!-- 2. Struttura base -->
+      <section class="panel">
+        <h2>2. Struttura base di una tabella HTML</h2>
+        <p>
+          In HTML una tabella si scrive riga per riga. I tag fondamentali sono:
+        </p>
+        <ul>
+          <li><code>&lt;table&gt;</code> … <code>&lt;/table&gt;</code>: contiene tutta la tabella.</li>
+          <li><code>&lt;tr&gt;</code> … <code>&lt;/tr&gt;</code>: una riga (<em>table row</em>).</li>
+          <li><code>&lt;td&gt;</code> … <code>&lt;/td&gt;</code>: una cella di dati (<em>table data</em>).</li>
+          <li>
+            <code>&lt;th&gt;</code> … <code>&lt;/th&gt;</code>: una cella di intestazione
+            (<em>table heading</em>), di solito in grassetto e centrata.
+          </li>
+        </ul>
+
+        <div class="figure">
+          <div>Righe (<code>&lt;tr&gt;</code>) ➜ orizzontali</div>
+          <div>Colonne ➜ verticali</div>
+          <div>Celle (<code>&lt;td&gt;</code> / <code>&lt;th&gt;</code>) ➜ incrocio riga/colonna</div>
+          <p class="caption">Pensa a un foglio di calcolo: Excel, Fogli Google, ecc.</p>
+        </div>
+
+        <h3>Esempio: mini orario delle lezioni</h3>
+        <p>Osserva la struttura e prova a riconoscere righe e celle.</p>
+
+        <pre><code class="language-html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Ora&lt;/th&gt;
+    &lt;th&gt;Lunedì&lt;/th&gt;
+    &lt;th&gt;Martedì&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;1ª ora&lt;/th&gt;
+    &lt;td&gt;Informatica&lt;/td&gt;
+    &lt;td&gt;TPSIT&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;2ª ora&lt;/th&gt;
+    &lt;td&gt;Italiano&lt;/td&gt;
+    &lt;td&gt;Informatica&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+        <div class="box">
+          <strong>Micro-esercizio (5 minuti)</strong><br />
+          Nel file di prova:
+          <ol>
+            <li>Copiate la tabella qui sopra.</li>
+            <li>Aggiungete una colonna per il <strong>Mercoledì</strong>.</li>
+            <li>Aggiungere una riga per la <strong>3ª ora</strong> con le materie che preferite.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 3. Celle che si estendono: colspan / rowspan -->
+      <section class="panel">
+        <h2>3. Celle che si estendono: <code>colspan</code> e <code>rowspan</code></h2>
+        <p>
+          A volte una cella deve occupare più colonne (orizzontale) o più righe (verticale).
+          Per farlo usiamo gli attributi:
+        </p>
+        <ul>
+          <li><code>colspan="n"</code> ➜ la cella si estende su <em>n</em> colonne.</li>
+          <li><code>rowspan="n"</code> ➜ la cella si estende su <em>n</em> righe.</li>
+        </ul>
+
+        <h3>Esempio con <code>colspan</code></h3>
+        <pre><code class="language-html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;9:00&lt;/th&gt;
+    &lt;th&gt;10:00&lt;/th&gt;
+    &lt;th&gt;11:00&lt;/th&gt;
+    &lt;th&gt;12:00&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Lunedì&lt;/th&gt;
+    &lt;td colspan="2"&gt;Laboratorio TPSIT&lt;/td&gt;
+    &lt;td&gt;Matematica&lt;/td&gt;
+    &lt;td&gt;Italiano&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Martedì&lt;/th&gt;
+    &lt;td colspan="3"&gt;Informatica&lt;/td&gt;
+    &lt;td&gt;Storia&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+        <div class="box">
+          <strong>Osserva</strong>: nella riga di Lunedì ci sono solo 3 celle
+          <code>&lt;td&gt;</code>, ma sullo schermo le colonne sono comunque 4, perché
+          <code>colspan="2"</code> e <code>colspan="3"</code> “occupano lo spazio” delle celle mancanti.
+        </div>
+
+        <h3>Esempio con <code>rowspan</code></h3>
+        <pre><code class="language-html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Fascia oraria&lt;/th&gt;
+    &lt;th&gt;Canale A&lt;/th&gt;
+    &lt;th&gt;Canale B&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;20:30 - 21:30&lt;/th&gt;
+    &lt;td rowspan="2"&gt;Film&lt;/td&gt;
+    &lt;td&gt;Notizie&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;21:30 - 22:30&lt;/th&gt;
+    &lt;td&gt;Serie TV&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+        <div class="box">
+          <strong>Micro-esercizio (5 minuti)</strong><br />
+          Modificate l’esempio: fate in modo che sul Canale B ci sia un unico programma
+          di due ore usando <code>rowspan</code>.
+        </div>
+      </section>
+
+      <!-- 4. thead / tbody / tfoot -->
+      <section class="panel">
+        <h2>4. Strutturare tabelle lunghe: <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code></h2>
+        <p>
+          Per tabelle più grandi conviene separare:
+        </p>
+        <ul>
+          <li><code>&lt;thead&gt;</code>: intestazioni della tabella (di solito una sola riga).</li>
+          <li><code>&lt;tbody&gt;</code>: righe con i dati veri e propri.</li>
+          <li><code>&lt;tfoot&gt;</code>: righe di riepilogo (totali, note finali).</li>
+        </ul>
+        <p>
+          Questa struttura aiuta i lettori di schermo, i motori di ricerca e permette di
+          applicare stili diversi alle varie parti della tabella.
+        </p>
+
+        <h3>Esempio: bilancio di un mese</h3>
+        <pre><code class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Data&lt;/th&gt;
+      &lt;th&gt;Entrate (€)&lt;/th&gt;
+      &lt;th&gt;Uscite (€)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1 gennaio&lt;/th&gt;
+      &lt;td&gt;250&lt;/td&gt;
+      &lt;td&gt;36&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2 gennaio&lt;/th&gt;
+      &lt;td&gt;285&lt;/td&gt;
+      &lt;td&gt;48&lt;/td&gt;
+    &lt;/tr&gt;
+    <!-- altre righe... -->
+  &lt;/tbody&gt;
+
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Totale&lt;/td&gt;
+      &lt;td&gt;7824&lt;/td&gt;
+      &lt;td&gt;1241&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+      </section>
+
+      <!-- 5. Attributi obsoleti da evitare -->
+      <section class="panel">
+        <h2>5. Attributi obsoleti: cosa <em>non</em usare più</h2>
+        <p>
+          Nei codici più vecchi potete trovare attributi come:
+        </p>
+        <ul>
+          <li><code>width</code> sulla tabella o sulle celle</li>
+          <li><code>cellpadding</code>, <code>cellspacing</code> per i margini interni/esterni</li>
+          <li><code>border</code> per lo spessore del bordo</li>
+          <li><code>bgcolor</code> per il colore di sfondo</li>
+        </ul>
+        <p>
+          Oggi tutte queste cose si gestiscono con il
+          <strong>CSS</strong>, non più con attributi HTML. Se lavorate su codice esistente,
+          riconoscete questi attributi ma non li usate in nuovi progetti.
+        </p>
+
+        <details class="warning">
+          <summary>Esempio di codice “vecchio” da riconoscere</summary>
+          <pre><code class="language-html">&lt;table border="1" cellpadding="5" cellspacing="2" bgcolor="#efefef"&gt;
+  ...
+&lt;/table&gt;</code></pre>
+          <p>
+            In un progetto moderno fate lo stesso effetto usando le
+            <strong>regole CSS</strong> sulla tabella.
+          </p>
+        </details>
+      </section>
+
+      <!-- 6. Attività di laboratorio -->
+      <section class="panel exercise">
+        <h2>6. Attività di laboratorio (20–25 minuti)</h2>
+        <p>
+          In coppia o in piccoli gruppi create una pagina con una tabella ben strutturata.
+        </p>
+        <ol>
+          <li>
+            Create un nuovo file chiamato <code>tabelle_lab.html</code> e copiate l’intestazione
+            di questa pagina (da <code>&lt;!DOCTYPE html&gt;</code> fino a <code>&lt;/body&gt;</code>),
+            poi svuotate il contenuto del <code>&lt;main&gt;</code>.
+          </li>
+          <li>
+            Progettate una tabella per confrontare almeno
+            <strong>3 piani di hosting</strong> (es. “Base”, “Pro”, “Enterprise”) con questi dati:
+            <ul>
+              <li>Spazio su disco</li>
+              <li>Traffico mensile</li>
+              <li>Numero di caselle email</li>
+              <li>Prezzo mensile</li>
+            </ul>
+          </li>
+          <li>
+            Usate:
+            <ul>
+              <li>
+                <code>&lt;thead&gt;</code> per la riga di intestazione delle colonne
+                (nomi dei piani).
+              </li>
+              <li>
+                <code>&lt;tbody&gt;</code> per le righe con le caratteristiche.
+              </li>
+              <li>
+                <code>&lt;tfoot&gt;</code> con una riga finale che, con
+                <code>colspan</code>, contiene un messaggio del tipo:
+                <em>“Scegli il piano più adatto al tuo progetto!”</em>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Assicuratevi che ogni cella abbia il suo tag
+            <code>&lt;td&gt;</code> o <code>&lt;th&gt;</code>, anche se è vuota.
+          </li>
+          <li>
+            Salvate il file e apritelo nel browser per controllare che la tabella sia
+            leggibile e allineata.
+          </li>
+        </ol>
+
+        <div class="box">
+          <strong>Per la prossima verifica</strong><br />
+          Ripassate:
+          <ul>
+            <li>Significato e uso di <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>,
+                <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code></li>
+            <li>Differenza tra <code>colspan</code> e <code>rowspan</code></li>
+            <li>Ruolo di <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>,
+                <code>&lt;tfoot&gt;</code></li>
+            <li>Quali attributi sono considerati “vecchi” (border, bgcolor, ecc.).</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="container narrow small muted">
+    <p>
+      Lezione su tabelle HTML – adattata per lo studio autonomo e il lavoro in laboratorio.
+    </p>
+  </footer>
+</body>
+</html>
