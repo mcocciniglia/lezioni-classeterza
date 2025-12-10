@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>HTML – Ripasso: struttura, testo, liste, link, immagini</title>
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- CSS comune + tema -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+
+  <!-- JS per tema/contrasto e Prism -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>Ripasso HTML: struttura, testo, liste, link e immagini</h1>
+      <p class="subtitle">
+        Collegamento tra le lezioni viste oggi in laboratorio, da rileggere con calma a casa.
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button
+          id="themeToggle"
+          class="btn btn-theme"
+          type="button"
+          aria-pressed="false"
+          aria-label="Cambia tema"
+        >
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+
+        <button
+          id="contrastToggle"
+          class="btn btn-outline btn-contrast"
+          type="button"
+          aria-pressed="false"
+          aria-label="Attiva/disattiva contrasto alto"
+        >
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="main" class="container narrow">
+    <section class="panel callout">
+      <h2>Cosa avete fatto oggi (in modalità turbo 🚀)</h2>
+      <p>
+        In classe avete sfogliato in modo molto veloce una serie di lezioni su HTML:
+        avete visto gli elementi principali, ma senza entrare nei dettagli
+        e senza fermarvi su tutti gli esempi.
+      </p>
+      <p>
+        Questa pagina serve per collegare tutte le risorse che avete aperto in laboratorio.
+        A casa, riapritele con calma: ogni link qui sotto si apre in una nuova scheda.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Le lezioni che avete visto</h2>
+
+      <ol class="steps">
+        <li>
+          <h3>Struttura base di una pagina HTML</h3>
+          <p>
+            Ripassate come è costruita una pagina: dichiarazione
+            <code>&lt;!DOCTYPE&gt;</code>, tag <code>&lt;html&gt;</code>,
+            sezione <code>&lt;head&gt;</code> e <code>&lt;body&gt;</code>.
+          </p>
+          <p>
+            👉
+            <a
+              href="https://mcocciniglia.github.io/lezioni-classeterza/html_struttura/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aprite la lezione sulla struttura di base
+            </a>
+          </p>
+        </li>
+
+        <li>
+          <h3>Testo base: paragrafi, titoli, grassetto, corsivo</h3>
+          <p>
+            Qui trovate i tag principali per scrivere: paragrafi, titoli, grassetto,
+            corsivo ed elenchi semplici.
+          </p>
+          <p>
+            👉
+            <a
+              href="https://mcocciniglia.github.io/lezioni-classeterza/html_text/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aprite la lezione sul testo base
+            </a>
+          </p>
+        </li>
+
+        <li>
+          <h3>Testo avanzato</h3>
+          <p>
+            Alcuni tag meno comuni ma utili (citazioni, definizioni, ecc.).
+            In classe li avete solo intravisti, senza fermarvi su ogni dettaglio.
+          </p>
+          <p>
+            👉
+            <a
+              href="https://mcocciniglia.github.io/lezioni-classeterza/html_text_advanced/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aprite la lezione sul testo avanzato
+            </a>
+          </p>
+        </li>
+
+        <li>
+          <h3>Liste ordinate e non ordinate</h3>
+          <p>
+            Come creare elenchi puntati e numerati con
+            <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> e <code>&lt;li&gt;</code>,
+            e come nidificare più livelli di liste.
+          </p>
+          <p>
+            👉
+            <a
+              href="https://mcocciniglia.github.io/lezioni-classeterza/list/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aprite la lezione sulle liste
+            </a>
+          </p>
+        </li>
+
+        <li>
+          <h3>Link</h3>
+          <p>
+            Come creare collegamenti ad altre pagine, siti esterni o sezioni della stessa
+            pagina usando il tag <code>&lt;a&gt;</code>.
+          </p>
+          <p>
+            👉
+            <a
+              href="https://mcocciniglia.github.io/lezioni-classeterza/links/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aprite la lezione sui link
+            </a>
+          </p>
+        </li>
+
+        <li>
+          <h3>Immagini</h3>
+          <p>
+            Come inserire immagini nella pagina con <code>&lt;img&gt;</code>,
+            usare <code>src</code>, <code>alt</code> e le dimensioni.
+          </p>
+          <p>
+            👉
+            <a
+              href="https://mcocciniglia.github.io/lezioni-classeterza/images/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aprite la lezione sulle immagini
+            </a>
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="panel">
+      <h2>Come studiare queste pagine</h2>
+      <ul>
+        <li>Riaprite una lezione alla volta e leggetela senza fretta.</li>
+        <li>Provate a riscrivere nel vostro editor gli esempi che trovate.</li>
+        <li>Segnate sul quaderno i tag nuovi e il loro significato.</li>
+        <li>Se qualcosa non è chiaro, evidenziatelo: ne riparleremo in classe.</li>
+      </ul>
+      <p class="muted">
+        Nelle prossime lezioni completeremo il percorso con le
+        <strong>tabelle</strong> HTML, che oggi non abbiamo avuto il tempo di affrontare.
+      </p>
+    </section>
+
+    <footer class="small muted">
+      <p>
+        Pagina di ripasso creata per collegare le lezioni HTML svolte in laboratorio.
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
