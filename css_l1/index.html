@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Non indicizzabile / no spider -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>TPSIT — CSS: sintassi delle regole e debugging (Lezione 1)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="hero">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">TPSIT</span>
+          <span class="muted">CSS — Capitolo: Selectors (intro)</span>
+        </div>
+
+        <!-- Controlli tema / contrasto -->
+        <div class="theme-controls">
+          <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+            <span class="btn-label">Tema scuro 🌙</span>
+          </button>
+          <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+            Contrasto alto ☀️
+          </button>
+        </div>
+      </div>
+
+      <h1>Lezione 1 — Regole CSS: sintassi, dichiarazioni, errori tipici</h1>
+      <p class="lead">
+        Oggi lavorate sulla struttura base di una regola CSS e imparate a riconoscere gli errori più comuni
+        (che il browser ignora senza “gridare”).
+      </p>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="grid two">
+      <article class="card">
+        <h2>Obiettivi (oggi)</h2>
+        <ul>
+          <li>Leggere e scrivere correttamente una regola CSS (<code>selettore { proprietà: valore; }</code>).</li>
+          <li>Capire cos’è una <strong>dichiarazione</strong> e perché il <code>;</code> è fondamentale.</li>
+          <li>Riconoscere gli errori tipici e usare DevTools per il debugging di base.</li>
+        </ul>
+
+        <div class="callout warning">
+          <strong>Idea chiave:</strong> se una dichiarazione è scritta male, il browser la ignora e va avanti.
+          Quindi: niente panico, si fa debugging.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Prerequisiti & materiale</h2>
+        <ul>
+          <li>Un editor (VS Code consigliato) + browser (Chrome/Edge/Firefox).</li>
+          <li>Conoscere HTML base: tag, attributi, class e id (anche solo a livello “so cosa sono”).</li>
+          <li>Aprire DevTools: <kbd>F12</kbd> oppure <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>.</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Consegna Moodle (fine lezione):</strong> quiz “Exit ticket” (5 domande).
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>1) Com’è fatta una regola CSS</h2>
+      <p>
+        Una regola CSS ha:
+        <strong>selettore</strong> (a chi si applica) + <strong>blocco</strong> tra graffe
+        con una o più <strong>dichiarazioni</strong>.
+      </p>
+
+      <pre><code class="language-css">/* Selettore: p   */
+p {
+  /* dichiarazione: proprietà: valore; */
+  color: #333;
+  font-size: 18px;
+}</code></pre>
+
+      <div class="callout success">
+        <strong>Buona abitudine:</strong> mettete sempre il <code>;</code> anche dopo l’ultima dichiarazione.
+        Vi evita errori quando aggiungete righe dopo.
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>2) Errori tipici (e cosa succede)</h2>
+
+        <h3>A) Mancanza del punto e virgola</h3>
+        <pre><code class="language-css">p {
+  color: #333
+  font-size: 18px;
+}</code></pre>
+        <p class="muted">
+          In molti casi, il browser può interpretare male quello che segue (dipende dal contesto).
+          Risultato: alcune regole non si applicano come vi aspettate.
+        </p>
+
+        <h3>B) Proprietà inesistente / scritta male</h3>
+        <pre><code class="language-css">p {
+  coloor: red; /* proprietà sbagliata -> ignorata */
+}</code></pre>
+
+        <h3>C) Valore non valido</h3>
+        <pre><code class="language-css">p {
+  font-size: big; /* valore non valido -> ignorato */
+}</code></pre>
+      </article>
+
+      <aside class="card">
+        <h2>3) Debugging minimo con DevTools</h2>
+        <ol>
+          <li>Aprite DevTools (<kbd>F12</kbd>).</li>
+          <li>Usate l’icona “seleziona elemento” e cliccate sul testo.</li>
+          <li>Guardate il pannello “Styles”: le regole applicate e quelle barrate.</li>
+          <li>Se una dichiarazione è sbagliata, spesso compare un avviso o viene ignorata.</li>
+        </ol>
+
+        <div class="callout info">
+          <strong>Trucco:</strong> in DevTools potete modificare i valori “al volo” per capire l’effetto.
+          Poi riportate le modifiche nel file CSS.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Attività pratica (25 minuti)</h2>
+      <p>
+        Obiettivo: sistemare un CSS “rotto” e far tornare la pagina come richiesto.
+        Copiate questi file in una cartella e aprite <code>index.html</code> nel browser.
+      </p>
+
+      <div class="grid two">
+        <article class="panel">
+          <h3>File 1 — index.html</h3>
+          <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;CSS Debug — Lezione 1&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;h1&gt;CSS Debug&lt;/h1&gt;
+    &lt;p class="intro"&gt;Sistemate gli errori nel CSS: niente panico, usate DevTools.&lt;/p&gt;
+
+    &lt;section class="box"&gt;
+      &lt;h2&gt;Sezione&lt;/h2&gt;
+      &lt;p&gt;Questo testo deve diventare più leggibile.&lt;/p&gt;
+      &lt;a class="cta" href="#fine"&gt;Vai in fondo&lt;/a&gt;
+    &lt;/section&gt;
+
+    &lt;p id="fine"&gt;Fine pagina.&lt;/p&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </article>
+
+        <article class="panel">
+          <h3>File 2 — style.css (volutamente con errori)</h3>
+          <pre><code class="language-css">body {
+  font-family: system-ui;
+  background: #f6f6f6
+  color: #222;
+}
+
+h1 {
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+.intro {
+  font-size: 18px;
+  line-height: 1.5;
+  coloor: #444;
+}
+
+.box {
+  background: white;
+  padding: 16px;
+  border: 2px solid #ddd;
+  border-radius: 12px
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #222;
+  color: white;
+  text-decoration: none
+}</code></pre>
+        </article>
+      </div>
+
+      <div class="callout warning">
+        <strong>Compito:</strong> correggete gli errori (almeno 5) e fate in modo che:
+        <ul>
+          <li>lo sfondo pagina sia grigio chiaro e il testo ben leggibile;</li>
+          <li>il riquadro abbia angoli arrotondati;</li>
+          <li>il bottone link “Vai in fondo” sia leggibile e senza sottolineatura.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exit ticket (Moodle) — 5 domande</h2>
+      <ol>
+        <li>Scrivete la struttura generale di una regola CSS (schema).</li>
+        <li>Che differenza c’è tra <em>selettore</em> e <em>dichiarazione</em>?</li>
+        <li>Cosa succede se una proprietà è scritta male (es. <code>coloor</code>)?</li>
+        <li>Perché è consigliato mettere <code>;</code> anche sull’ultima dichiarazione?</li>
+        <li>In DevTools, cosa significa quando una regola è “barrata”?</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Tempo:</strong> 6–8 minuti. Consegnate entro fine ora.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mini-riepilogo (da ricordare)</h2>
+      <ul>
+        <li>Regola = selettore + graffe + dichiarazioni.</li>
+        <li>Dichiarazione = <code>proprietà: valore;</code></li>
+        <li>Errori comuni: <code>;</code> mancante, proprietà sbagliata, valore non valido.</li>
+        <li>DevTools è il vostro “microscopio”: guardate cosa viene applicato e cosa no.</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">
+        Materiale per uso didattico interno • Non indicizzabile (noindex, nofollow)
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

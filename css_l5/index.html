@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Non indicizzabile / no spider -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>TPSIT — CSS: attribute selectors e pseudo-classi (Lezione 5)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="hero">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">TPSIT</span>
+          <span class="muted">CSS — Selectors: attributi e stati</span>
+        </div>
+
+        <!-- Controlli tema / contrasto -->
+        <div class="theme-controls">
+          <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+            <span class="btn-label">Tema scuro 🌙</span>
+          </button>
+          <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+            Contrasto alto ☀️
+          </button>
+        </div>
+      </div>
+
+      <h1>Lezione 5 — Attribute selectors + pseudo-classi (link e form)</h1>
+      <p class="lead">
+        Oggi imparate a selezionare elementi non solo per tag/classe/posizione, ma anche per
+        <strong>attributi</strong> e per <strong>stato</strong> (hover, focus, required, checked…).
+        È qui che il CSS diventa davvero “intelligente”.
+      </p>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="grid two">
+      <article class="card">
+        <h2>Obiettivi (oggi)</h2>
+        <ul>
+          <li>Usare i <strong>selettori di attributo</strong>: <code>[type="email"]</code>, <code>[required]</code>, <code>[href^="https"]</code>…</li>
+          <li>Capire le pseudo-classi più utili per UI: <code>:hover</code>, <code>:focus</code>, <code>:checked</code>, <code>:required</code>, <code>:valid</code>, <code>:invalid</code>.</li>
+          <li>Applicare questi selettori per rendere un form più chiaro (e più “guidato”).</li>
+        </ul>
+
+        <div class="callout warning">
+          <strong>Idea chiave:</strong> un selettore non dice solo “chi sei” (tag/classe),
+          ma anche “<em>in che stato sei</em>” (hover, focus, valido/non valido, selezionato…).
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Prerequisiti</h2>
+        <ul>
+          <li>Selettori base + combinatori (lezioni 1–3).</li>
+          <li>Classi e ID (lezione 4).</li>
+          <li>Capire attributi HTML (es: <code>type</code>, <code>href</code>, <code>required</code>, <code>checked</code>).</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Consegna Moodle (fine lezione):</strong> caricate <code>style.css</code>
+          + rispondete a 3 domande (in 3 righe) su quali selettori avete usato.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>1) Selettori di attributo: la sintassi</h2>
+      <p>
+        Un selettore di attributo si scrive tra parentesi quadre. Esempi:
+      </p>
+
+      <pre><code class="language-css">/* attributo presente */
+[required] { outline: 2px solid #f90; }
+
+/* attributo = valore */
+input[type="email"] { border-color: #88f; }
+
+/* stringhe: inizia con / contiene / finisce con */
+a[href^="https"] { /* inizia con https */ }
+a[href*="moodle"] { /* contiene moodle */ }
+a[href$=".pdf"] { /* finisce con .pdf */ }</code></pre>
+
+      <div class="callout info">
+        <strong>Quando serve?</strong> Quando non avete (o non volete) aggiungere classi,
+        e l’attributo vi dà già l’informazione necessaria.
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>2) Pseudo-classi per link e interazioni</h2>
+        <p>
+          Le pseudo-classi descrivono uno <strong>stato</strong>:
+        </p>
+        <ul>
+          <li><code>:hover</code> — quando ci passate sopra col mouse</li>
+          <li><code>:focus</code> — quando l’elemento è selezionato (tastiera o click)</li>
+          <li><code>:visited</code> — link già visitati (con limiti di sicurezza)</li>
+          <li><code>:active</code> — mentre state cliccando</li>
+        </ul>
+
+        <pre><code class="language-css">a:hover { text-decoration: underline; }
+a:focus { outline: 3px solid #ffb000; }</code></pre>
+
+        <div class="callout success">
+          <strong>Accessibilità:</strong> lo stile su <code>:focus</code> è fondamentale per chi usa la tastiera.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>3) Pseudo-classi per form (stato dei campi)</h2>
+        <ul>
+          <li><code>:required</code> / <code>:optional</code></li>
+          <li><code>:valid</code> / <code>:invalid</code></li>
+          <li><code>:checked</code> (checkbox/radio)</li>
+          <li><code>:disabled</code> / <code>:enabled</code></li>
+        </ul>
+
+        <pre><code class="language-css">input:required { border-left: 6px solid #f90; }
+input:invalid  { border-color: #e44; }
+input:valid    { border-color: #2a7; }</code></pre>
+
+        <div class="callout warning">
+          <strong>Nota:</strong> <code>:valid</code> e <code>:invalid</code> dipendono dalle regole HTML
+          (tipo email, pattern, required…). Non è magia: è validazione.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Warm-up (10 minuti) — “scrivi il selettore”</h2>
+      <p>Scrivete il selettore CSS corretto per ciascuna richiesta:</p>
+      <ol>
+        <li>Selezionare tutti gli <code>input</code> di tipo email.</li>
+        <li>Selezionare tutti gli elementi con attributo <code>required</code>.</li>
+        <li>Selezionare i link che puntano a un PDF.</li>
+        <li>Selezionare una checkbox quando è spuntata.</li>
+        <li>Selezionare un campo quando è in focus.</li>
+      </ol>
+      <details class="callout info">
+        <summary><strong>Soluzioni (aprire solo dopo)</strong></summary>
+        <pre><code class="language-css">input[type="email"]
+[required]
+a[href$=".pdf"]
+input[type="checkbox"]:checked
+input:focus</code></pre>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Attività pratica (25 minuti) — “Form che si autospiega”</h2>
+      <p>
+        Obiettivo: rendere un modulo più chiaro usando selettori di attributo e pseudo-classi.
+        Non cambiate l’HTML. Lavorate solo su <code>style.css</code>.
+      </p>
+
+      <div class="grid two">
+        <article class="panel">
+          <h3>File 1 — index.html</h3>
+          <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Lezione 5 — Form&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="wrap"&gt;
+    &lt;h1&gt;Iscrizione laboratorio&lt;/h1&gt;
+    &lt;p class="lead"&gt;Compilate il form: il CSS deve aiutarvi a capire cosa manca.&lt;/p&gt;
+
+    &lt;form class="card" action="#"&gt;
+      &lt;label&gt;Nome
+        &lt;input type="text" name="nome" required&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;Email
+        &lt;input type="email" name="email" required&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;Sito personale (facoltativo)
+        &lt;input type="url" name="sito"&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;Classe
+        &lt;select name="classe" required&gt;
+          &lt;option value=""&gt;Seleziona...&lt;/option&gt;
+          &lt;option&gt;4A&lt;/option&gt;
+          &lt;option&gt;4B&lt;/option&gt;
+          &lt;option&gt;4C&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+
+      &lt;fieldset&gt;
+        &lt;legend&gt;Preferenze&lt;/legend&gt;
+        &lt;label&gt;&lt;input type="checkbox" name="notif"&gt; Voglio ricevere notifiche&lt;/label&gt;
+        &lt;label&gt;&lt;input type="checkbox" name="privacy" required&gt; Accetto privacy (obbligatorio)&lt;/label&gt;
+      &lt;/fieldset&gt;
+
+      &lt;button type="submit" class="btn"&gt;Invia&lt;/button&gt;
+      &lt;p class="hint"&gt;Suggerimento: provate a cliccare nei campi e a compilare correttamente/errato.&lt;/p&gt;
+    &lt;/form&gt;
+
+    &lt;section class="card"&gt;
+      &lt;h2&gt;Link utili&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="https://moodle.scuola.it"&gt;Moodle&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="docs/guida.pdf"&gt;Guida (PDF)&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="http://example.com"&gt;Sito esterno (http)&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </article>
+
+        <article class="panel">
+          <h3>File 2 — style.css (base + compiti)</h3>
+          <pre><code class="language-css">/* Base */
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui;
+  margin: 0;
+  background: #f6f6f6;
+  color: #222;
+}
+
+.wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input, select {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+}
+
+fieldset {
+  margin-top: 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 0;
+  background: #222;
+  color: #fff;
+}
+
+/* ===== COMPITI (scrivete le regole) =====
+1) Evidenziate i campi required con una banda a sinistra (border-left) di 6px.
+2) Quando un input/select è in :focus, mettete un outline visibile (3px).
+3) Quando un input è :invalid, colorate il bordo in modo evidente.
+4) Quando un input è :valid (e non vuoto), colorate il bordo diversamente.
+5) Quando una checkbox è :checked, fate diventare il testo del label più “forte”.
+   Suggerimento: input:checked + ??? (qui serve la struttura!)
+6) Link: evidenziate quelli che iniziano con https e quelli che finiscono con .pdf con uno stile diverso.
+Vincoli:
+- Non cambiate l’HTML.
+- Usate almeno 2 selettori di attributo.
+- Usate almeno 3 pseudo-classi.
+*/</code></pre>
+        </article>
+      </div>
+
+      <details class="callout info">
+        <summary><strong>Soluzione possibile (aprire solo per autocorrezione)</strong></summary>
+        <pre><code class="language-css">/* 1) required: banda a sinistra */
+input:required,
+select:required {
+  border-left: 6px solid #ffb000;
+}
+
+/* 2) focus: outline visibile */
+input:focus,
+select:focus,
+button:focus {
+  outline: 3px solid #ffb000;
+  outline-offset: 2px;
+}
+
+/* 3) invalid */
+input:invalid,
+select:invalid {
+  border-color: #e44;
+}
+
+/* 4) valid (non vuoto): usando :valid e [required] si riducono i falsi positivi */
+input[required]:valid,
+select[required]:valid {
+  border-color: #2a7;
+}
+
+/* 5) checkbox checked -> testo label più forte
+   Qui funziona perché nell'HTML l'input è dentro lo stesso label, non è fratello.
+   Quindi selezioniamo il label che CONTIENE un input checked (nuova pseudo-classe :has)
+   MA non è supportata ovunque. Alternativa: non si può senza cambiare HTML.
+   Soluzione "compatibile": stilare direttamente la checkbox. */
+input[type="checkbox"]:checked {
+  accent-color: #2a7;
+}
+
+/* 6) link per attributi */
+a[href^="https"] {
+  font-weight: 700;
+}
+
+a[href$=".pdf"] {
+  text-decoration: underline;
+}</code></pre>
+        </details>
+
+      <div class="callout warning">
+        <strong>Nota importante (punto 5):</strong> con questo HTML, la soluzione “testo label più forte”
+        usando <code>input:checked + label</code> non si può, perché l’input è <em>dentro</em> il label.
+        Per far funzionare quel trucco serve una struttura tipo:
+        <code>&lt;input&gt; &lt;label&gt;Testo&lt;/label&gt;</code>.
+        Qui potete comunque lavorare su <code>accent-color</code> e su focus/required/valid/invalid.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Consegna Moodle (10 minuti finali)</h2>
+      <ol>
+        <li>Caricate <code>style.css</code>.</li>
+        <li>Scrivete 3 righe (nel testo consegna):
+          <ul>
+            <li>2 selettori di attributo che avete usato</li>
+            <li>2 pseudo-classi che avete usato</li>
+            <li>1 cosa che il CSS fa “capire meglio” nel form</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="callout success">
+        <strong>Checklist:</strong>
+        <ul>
+          <li>I campi required sono riconoscibili subito?</li>
+          <li>Quando cliccate in un campo, si vede chiaramente il focus?</li>
+          <li>Provando email sbagliata, lo stile “invalid” scatta?</li>
+          <li>I link https e i link pdf si distinguono?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exit ticket (Moodle) — 8 domande</h2>
+      <ol>
+        <li>Scrivete un selettore per <code>input</code> di tipo email.</li>
+        <li>Cosa seleziona <code>[required]</code>?</li>
+        <li>Differenza tra <code>a[href^="https"]</code> e <code>a[href$=".pdf"]</code>?</li>
+        <li>Che cosa rappresenta <code>:focus</code>?</li>
+        <li>Quando scatta <code>:invalid</code> in un campo email?</li>
+        <li>Scrivete un selettore per checkbox spuntata.</li>
+        <li>Perché è utile stilare <code>:focus</code> (accessibilità)?</li>
+        <li>Indicate un esempio in cui un selettore di attributo è meglio di aggiungere una classe.</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Tempo:</strong> 8–10 minuti. Consegnate entro fine ora.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Materiale per uso didattico interno • Non indicizzabile (noindex, nofollow)</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Non indicizzabile / no spider -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>TPSIT — CSS: grouping selectors e selettore universale (Lezione 2)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="hero">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">TPSIT</span>
+          <span class="muted">CSS — Capitolo: Selectors</span>
+        </div>
+
+        <!-- Controlli tema / contrasto -->
+        <div class="theme-controls">
+          <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+            <span class="btn-label">Tema scuro 🌙</span>
+          </button>
+          <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+            Contrasto alto ☀️
+          </button>
+        </div>
+      </div>
+
+      <h1>Lezione 2 — Raggruppare selettori e dichiarazioni (grouping) + selettore universale *</h1>
+      <p class="lead">
+        Oggi fate un salto di qualità: scrivete CSS più <strong>pulito</strong>, più <strong>breve</strong> e più <strong>facile da mantenere</strong>.
+        Attenzione alla virgola: a volte cambia completamente il significato di una regola.
+      </p>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="grid two">
+      <article class="card">
+        <h2>Obiettivi (oggi)</h2>
+        <ul>
+          <li>Usare la <strong>virgola</strong> per applicare lo stesso stile a più selettori (grouping selectors).</li>
+          <li>Scrivere blocchi CSS compatti raggruppando più <strong>dichiarazioni</strong> nello stesso <code>{ ... }</code>.</li>
+          <li>Conoscere il selettore universale <code>*</code> e quando è utile (e quando no).</li>
+        </ul>
+
+        <div class="callout warning">
+          <strong>Attenzione:</strong> <code>h2, p</code> (con virgola) e <code>h2 p</code> (senza virgola) NON sono la stessa cosa.
+          Oggi dovete saperlo spiegare.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Prerequisiti</h2>
+        <ul>
+          <li>Saper scrivere una regola CSS corretta (Lezione 1).</li>
+          <li>Capire cosa sono <code>h1</code>, <code>p</code>, classi (<code>.intro</code>) e ID (<code>#fine</code>) a livello base.</li>
+          <li>DevTools pronti: <kbd>F12</kbd> per controllare se la regola è applicata.</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Consegna Moodle (fine lezione):</strong> caricate il vostro <code>style.css</code> (o incollate il CSS) + 2 righe di commento:
+          “cosa ho raggruppato e perché”.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Warm-up (10 minuti)</h2>
+      <p>
+        Guardate queste due regole e rispondete: <strong>a quali elementi si applica</strong> ciascuna?
+        (Scrivete una frase in italiano, non solo “a tutto”.)
+      </p>
+
+      <div class="grid two">
+        <div class="panel">
+          <h3>Regola A (con virgola)</h3>
+          <pre><code class="language-css">h2, p {
+  color: #666;
+}</code></pre>
+        </div>
+
+        <div class="panel">
+          <h3>Regola B (senza virgola)</h3>
+          <pre><code class="language-css">h2 p {
+  color: #666;
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <strong>Risposta attesa (idea):</strong> la virgola crea una “lista” di selettori separati.
+        Senza virgola, lo spazio cambia tutto: significa “<em>p dentro h2</em>” (e spesso non esiste).
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>1) Grouping selectors: una regola, più bersagli</h2>
+        <p>
+          Quando più elementi devono avere lo stesso stile, evitate di ripetere il blocco.
+        </p>
+
+        <div class="grid two">
+          <div class="panel">
+            <h3>❌ Ripetitivo</h3>
+            <pre><code class="language-css">h2 { color: #444; }
+p  { color: #444; }
+li { color: #444; }</code></pre>
+          </div>
+
+          <div class="panel">
+            <h3>✅ Raggruppato</h3>
+            <pre><code class="language-css">h2, p, li {
+  color: #444;
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <strong>Regola pratica:</strong> raggruppate solo ciò che ha senso “stare insieme”.
+          Se poi <code>p</code> cambia, dovete poterlo separare facilmente.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>2) Raggruppare dichiarazioni: un blocco ben scritto</h2>
+        <p>
+          Dentro le graffe potete (e dovete) mettere più dichiarazioni, una per riga.
+          È il modo “normale” di scrivere CSS.
+        </p>
+
+        <pre><code class="language-css">.card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}</code></pre>
+
+        <div class="callout warning">
+          <strong>Errore tipico:</strong> dimenticare il <code>;</code> e far “saltare” la lettura del resto.
+          Se qualcosa non funziona, cercate prima quello.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>3) Il selettore universale <code>*</code>: potente ma da usare con criterio</h2>
+      <p>
+        <code>*</code> seleziona <strong>tutti</strong> gli elementi. È utile per piccoli reset, per box-sizing,
+        o per debugging. Ma può anche rendere il CSS più “aggressivo” del necessario.
+      </p>
+
+      <div class="grid two">
+        <div class="panel">
+          <h3>Esempio utile: box-sizing globale</h3>
+          <pre><code class="language-css">* {
+  box-sizing: border-box;
+}</code></pre>
+          <p class="muted">
+            Così padding e bordi non “allargano” in modo strano gli elementi.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>Esempio da evitare: stile “a martello”</h3>
+          <pre><code class="language-css">* {
+  color: red;
+}</code></pre>
+          <p class="muted">
+            Funziona, ma poi dovete combattere per sovrascrivere ovunque.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <strong>Consiglio:</strong> usate <code>*</code> per poche cose “di base” (reset/box-model).
+        Per il resto, selettori più specifici = meno problemi.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Attività pratica (25 minuti) — “CSS da verboso a pulito”</h2>
+      <p>
+        Scaricate/ricopiate questi due file in una cartella. Il CSS funziona, ma è ripetitivo.
+        Il vostro compito è <strong>ridurre righe e ripetizioni</strong> usando:
+        <strong>grouping selectors</strong>, blocchi ordinati, e (se serve) <code>*</code>.
+      </p>
+
+      <div class="grid two">
+        <article class="panel">
+          <h3>File 1 — index.html</h3>
+          <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Lezione 2 — Grouping&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="wrap"&gt;
+    &lt;h1&gt;Grouping selectors&lt;/h1&gt;
+    &lt;p class="lead"&gt;Obiettivo: meno ripetizioni, stesso risultato.&lt;/p&gt;
+
+    &lt;section class="card"&gt;
+      &lt;h2&gt;Titolo sezione&lt;/h2&gt;
+      &lt;p&gt;Testo di esempio.&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Voce 1&lt;/li&gt;
+        &lt;li&gt;Voce 2&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;a class="btn" href="#"&gt;Azione&lt;/a&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </article>
+
+        <article class="panel">
+          <h3>File 2 — style.css (da rifattorizzare)</h3>
+          <pre><code class="language-css">body {
+  font-family: system-ui;
+  background: #f6f6f6;
+  color: #222;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+h1 {
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+p {
+  color: #222;
+  line-height: 1.6;
+}
+
+li {
+  color: #222;
+  line-height: 1.6;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #222;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+}</code></pre>
+        </article>
+      </div>
+
+      <div class="callout warning">
+        <strong>Vincoli (obbligatori):</strong>
+        <ul>
+          <li>Usate almeno <strong>2</strong> raggruppamenti con la virgola (es: <code>h1, h2</code>).</li>
+          <li>Non cambiate l’HTML.</li>
+          <li>Il risultato visivo deve rimanere “praticamente uguale”.</li>
+        </ul>
+      </div>
+
+      <div class="callout info">
+        <strong>Bonus (facoltativo):</strong> aggiungete <code>* { box-sizing: border-box; }</code> e motivate in 1 riga.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Consegna Moodle (10 minuti finali)</h2>
+      <ol>
+        <li>Salvate il vostro <code>style.css</code> definitivo.</li>
+        <li>Caricatelo su Moodle (compito “Lezione 2 — Grouping”).</li>
+        <li>Nel testo della consegna scrivete 2 righe:
+          <ul>
+            <li>Quali selettori avete raggruppato?</li>
+            <li>Perché era sensato raggrupparli?</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="callout success">
+        <strong>Checklist rapida prima di consegnare:</strong>
+        <ul>
+          <li>Ci sono almeno 2 regole con <code>,</code> (grouping)?</li>
+          <li>Avete evitato ripetizioni inutili?</li>
+          <li>Il CSS è leggibile (una dichiarazione per riga, indentazione)?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exit ticket (Moodle) — 5 domande</h2>
+      <ol>
+        <li>Che differenza c’è tra <code>h2, p</code> e <code>h2 p</code>?</li>
+        <li>Scrivete una regola che applichi <code>color: #555;</code> a <code>h1</code>, <code>h2</code> e <code>h3</code>.</li>
+        <li>Quando ha senso usare il selettore universale <code>*</code>?</li>
+        <li>Perché il CSS “raggruppato” è più facile da mantenere?</li>
+        <li>Indicate un rischio nell’usare <code>*</code> per impostare tante proprietà.</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Tempo:</strong> 6–8 minuti. Consegnate entro fine ora.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Materiale per uso didattico interno • Non indicizzabile (noindex, nofollow)</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Non indicizzabile / no spider -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>TPSIT — CSS: classi e ID, quando usarli (Lezione 4)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="hero">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">TPSIT</span>
+          <span class="muted">CSS — Selettori (classi, ID, prime regole di specificità)</span>
+        </div>
+
+        <!-- Controlli tema / contrasto -->
+        <div class="theme-controls">
+          <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+            <span class="btn-label">Tema scuro 🌙</span>
+          </button>
+          <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+            Contrasto alto ☀️
+          </button>
+        </div>
+      </div>
+
+      <h1>Lezione 4 — Classi e ID: quando usarli e perché</h1>
+      <p class="lead">
+        Oggi lavorate “da sviluppatori”: non solo scrivere CSS, ma anche scegliere un HTML che si lasci
+        stilare bene. Imparate a usare <strong>classi</strong> per gruppi e <strong>ID</strong> per elementi unici.
+      </p>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="grid two">
+      <article class="card">
+        <h2>Obiettivi (oggi)</h2>
+        <ul>
+          <li>Usare correttamente <code>.classe</code> e <code>#id</code> nei selettori.</li>
+          <li>Capire la regola pratica: <strong>classe = ripetibile</strong>, <strong>ID = unico</strong>.</li>
+          <li>Scrivere CSS riutilizzabile: una classe “base” + piccole varianti.</li>
+          <li>Introduzione “soft” alla specificità: spesso <code>#id</code> vince su <code>.classe</code>.</li>
+        </ul>
+
+        <div class="callout warning">
+          <strong>Errore tipico:</strong> usare lo stesso <code>id</code> su più elementi.
+          In HTML l’ID deve essere <strong>unico</strong> nella pagina.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Prerequisiti</h2>
+        <ul>
+          <li>Lezione 1: sintassi delle regole CSS.</li>
+          <li>Lezione 2: raggruppamento con virgola.</li>
+          <li>Lezione 3: combinatori (spazio, <code>&gt;</code>, <code>+</code>, <code>~</code>).</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Consegna Moodle (fine lezione):</strong> caricate una cartella ZIP con
+          <code>index.html</code> + <code>style.css</code> (oppure caricate i 2 file separati se Moodle lo consente).
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Warm-up (10 minuti) — “classe o ID?”</h2>
+      <p>Per ciascun caso scrivete: “userei una classe” oppure “userei un ID”, e perché.</p>
+      <ol>
+        <li>Il bottone “Contattaci” che compare in 3 sezioni diverse.</li>
+        <li>Il blocco “Cookie banner” (uno solo in pagina).</li>
+        <li>Tutti i paragrafi di introduzione (stesso stile in più pagine).</li>
+        <li>Il link “Torna su” che punta a un punto preciso della pagina.</li>
+      </ol>
+      <div class="callout success">
+        <strong>Regola pratica:</strong> se uno stile deve essere riusato, pensate prima alla <strong>classe</strong>.
+        L’<strong>ID</strong> è ottimo per “pezzi unici” e per ancore.
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>1) Classi: “etichette” riutilizzabili</h2>
+        <p>
+          Una classe si assegna con <code>class="nome"</code> e si seleziona con <code>.nome</code>.
+          Potete metterla su quanti elementi volete.
+        </p>
+
+        <pre><code class="language-html">&lt;a class="btn" href="#"&gt;Azione&lt;/a&gt;
+&lt;a class="btn" href="#"&gt;Scarica&lt;/a&gt;</code></pre>
+
+        <pre><code class="language-css">.btn {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+}</code></pre>
+
+        <div class="callout info">
+          <strong>Classi multiple:</strong> potete assegnare più classi allo stesso elemento:
+          <code>class="btn btn-primary"</code>.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>2) ID: elemento unico + ancore</h2>
+        <p>
+          Un ID si assegna con <code>id="nome"</code> e si seleziona con <code>#nome</code>.
+          Deve comparire <strong>una sola volta</strong> nella pagina.
+        </p>
+
+        <pre><code class="language-html">&lt;h2 id="contatti"&gt;Contatti&lt;/h2&gt;
+&lt;a href="#contatti"&gt;Vai ai contatti&lt;/a&gt;</code></pre>
+
+        <pre><code class="language-css">#contatti {
+  scroll-margin-top: 20px;
+}</code></pre>
+
+        <div class="callout warning">
+          <strong>Non usate l’ID per “tutto”.</strong>
+          Se lo riusate, state cercando una classe.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>3) Specificità (introduzione pratica)</h2>
+      <p>
+        Quando due regole provano a stilare lo stesso elemento, il browser decide “chi vince”.
+        Senza fare formule: spesso <strong><code>#id</code> è più forte di <code>.classe</code></strong>.
+      </p>
+
+      <pre><code class="language-html">&lt;a id="cta" class="btn" href="#"&gt;Iscriviti&lt;/a&gt;</code></pre>
+
+      <pre><code class="language-css">.btn { background: #222; color: #fff; }
+#cta  { background: #0b5; }</code></pre>
+
+      <div class="callout info">
+        <strong>Idea chiave:</strong> usate questa “forza” con giudizio.
+        Meglio costruire CSS con classi ben pensate, e usare l’ID solo quando serve davvero.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Attività pratica (25 minuti) — “HTML che si lascia stilare”</h2>
+      <p>
+        Create una cartella con questi file. Obiettivo: aggiungere <strong>classi sensate</strong>,
+        usare <strong>un ID unico</strong> per l’ancora, e scrivere un CSS pulito e riutilizzabile.
+      </p>
+
+      <div class="grid two">
+        <article class="panel">
+          <h3>File 1 — index.html (da completare)</h3>
+          <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Lezione 4 — Classi e ID&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;Mini pagina&lt;/h1&gt;
+    &lt;p&gt;Scegliete classi/ID per rendere il CSS riutilizzabile.&lt;/p&gt;
+    &lt;nav&gt;
+      &lt;a href="#sezione"&gt;Vai alla sezione&lt;/a&gt;
+      &lt;a href="#fine"&gt;Vai in fondo&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2 id="sezione"&gt;Sezione&lt;/h2&gt;
+      &lt;p&gt;Qui c’è un testo normale.&lt;/p&gt;
+
+      &lt;a href="#"&gt;Azione 1&lt;/a&gt;
+      &lt;a href="#"&gt;Azione 2&lt;/a&gt;
+      &lt;a href="#"&gt;Azione 3&lt;/a&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Altra sezione&lt;/h2&gt;
+      &lt;p&gt;Altro testo.&lt;/p&gt;
+
+      &lt;a href="#"&gt;Azione 4&lt;/a&gt;
+      &lt;a href="#"&gt;Azione 5&lt;/a&gt;
+    &lt;/section&gt;
+
+    &lt;footer&gt;
+      &lt;p id="fine"&gt;Fine pagina.&lt;/p&gt;
+      &lt;a href="#top"&gt;Torna su&lt;/a&gt;
+    &lt;/footer&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+          <div class="callout warning">
+            <strong>Nota:</strong> c’è un problema: il link “Torna su” punta a <code>#top</code> ma nell’HTML non esiste.
+            Sistemate usando un ID unico.
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>File 2 — style.css (da scrivere voi)</h3>
+          <pre><code class="language-css">/* Compito:
+1) Date una classe comune a tutti i link-azione (es: .btn) e stilateli come bottoni.
+2) Create una variante (es: .btn-primary) per 1 solo bottone “importante”.
+3) Stilate i contenitori sezione come “card” (bordo leggero + padding + raggio).
+4) Rendete il menu (nav) leggibile: link senza sottolineatura, un po’ di spazio tra loro.
+5) Usate 1 ID solo per l’ancora “top” e fate funzionare “Torna su”.
+
+Vincoli:
+- Niente ID ripetuti.
+- Almeno 2 classi riutilizzabili (es: .card, .btn).
+- CSS ordinato: una dichiarazione per riga, ; sempre.
+*/</code></pre>
+        </article>
+      </div>
+
+      <div class="callout info">
+        <strong>Suggerimento:</strong> prima aggiungete le classi in HTML (card, btn, ecc.), poi scrivete CSS.
+        Se vi ritrovate a ripetere 3 volte la stessa regola, probabilmente vi manca una classe.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Consegna Moodle (10 minuti finali)</h2>
+      <ol>
+        <li>Controllate che i link funzionino: “Vai alla sezione”, “Vai in fondo”, “Torna su”.</li>
+        <li>Controllate che tutte le “azioni” abbiano lo stesso stile base (classe comune).</li>
+        <li>Caricate <code>index.html</code> e <code>style.css</code> (ZIP o file singoli).</li>
+      </ol>
+
+      <div class="callout success">
+        <strong>Checklist rapida:</strong>
+        <ul>
+          <li>Avete usato <code>.btn</code> per tutti i bottoni?</li>
+          <li>Avete usato <code>.card</code> per entrambe le sezioni?</li>
+          <li>Avete usato un solo <code>#top</code> e ora “Torna su” funziona?</li>
+          <li>Nessun ID ripetuto?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exit ticket (Moodle) — 6 domande</h2>
+      <ol>
+        <li>Differenza tra <code>.classe</code> e <code>#id</code>?</li>
+        <li>Perché l’ID deve essere unico?</li>
+        <li>Scrivete un esempio di elemento con due classi.</li>
+        <li>Quando usate un ID invece di una classe?</li>
+        <li>Chi “vince” di solito tra una regola con <code>.classe</code> e una con <code>#id</code>?</li>
+        <li>Che vantaggio ha creare una classe base (<code>.btn</code>) e una variante (<code>.btn-primary</code>)?</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Tempo:</strong> 7–9 minuti. Consegnate entro fine ora.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Materiale per uso didattico interno • Non indicizzabile (noindex, nofollow)</p>
+    </footer>
+  </main>
+</body>
+</html>

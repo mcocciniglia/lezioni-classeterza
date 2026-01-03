@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Non indicizzabile / no spider -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>TPSIT — CSS: combinatori e selettori discendenti (Lezione 3)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+  <style>
+  .img-dom{
+    max-width: 720px;   /* cambia valore: 560 / 640 / 720 / 900 */
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+</style>
+
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="hero">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">TPSIT</span>
+          <span class="muted">CSS — Capitolo: Selectors</span>
+        </div>
+
+        <!-- Controlli tema / contrasto -->
+        <div class="theme-controls">
+          <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+            <span class="btn-label">Tema scuro 🌙</span>
+          </button>
+          <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+            Contrasto alto ☀️
+          </button>
+        </div>
+      </div>
+
+      <h1>Lezione 3 — Struttura del DOM e combinatori: discendente, figlio, fratelli</h1>
+      <p class="lead">
+        Oggi impararete a selezionare gli elementi in base a <strong>dove si trovano</strong> nella pagina
+        (relazioni tra elementi: dentro, figlio diretto, accanto…).
+      </p>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="grid two">
+      <article class="card">
+        <h2>Obiettivi (oggi)</h2>
+        <ul>
+          <li>Capire l’idea di <strong>DOM</strong> come albero (genitore/figlio/antenato/discendente).</li>
+          <li>Usare il combinatore <strong>discendente</strong> (spazio): <code>nav a</code>, <code>article p</code>.</li>
+          <li>Usare il combinatore <strong>figlio diretto</strong> (<code>&gt;</code>): <code>ul &gt; li</code>.</li>
+          <li>Riconoscere e usare i combinatori tra <strong>fratelli</strong>: <code>+</code> e <code>~</code>.</li>
+          <li>Leggere un selettore in modo “furbo”: spesso conviene partire da destra (chi sto selezionando?)</li>
+        </ul>
+
+        <div class="callout warning">
+          <strong>Errore classico:</strong> confondere <code>h2, p</code> (virgola) con <code>h2 p</code> (spazio).
+          La virgola raggruppa, lo spazio crea una relazione “dentro”.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Prerequisiti</h2>
+        <ul>
+          <li>Lezione 1: sintassi regole e debugging.</li>
+          <li>Lezione 2: raggruppamento con virgola (grouping).</li>
+          <li>DevTools: ispeziona elemento (<kbd>F12</kbd>) e guardate la struttura HTML.</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Consegna Moodle (fine lezione):</strong> un file <code>style.css</code> con 6 selettori corretti
+          (discendente, figlio diretto, +, ~) + 1 riga di commento per ciascuno.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>1) DOM in 2 minuti: pensatelo come un albero</h2>
+      <p>
+        In HTML gli elementi sono “annidati” uno dentro l’altro. Quindi si formano relazioni:
+      </p>
+      <ul>
+        <li><strong>genitore</strong> / <strong>figlio</strong> (diretto)</li>
+        <li><strong>antenato</strong> / <strong>discendente</strong> (anche non diretto)</li>
+        <li><strong>fratelli</strong> (stesso genitore)</li>
+      </ul>
+
+      <!-- ✅ SEGNAPOSTO IMMAGINE: sostituite il src con il vostro file -->
+      <figure class="panel" role="group" aria-label="Schema ad albero del documento HTML">
+        <img
+          src="img/dom.png"
+          alt="Schema ad albero del DOM: dalla radice html si diramano head e body; all'interno del body compaiono elementi annidati come header, main, section e paragrafi."
+          loading="lazy"
+		  class="img-dom"
+        />
+        <figcaption class="muted">
+          <strong>Figura:</strong> rappresentazione “ad albero” del DOM. I nodi più interni sono
+          <em>discendenti</em> dei nodi esterni; i nodi allo stesso livello possono essere <em>fratelli</em>.
+        </figcaption>
+      </figure>
+
+      <pre><code class="language-html">&lt;article&gt;
+  &lt;h2&gt;Titolo&lt;/h2&gt;
+  &lt;p&gt;Paragrafo&lt;/p&gt;
+  &lt;div&gt;
+    &lt;p&gt;Paragrafo dentro un div&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+
+      <div class="callout success">
+        <strong>Domanda guida:</strong> quando scrivete un selettore chiedetevi:
+        “voglio selezionare un elemento per <em>nome</em> (tipo p), per <em>classe</em>, o per <em>posizione</em> (dentro/accanto)?”
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>2) Combinatore discendente (spazio)</h2>
+        <p>
+          Lo spazio significa: “seleziona X che sta <strong>da qualche parte dentro</strong> Y”.
+          Non serve che sia figlio diretto.
+        </p>
+
+        <pre><code class="language-css">article p {
+  line-height: 1.7;
+}</code></pre>
+
+        <p class="muted">
+          Si applica a tutti i <code>p</code> che stanno dentro un <code>article</code>, anche se sono dentro altri contenitori intermedi.
+        </p>
+
+        <div class="callout info">
+          <strong>Trucco di lettura:</strong> leggete da destra: sto selezionando i <code>p</code>.
+          Il resto (“article …”) è un filtro sul contesto.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>3) Combinatore figlio diretto (<code>&gt;</code>)</h2>
+        <p>
+          <code>&gt;</code> significa: “seleziona X che è <strong>figlio diretto</strong> di Y”.
+        </p>
+
+        <pre><code class="language-css">ul &gt; li {
+  margin-bottom: 6px;
+}</code></pre>
+
+        <p class="muted">
+          Se un <code>li</code> è dentro un altro <code>ul</code> annidato, NON viene preso (perché non è figlio diretto dell’ul esterno).
+        </p>
+
+        <div class="callout warning">
+          <strong>Quando usarlo:</strong> quando volete evitare effetti “a cascata” su elementi annidati.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>4) Combinatori tra fratelli: <code>+</code> e <code>~</code></h2>
+
+      <div class="grid two">
+        <div class="panel">
+          <h3><code>+</code> Fratello adiacente</h3>
+          <p>Seleziona l’elemento subito dopo.</p>
+          <pre><code class="language-css">h2 + p {
+  margin-top: 0;
+}</code></pre>
+          <p class="muted">Prende il <code>p</code> immediatamente dopo un <code>h2</code>.</p>
+        </div>
+
+        <div class="panel">
+          <h3><code>~</code> Fratelli successivi</h3>
+          <p>Seleziona tutti i fratelli successivi (non per forza immediati).</p>
+          <pre><code class="language-css">h2 ~ p {
+  color: #555;
+}</code></pre>
+          <p class="muted">Prende tutti i <code>p</code> che vengono dopo un <code>h2</code> nello stesso contenitore.</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>Quando sono utili?</strong> Per layout “puliti” e tipografia:
+        ad esempio spazio diverso tra titolo e primo paragrafo, o stile diverso per paragrafi dopo un sottotitolo.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Warm-up (10 minuti) — “A chi si applica?”</h2>
+      <p>
+        Per ogni selettore scrivete una frase: “Seleziona … che …”.
+      </p>
+      <ol>
+        <li><code>nav a</code></li>
+        <li><code>.card &gt; h2</code></li>
+        <li><code>h2 + p</code></li>
+        <li><code>h2 ~ p</code></li>
+      </ol>
+
+      <div class="callout success">
+        <strong>Obiettivo:</strong> usare le parole giuste: “dentro”, “figlio diretto”, “subito dopo”, “tutti dopo”.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Attività pratica (25 minuti) — 6 selettori “a vincolo”</h2>
+      <p>
+        Copiate i file in una cartella. Non cambiate l’HTML.
+        Dovete completare <code>style.css</code> scrivendo i selettori richiesti.
+      </p>
+
+      <div class="grid two">
+        <article class="panel">
+          <h3>File 1 — index.html</h3>
+          <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Lezione 3 — Combinatori&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="top"&gt;
+    &lt;h1&gt;Combinatori CSS&lt;/h1&gt;
+    &lt;nav class="menu"&gt;
+      &lt;a href="#a"&gt;Home&lt;/a&gt;
+      &lt;a href="#b"&gt;Articoli&lt;/a&gt;
+      &lt;a href="#c"&gt;Contatti&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main class="wrap"&gt;
+    &lt;article class="post"&gt;
+      &lt;h2&gt;Titolo articolo&lt;/h2&gt;
+      &lt;p&gt;Questo è il primo paragrafo dopo l’h2.&lt;/p&gt;
+      &lt;p&gt;Questo è un paragrafo successivo.&lt;/p&gt;
+
+      &lt;div class="note"&gt;
+        &lt;h3&gt;Nota&lt;/h3&gt;
+        &lt;p&gt;Paragrafo dentro .note&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;ul class="lista"&gt;
+        &lt;li&gt;Voce 1&lt;/li&gt;
+        &lt;li&gt;Voce 2
+          &lt;ul&gt;
+            &lt;li&gt;Sotto-voce 2.1&lt;/li&gt;
+            &lt;li&gt;Sotto-voce 2.2&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;Voce 3&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/article&gt;
+
+    &lt;aside class="sidebar"&gt;
+      &lt;h2&gt;Sidebar&lt;/h2&gt;
+      &lt;p&gt;Testo in sidebar.&lt;/p&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </article>
+
+        <article class="panel">
+          <h3>File 2 — style.css (da completare)</h3>
+          <pre><code class="language-css">/* Base */
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui;
+  margin: 0;
+  background: #f6f6f6;
+  color: #222;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+}
+
+.post, .sidebar {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* ====== COMPITI (scrivete i selettori) ======
+1) Selezionate SOLO i link dentro .menu e togliete la sottolineatura.
+2) Selezionate SOLO l'h2 che è figlio diretto di .post e dategli margin-top: 0;
+3) Selezionate il p che viene SUBITO DOPO un h2 (solo quello) e dategli font-weight: 600;
+4) Selezionate tutti i p successivi a un h2 (tranne il primo) e dategli color: #555;
+5) Selezionate SOLO i li figli diretti di .lista e dategli margin: 6px 0;
+6) Selezionate SOLO i p dentro .note e dategli background: #fff7d6; padding: 8px; border-radius: 10px;
+*/</code></pre>
+        </article>
+      </div>
+
+      <div class="callout warning">
+        <strong>Vincoli:</strong>
+        <ul>
+          <li>Non modificate l’HTML.</li>
+          <li>Per ogni punto usate il combinatore richiesto (spazio, &gt;, +, ~).</li>
+          <li>Le regole devono essere “pulite”: una dichiarazione per riga, chiudete sempre con <code>;</code>.</li>
+        </ul>
+      </div>
+
+      <details class="callout info">
+        <summary><strong>Soluzione (aprire solo per autocorrezione)</strong></summary>
+        <pre><code class="language-css">/* 1) link dentro .menu */
+.menu a {
+  text-decoration: none;
+}
+
+/* 2) h2 figlio diretto di .post */
+.post &gt; h2 {
+  margin-top: 0;
+}
+
+/* 3) il p subito dopo un h2 */
+h2 + p {
+  font-weight: 600;
+}
+
+/* 4) tutti i p successivi a un h2 */
+h2 ~ p {
+  color: #555;
+}
+
+/* opzionale: il primo p dopo h2 rimane più scuro */
+h2 + p {
+  color: #222;
+}
+
+/* 5) li figli diretti di .lista */
+.lista &gt; li {
+  margin: 6px 0;
+}
+
+/* 6) p dentro .note */
+.note p {
+  background: #fff7d6;
+  padding: 8px;
+  border-radius: 10px;
+}</code></pre>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Consegna Moodle (10 minuti finali)</h2>
+      <ol>
+        <li>Caricate <code>style.css</code> (con tutte e 6 le regole).</li>
+        <li>Per ogni regola aggiungete una riga di commento sopra, ad esempio:
+          <code>/* Seleziona i link dentro il menu */</code></li>
+      </ol>
+
+      <div class="callout success">
+        <strong>Checklist:</strong>
+        <ul>
+          <li>Avete usato almeno una volta: spazio, <code>&gt;</code>, <code>+</code>, <code>~</code>?</li>
+          <li>Nessuna sottolineatura nei link del menu?</li>
+          <li>Solo i <code>li</code> principali hanno il margine (non le sotto-voci)?</li>
+          <li>I <code>p</code> dentro <code>.note</code> sono evidenziati?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exit ticket (Moodle) — 6 domande</h2>
+      <ol>
+        <li>Cosa significa il combinatore discendente (spazio)?</li>
+        <li>Differenza tra <code>ul li</code> e <code>ul &gt; li</code>?</li>
+        <li>Cosa seleziona <code>h2 + p</code>?</li>
+        <li>Cosa seleziona <code>h2 ~ p</code>?</li>
+        <li>Scrivete un selettore che seleziona i <code>p</code> dentro <code>.sidebar</code>.</li>
+        <li>Perché è utile “leggere da destra” un selettore?</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Tempo:</strong> 7–9 minuti. Consegnate entro fine ora.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Materiale per uso didattico interno • Non indicizzabile (noindex, nofollow)</p>
+    </footer>
+  </main>
+</body>
+</html>

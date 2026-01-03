@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Non indicizzabile / no spider -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>TPSIT — CSS: pseudo-elementi + ripasso da verifica (Lezione 6)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="hero">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">TPSIT</span>
+          <span class="muted">CSS — Selectors: ripasso + chiusura modulo</span>
+        </div>
+
+        <!-- Controlli tema / contrasto -->
+        <div class="theme-controls">
+          <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+            <span class="btn-label">Tema scuro 🌙</span>
+          </button>
+          <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+            Contrasto alto ☀️
+          </button>
+        </div>
+      </div>
+
+      <h1>Lezione 6 — Pseudo-elementi (<code>::before</code>, <code>::after</code>) + ripasso “da verifica”</h1>
+      <p class="lead">
+        Oggi chiudete il capitolo: vedete come aggiungere piccoli elementi grafici senza modificare l’HTML
+        (pseudo-elementi) e fate una prova mista in stile verifica.
+      </p>
+
+      <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="grid two">
+      <article class="card">
+        <h2>Obiettivi (oggi)</h2>
+        <ul>
+          <li>Capire cosa sono i <strong>pseudo-elementi</strong> e quando usarli.</li>
+          <li>Usare <code>::before</code> e <code>::after</code> con <code>content</code>.</li>
+          <li>Ripassare: grouping, combinatori, classi/ID, attributi e pseudo-classi.</li>
+          <li>Allenarsi con esercizi “a vincolo” come in CodeRunner.</li>
+        </ul>
+
+        <div class="callout warning">
+          <strong>Regola d’oro:</strong> pseudo-elementi = “decorazione / supporto visivo”.
+          Se l’informazione è importante (contenuto), deve stare nell’HTML.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Come lavoriamo</h2>
+        <ul>
+          <li>15’ pseudo-elementi (con mini-demo)</li>
+          <li>25’ esercitazione mista “da verifica”</li>
+          <li>10’ autocorrezione + domande</li>
+          <li>10’ exit ticket su Moodle</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Consegna Moodle (fine lezione):</strong> caricate <code>style.css</code> dell’esercizio mista.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>1) Pseudo-elementi: che cosa sono</h2>
+      <p>
+        Uno pseudo-elemento rappresenta una “parte” dell’elemento, o un elemento “virtuale” inserito prima/dopo.
+        I più usati sono:
+      </p>
+      <ul>
+        <li><code>::before</code> — crea un contenuto prima del contenuto reale</li>
+        <li><code>::after</code> — crea un contenuto dopo il contenuto reale</li>
+        <li><code>::first-letter</code>, <code>::first-line</code> (meno usati, ma utili in tipografia)</li>
+      </ul>
+
+      <div class="callout info">
+        <strong>Importantissimo:</strong> <code>::before</code> e <code>::after</code> funzionano solo se c’è
+        <code>content</code> (anche vuoto: <code>content: "";</code>).
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>2) Esempio base: “badge” davanti al titolo</h2>
+        <pre><code class="language-html">&lt;h2 class="topic"&gt;Selettori discendenti&lt;/h2&gt;</code></pre>
+
+        <pre><code class="language-css">.topic::before {
+  content: "📌";
+  margin-right: 8px;
+}</code></pre>
+
+        <div class="callout success">
+          <strong>Uso tipico:</strong> icone, badge, virgolette, separatori, “NEW”, “TODO”, ecc.
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>3) Esempio pratico: separatore dopo un link</h2>
+        <pre><code class="language-html">&lt;a class="tag" href="#"&gt;CSS&lt;/a&gt;</code></pre>
+
+        <pre><code class="language-css">.tag::after {
+  content: " •";
+  opacity: 0.6;
+}</code></pre>
+
+        <div class="callout warning">
+          <strong>Attenzione:</strong> se il separatore è informazione vera (non decorazione),
+          allora va messo nell’HTML.
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Warm-up (5 minuti) — vero o falso</h2>
+      <ol>
+        <li><strong>V/F</strong>: <code>::before</code> funziona anche senza <code>content</code>.</li>
+        <li><strong>V/F</strong>: uno pseudo-elemento può essere stilato (colori, margin, ecc.).</li>
+        <li><strong>V/F</strong>: gli pseudo-elementi sono ottimi per aggiungere contenuto importante.</li>
+      </ol>
+
+      <details class="callout info">
+        <summary><strong>Soluzioni</strong></summary>
+        <p><strong>1) F</strong> — serve <code>content</code>. <strong>2) V</strong>. <strong>3) F</strong> — per contenuto importante serve HTML.</p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Attività pratica (25 minuti) — Esercizio “misto” (stile verifica)</h2>
+      <p>
+        Copiate i due file e completate <code>style.css</code> rispettando i vincoli.
+        Non cambiate l’HTML.
+      </p>
+
+      <div class="grid two">
+        <article class="panel">
+          <h3>File 1 — index.html</h3>
+          <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Lezione 6 — Ripasso Selettori&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="wrap"&gt;
+
+    &lt;header class="card"&gt;
+      &lt;h1&gt;Ripasso selettori&lt;/h1&gt;
+      &lt;p class="lead"&gt;Obiettivo: scrivere selettori precisi e leggibili.&lt;/p&gt;
+
+      &lt;nav class="menu"&gt;
+        &lt;a href="#intro"&gt;Intro&lt;/a&gt;
+        &lt;a href="#form"&gt;Form&lt;/a&gt;
+        &lt;a href="docs/guida.pdf"&gt;Guida PDF&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;section id="intro" class="card"&gt;
+      &lt;h2 class="topic"&gt;Combinatori&lt;/h2&gt;
+      &lt;p&gt;Paragrafo subito dopo il titolo.&lt;/p&gt;
+      &lt;p&gt;Paragrafo successivo.&lt;/p&gt;
+
+      &lt;ul class="lista"&gt;
+        &lt;li&gt;Voce 1&lt;/li&gt;
+        &lt;li&gt;Voce 2
+          &lt;ul&gt;
+            &lt;li&gt;Sotto-voce 2.1&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;Voce 3&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section id="form" class="card"&gt;
+      &lt;h2 class="topic"&gt;Form&lt;/h2&gt;
+
+      &lt;label&gt;Email
+        &lt;input type="email" name="email" required&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;Codice (3 lettere + 3 numeri)
+        &lt;input type="text" name="codice" pattern="[A-Za-z]{3}[0-9]{3}" required&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;&lt;input type="checkbox" name="privacy" required&gt; Accetto privacy (obbligatorio)&lt;/label&gt;
+
+      &lt;button class="btn" type="button"&gt;Invia&lt;/button&gt;
+      &lt;p class="hint"&gt;Provate: focus, valori validi/invalidi, checkbox spuntata.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;footer class="card"&gt;
+      &lt;p&gt;Fine pagina.&lt;/p&gt;
+      &lt;a class="back" href="#intro"&gt;Torna su&lt;/a&gt;
+    &lt;/footer&gt;
+
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </article>
+
+        <article class="panel">
+          <h3>File 2 — style.css (base + compiti)</h3>
+          <pre><code class="language-css">/* Base */
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui;
+  margin: 0;
+  background: #f6f6f6;
+  color: #222;
+}
+
+.wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.menu a {
+  margin-right: 10px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 0;
+  background: #222;
+  color: #fff;
+}
+
+/* ====== COMPITI (scrivete SOLO i selettori e le regole richieste) ======
+1) GROUPING: applicate lo stesso stile (letter-spacing: .5px;) a h1 e a tutti gli h2.
+2) COMBINATORI:
+   2a) Selezionate SOLO il p subito dopo un h2 e mettetegli font-weight: 700;
+   2b) Selezionate tutti i p successivi a un h2 e mettetegli color: #555;
+   2c) Selezionate SOLO i li figli diretti di .lista e mettetegli margin: 6px 0;
+3) ATTRIBUTI:
+   3a) Selezionate i link che finiscono con .pdf e sottolineateli.
+4) PSEUDO-CLASSI FORM:
+   4a) Selezionate input:required e fate border-left: 6px solid #ffb000;
+   4b) Selezionate input:focus e fate outline: 3px solid #ffb000; outline-offset: 2px;
+   4c) Selezionate input:invalid e fate border-color: #e44;
+   4d) Selezionate input[required]:valid e fate border-color: #2a7;
+5) PSEUDO-ELEMENTI:
+   5a) Davanti a ogni .topic aggiungete un'icona con ::before (usate content: "🧩";)
+   5b) Dopo il link .back aggiungete con ::after il testo " ↑" (freccia su)
+Vincoli:
+- Non cambiate l'HTML.
+- Scrivete CSS ordinato e leggibile.
+*/</code></pre>
+        </article>
+      </div>
+
+      <details class="callout info">
+        <summary><strong>Soluzione possibile (aprire solo per autocorrezione)</strong></summary>
+        <pre><code class="language-css">/* 1) GROUPING */
+h1, h2 {
+  letter-spacing: .5px;
+}
+
+/* 2a) p subito dopo h2 */
+h2 + p {
+  font-weight: 700;
+}
+
+/* 2b) tutti i p successivi a h2 */
+h2 ~ p {
+  color: #555;
+}
+
+/* opzionale: il primo resta più scuro se volete */
+h2 + p {
+  color: #222;
+}
+
+/* 2c) li figli diretti di .lista */
+.lista > li {
+  margin: 6px 0;
+}
+
+/* 3a) link che finiscono con .pdf */
+a[href$=".pdf"] {
+  text-decoration: underline;
+}
+
+/* 4a) required */
+input:required {
+  border-left: 6px solid #ffb000;
+}
+
+/* 4b) focus */
+input:focus {
+  outline: 3px solid #ffb000;
+  outline-offset: 2px;
+}
+
+/* 4c) invalid */
+input:invalid {
+  border-color: #e44;
+}
+
+/* 4d) valid (required) */
+input[required]:valid {
+  border-color: #2a7;
+}
+
+/* 5a) pseudo-elemento prima del titolo */
+.topic::before {
+  content: "🧩";
+  margin-right: 8px;
+}
+
+/* 5b) pseudo-elemento dopo il link torna su */
+.back::after {
+  content: " ↑";
+  opacity: .7;
+}</code></pre>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Autovalutazione veloce (5 minuti)</h2>
+      <p>Prima di consegnare, controllate:</p>
+      <ul>
+        <li>I titoli hanno letter-spacing? (grouping)</li>
+        <li>Il primo paragrafo dopo ogni h2 è più “forte”? ( <code>+</code> )</li>
+        <li>Tutti i paragrafi dopo h2 sono grigi? ( <code>~</code> )</li>
+        <li>Solo i <code>li</code> principali hanno margine (non le sotto-voci)? ( <code>&gt;</code> )</li>
+        <li>I campi required hanno la banda a sinistra? E focus/valid/invalid funzionano?</li>
+        <li>I titoli hanno l’icona e “Torna su” ha la freccia?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Exit ticket (Moodle) — 10 minuti</h2>
+      <ol>
+        <li>Scrivete un esempio di grouping selectors.</li>
+        <li>Differenza tra <code>h2 + p</code> e <code>h2 ~ p</code>?</li>
+        <li>Scrivete un selettore che seleziona solo i figli diretti (<code>&gt;</code>).</li>
+        <li>Scrivete un selettore che seleziona i link a PDF.</li>
+        <li>Cosa fa uno pseudo-elemento e perché serve <code>content</code>?</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Consegna:</strong> caricate <code>style.css</code> dell’esercizio “misto”.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Materiale per uso didattico interno • Non indicizzabile (noindex, nofollow)</p>
+    </footer>
+  </main>
+</body>
+</html>
