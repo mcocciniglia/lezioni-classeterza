@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Guida a casa: installare VS Code e attivare il Preview HTML</title>
+  <meta name="description" content="Guida passo passo per installare Visual Studio Code (anche portable) e attivare un'estensione per il preview delle pagine HTML." />
+
+  <!-- NON indicizzabile -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Asset comuni del progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+  <script defer src="../../common/assets/theme.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>Installare VS Code e vedere l’anteprima delle pagine HTML</h1>
+      <p class="subtitle">
+        Guida da svolgere a casa. Obiettivo: aprire un file <code>.html</code> e vederlo nel browser con un preview rapido.
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">Modalita: a casa • Strumenti: PC + connessione Internet</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container narrow">
+
+    <section class="panel callout">
+      <h2>Cosa faremo</h2>
+      <ul>
+        <li>Installare <strong>Visual Studio Code</strong> (versione normale) oppure preparare la versione <strong>portable</strong>.</li>
+        <li>Aprire una cartella di lavoro e creare un file <code>index.html</code>.</li>
+        <li>Installare e usare un’estensione per il <strong>preview</strong> delle pagine (consigliata: <strong>Live Server</strong>).</li>
+      </ul>
+
+      <div class="box">
+        <strong>Link utili (ufficiali)</strong>
+        <ul>
+          <li>
+            Download VS Code:
+            <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">
+              https://code.visualstudio.com/download
+            </a>
+          </li>
+          <li>
+            Guida ufficiale “Portable Mode”:
+            <a href="https://code.visualstudio.com/docs/editor/portable" target="_blank" rel="noopener noreferrer">
+              https://code.visualstudio.com/docs/editor/portable
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>1) Installazione “normale” (consigliata): Windows</h2>
+
+      <ol class="steps">
+        <li>
+          <h3>Scaricate VS Code dal sito ufficiale</h3>
+          <p>
+            Andate su
+            <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">code.visualstudio.com/download</a>
+            e nella sezione <strong>Windows</strong> scegliete:
+            <strong>User Installer (x64)</strong> (nella maggior parte dei PC).
+          </p>
+
+          <details class="tip">
+            <summary>Se non sapete quale scegliere</summary>
+            <p>
+              Di solito va bene <strong>User Installer x64</strong>. Se avete un PC ARM (raro) scegliete <strong>Arm64</strong>.
+              Se non avete i permessi di amministratore, <strong>User Installer</strong> e spesso la scelta piu semplice.
+            </p>
+          </details>
+        </li>
+
+        <li>
+          <h3>Eseguite l’installer</h3>
+          <p>
+            Aprite il file scaricato (di solito si chiama <code>VSCodeUserSetup-....exe</code>) e seguite la procedura guidata.
+          </p>
+          <div class="box">
+            <strong>Consigli durante l’installazione</strong>
+            <ul>
+              <li>Se compare l’opzione <em>Add to PATH</em>, potete attivarla (utile, ma non obbligatoria).</li>
+              <li>Se compare l’opzione per aggiungere “Apri con Code” nel menu tasto destro, potete attivarla (comoda per aprire cartelle).</li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <h3>Avvio iniziale</h3>
+          <p>
+            Alla fine, avviate Visual Studio Code dal menu Start.
+          </p>
+        </li>
+      </ol>
+
+      <details class="warning">
+        <summary>Se usate Mac o Linux</summary>
+        <p>
+          La logica e molto simile: si scarica dal sito ufficiale e si installa il pacchetto adatto.
+          Partite sempre dalla pagina:
+          <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">https://code.visualstudio.com/download</a>
+        </p>
+      </details>
+    </section>
+
+    <section class="panel">
+      <h2>2) Alternativa: VS Code “portable” (senza installare)</h2>
+
+      <p>
+        “Portable” significa che <strong>VS Code gira da una cartella</strong> (anche su chiavetta) e puo tenere
+        <strong>impostazioni ed estensioni</strong> nella stessa cartella, senza installare nulla nel sistema.
+      </p>
+
+      <div class="box">
+        <strong>Quando conviene portable?</strong>
+        <ul>
+          <li>Non avete permessi di installazione sul PC.</li>
+          <li>Volete portare VS Code su una chiavetta e usarlo su piu PC.</li>
+          <li>Volete tenere tutto “in una cartella” (programma + dati + estensioni).</li>
+        </ul>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <h3>Scaricate la versione .zip</h3>
+          <p>
+            Dal sito di download ufficiale scegliete <strong>.zip (x64)</strong> invece dell’installer:
+            <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">https://code.visualstudio.com/download</a>
+          </p>
+        </li>
+
+        <li>
+          <h3>Estraete lo ZIP in una cartella vostra</h3>
+          <p>
+            Esempio: <code>D:\Programmi\VSCodePortable\</code> oppure una cartella su Desktop/Documenti.
+            Dentro troverete l’eseguibile <code>Code.exe</code>.
+          </p>
+        </li>
+
+        <li>
+          <h3>Attivate il Portable Mode creando la cartella <code>data</code></h3>
+          <p>
+            Nella stessa cartella dove c’e <code>Code.exe</code>, create una cartella chiamata esattamente: <code>data</code>.
+            Guida ufficiale:
+            <a href="https://code.visualstudio.com/docs/editor/portable" target="_blank" rel="noopener noreferrer">
+              https://code.visualstudio.com/docs/editor/portable
+            </a>
+          </p>
+
+          <div class="figure" role="note" aria-label="Esempio struttura cartelle portable">
+            <div><strong>Esempio struttura</strong></div>
+            <pre><code>VSCodePortable\
+  Code.exe
+  data\
+    user-data\
+    extensions\</code></pre>
+            <div class="caption">Cartella <code>data</code> = impostazioni ed estensioni “portabili”.</div>
+          </div>
+        </li>
+
+        <li>
+          <h3>Avviate VS Code</h3>
+          <p>
+            Fate doppio clic su <code>Code.exe</code>. Se la cartella <code>data</code> esiste, VS Code usera la modalita portable.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="panel">
+      <h2>3) Primo progetto: create una cartella e un file HTML</h2>
+
+      <ol class="steps">
+        <li>
+          <h3>Create una cartella di lavoro</h3>
+          <p>Sul PC create una cartella chiamata per esempio <code>sito_prova</code>.</p>
+        </li>
+
+        <li>
+          <h3>Aprite la cartella in VS Code</h3>
+          <p>
+            In VS Code: <strong>File → Open Folder...</strong> e scegliete la cartella <code>sito_prova</code>.
+          </p>
+          <details class="tip">
+            <summary>Perche “Open Folder” e importante?</summary>
+            <p>Le estensioni di preview lavorano meglio se aprite una cartella progetto, non un singolo file.</p>
+          </details>
+        </li>
+
+        <li>
+          <h3>Create <code>index.html</code></h3>
+          <p>Nel pannello a sinistra (Explorer), cliccate su <strong>New File</strong> e chiamatelo <code>index.html</code>.</p>
+
+          <div class="box">
+            <p><strong>Incollate questo HTML minimo:</strong></p>
+            <pre><code>&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Prova preview&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Ciao, preview!&lt;/h1&gt;
+  &lt;p&gt;Se leggi questo nel browser, funziona.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <p>Salvate con <kbd>Ctrl</kbd> + <kbd>S</kbd>.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="panel callout">
+      <h2>4) Attivare il “preview” delle pagine: due strade (sceglietene una)</h2>
+      <ul>
+        <li><strong>Server locale con auto-reload</strong> (consigliato): apre la pagina nel browser e aggiorna quando salvate.</li>
+        <li><strong>Preview integrato</strong> (dentro VS Code): utile se non volete uscire dall’editor.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>Opzione A (consigliata): Live Server (Ritwick Dey)</h2>
+
+      <p>
+        Live Server avvia un piccolo server sul vostro PC e apre la pagina nel browser. Quando salvate, la pagina si aggiorna.
+      </p>
+
+      <div class="box">
+        <strong>Link Marketplace</strong>
+        <p>
+          <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer" target="_blank" rel="noopener noreferrer">
+            https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+          </a>
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <h3>Aprite il pannello Estensioni</h3>
+          <p>Cliccate l’icona Extensions oppure premete <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>.</p>
+        </li>
+
+        <li>
+          <h3>Cercate e installate “Live Server”</h3>
+          <p>
+            Nella ricerca scrivete: <strong>Live Server</strong> e controllate che il publisher sia <strong>Ritwick Dey</strong>.
+          </p>
+          <p>
+            In alternativa: <kbd>Ctrl</kbd> + <kbd>P</kbd> e scrivete:
+            <code>ext install ritwickdey.liveserver</code>
+          </p>
+        </li>
+
+        <li>
+          <h3>Avviate il server</h3>
+          <ul>
+            <li>Aprite <code>index.html</code> e cliccate <strong>Go Live</strong> (se appare), oppure</li>
+            <li>Tasto destro sul file → <strong>Open with Live Server</strong>, oppure</li>
+            <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> → <strong>Live Server: Open with Live Server</strong>.</li>
+          </ul>
+        </li>
+
+        <li>
+          <h3>Test</h3>
+          <p>
+            Cambiate una parola in <code>index.html</code>, salvate con <kbd>Ctrl</kbd> + <kbd>S</kbd> e guardate il browser:
+            dovrebbe aggiornarsi.
+          </p>
+        </li>
+      </ol>
+
+      <details class="tip">
+        <summary>Se non parte o si blocca</summary>
+        <ul>
+          <li>Controllate di aver aperto una <strong>cartella</strong> (Open Folder), non solo il file.</li>
+          <li>Provate a riavviare VS Code.</li>
+          <li>Se vi da errore di “porta occupata”, chiudete altri server o cambiate porta nelle impostazioni di Live Server.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="panel">
+      <h2>Opzione B: Live Preview (Microsoft)</h2>
+
+      <p>
+        Esiste anche un’estensione Microsoft chiamata Live Preview. Funziona in modo simile (server locale + preview).
+      </p>
+
+      <div class="box">
+        <strong>Link Marketplace</strong>
+        <p>
+          <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server" target="_blank" rel="noopener noreferrer">
+            https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server
+          </a>
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <h3>Installazione</h3>
+          <p>
+            Extensions → cercate <strong>Live Preview</strong> (publisher Microsoft), oppure:
+            <kbd>Ctrl</kbd> + <kbd>P</kbd> → <code>ext install ms-vscode.live-server</code>
+          </p>
+        </li>
+
+        <li>
+          <h3>Apertura preview</h3>
+          <p>
+            Aprite <code>index.html</code>, poi <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> e cercate un comando tipo
+            <strong>Live Preview</strong> / <strong>Start Server</strong> / <strong>Show Preview</strong>.
+          </p>
+        </li>
+      </ol>
+
+      <details class="tip">
+        <summary>Se non trovate i comandi</summary>
+        <p>
+          Alcune estensioni aggiungono comandi diversi a seconda della versione di VS Code.
+          In quel caso usate l’opzione A (Live Server), che e quella piu semplice e diffusa.
+        </p>
+      </details>
+    </section>
+
+    <section class="panel">
+      <h2>Checklist finale (autovalutazione)</h2>
+      <ul>
+        <li>[ ] VS Code si avvia (installato o portable).</li>
+        <li>[ ] La cartella <code>sito_prova</code> e aperta in VS Code.</li>
+        <li>[ ] Il file <code>index.html</code> e stato creato e salvato.</li>
+        <li>[ ] E stata installata un’estensione di preview (Live Server consigliata).</li>
+        <li>[ ] La pagina si vede nel browser e si aggiorna quando salvate.</li>
+      </ul>
+
+      <div class="box">
+        <strong>Se serve aiuto</strong>
+        <p class="muted">
+          Fate uno screenshot di: (1) VS Code con la cartella aperta, (2) estensione installata visibile, (3) pagina nel browser.
+        </p>
+      </div>
+    </section>
+
+    <footer class="panel small">
+      <p class="muted">
+        Nota: il font e lo stile DSA-friendly arrivano dal CSS comune del progetto.
+      </p>
+    </footer>
+
+  </main>
+</body>
+</html>
