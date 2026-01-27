@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>Selettori CSS – regole base (in italiano)</title>
+
+  <!-- Asset comuni progetto -->
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+
+  <style>
+    /* Piccole aggiunte locali (non duplicano gli asset) */
+    .grid-2{ display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width: 860px){ .grid-2{ grid-template-columns: 1fr 1fr; } }
+
+    table{ width:100%; border-collapse:collapse; }
+    th,td{ text-align:left; vertical-align:top; padding:12px 10px; border-bottom:1px solid var(--panel-border); }
+    th{ font-size:.95rem; color:var(--muted); }
+    .tag{
+      display:inline-block;
+      padding:.1rem .5rem;
+      border-radius:999px;
+      border:1px solid var(--panel-border);
+      background:var(--bg);
+      font-weight:700;
+      font-size:.9rem;
+      margin-right:.35rem;
+      white-space:nowrap;
+    }
+
+    .demo{
+      border:2px dashed #a7b1c5;
+      border-radius:16px;
+      padding:14px 16px;
+      background:var(--bg);
+    }
+
+    /* Piccolo “evidenziatore” per far capire cosa verrebbe selezionato */
+    .target{
+      outline: 3px solid rgba(255, 122, 24, .85);
+      outline-offset: 3px;
+      border-radius: 10px;
+      padding: 2px 6px;
+    }
+  </style>
+</head>
+
+<body>
+<a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+<header class="page-header">
+  <div class="container">
+    <div class="theme-controls">
+      <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+        <span class="btn-label">Tema scuro 🌙</span>
+      </button>
+      <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+        Contrasto alto ☀️
+      </button>
+    </div>
+
+    <h1>Selettori CSS: le regole principali</h1>
+    <p class="subtitle">
+      In CSS, il <strong>selettore</strong> dice “a quali elementi HTML applicare” una regola di stile.
+      Sotto trovate le regole più usate, tradotte e con esempi.
+    </p>
+    <p class="pill">⏱️ 1 ora • Classe: 4ª IT • Modalità: laboratorio</p>
+  </div>
+</header>
+
+<main id="contenuto" class="container">
+
+  <section class="panel callout">
+    <h2>Idea chiave</h2>
+    <p>
+      Una regola CSS ha questa forma:
+      <code>selettore { proprietà: valore; }</code>
+    </p>
+    <pre class="language-css"><code>p {
+  color: blue;
+}</code></pre>
+    <p class="muted">
+      Significa: “tutti i paragrafi &lt;p&gt; diventano blu”.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Tabella: selettore → significato → esempio</h2>
+
+    <div class="box">
+      <table aria-label="Tabella dei selettori CSS principali">
+        <thead>
+          <tr>
+            <th>Selettore</th>
+            <th>Significato</th>
+            <th>Esempio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">Universale</span></td>
+            <td>Si applica a <strong>tutti</strong> gli elementi della pagina.</td>
+            <td>
+              <pre class="language-css"><code>* { }</code></pre>
+              <p class="muted">Seleziona tutti gli elementi.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">Di tipo</span></td>
+            <td>Seleziona elementi in base al <strong>nome del tag</strong> (p, h1, a, …).</td>
+            <td>
+              <pre class="language-css"><code>h1, h2, h3 { }</code></pre>
+              <p class="muted">Seleziona tutti gli &lt;h1&gt;, &lt;h2&gt; e &lt;h3&gt;.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">Classe</span></td>
+            <td>
+              Seleziona gli elementi con una certa <strong>class</strong> (preceduta da <code>.</code>).
+              Una classe può essere usata su più elementi.
+            </td>
+            <td>
+              <pre class="language-css"><code>.note { }</code></pre>
+              <p class="muted">Seleziona tutti gli elementi con class="note".</p>
+              <pre class="language-css"><code>p.note { }</code></pre>
+              <p class="muted">Seleziona solo i &lt;p&gt; con class="note".</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">ID</span></td>
+            <td>
+              Seleziona l’elemento con un certo <strong>id</strong> (preceduto da <code>#</code>).
+              In una pagina, l’ID dovrebbe essere <strong>unico</strong>.
+            </td>
+            <td>
+              <pre class="language-css"><code>#introduction { }</code></pre>
+              <p class="muted">Seleziona l’elemento con id="introduction".</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">Figlio diretto</span></td>
+            <td>
+              Seleziona un elemento che è <strong>figlio diretto</strong> di un altro (simbolo <code>&gt;</code>).
+            </td>
+            <td>
+              <pre class="language-css"><code>li &gt; a { }</code></pre>
+              <p class="muted">Seleziona gli &lt;a&gt; direttamente dentro un &lt;li&gt;.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">Discendente</span></td>
+            <td>
+              Seleziona un elemento che si trova <strong>da qualche parte dentro</strong> un altro
+              (non per forza figlio diretto).
+            </td>
+            <td>
+              <pre class="language-css"><code>p a { }</code></pre>
+              <p class="muted">Seleziona tutti gli &lt;a&gt; che stanno dentro un &lt;p&gt; (anche se in mezzo ci sono altri tag).</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">Fratello adiacente</span></td>
+            <td>
+              Seleziona l’elemento che è <strong>subito dopo</strong> un altro (simbolo <code>+</code>).
+            </td>
+            <td>
+              <pre class="language-css"><code>h1 + p { }</code></pre>
+              <p class="muted">Seleziona il primo &lt;p&gt; immediatamente dopo un &lt;h1&gt;.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="tag">Fratelli generali</span></td>
+            <td>
+              Seleziona tutti i “fratelli” che vengono <strong>dopo</strong> un elemento (simbolo <code>~</code>),
+              non per forza immediatamente.
+            </td>
+            <td>
+              <pre class="language-css"><code>h1 ~ p { }</code></pre>
+              <p class="muted">Seleziona tutti i &lt;p&gt; fratelli di &lt;h1&gt; che stanno dopo di lui.</p>
+            </td>
+          </tr>
+        </t
