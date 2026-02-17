@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light" id="top">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Cheat sheet – HTML base (Verifica Q1–Q3)</title>
+
+  <!-- CSS Prism base, stile comune, dark mode -->
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- JS per tema / contrasto + Prism -->
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenuto">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container narrow">
+      <h1>Cheat sheet – HTML base</h1>
+      <p class="subtitle">
+        Riferimento essenziale (manuale) per: struttura pagina, testo, entità, liste, link, tabelle.
+      </p>
+
+      <!-- Controlli tema / contrasto -->
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ Consultazione durante la prova • Solo HTML</p>
+    </div>
+  </header>
+
+  <main id="contenuto">
+    <div class="container narrow">
+
+      <section class="panel">
+        <h2>1) Struttura minima di una pagina</h2>
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Titolo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </section>
+
+      <section class="panel">
+        <h2>2) Testo</h2>
+        <ul>
+          <li><code>&lt;h1&gt;</code> titolo principale</li>
+          <li><code>&lt;h2&gt;</code> titolo di sezione</li>
+          <li><code>&lt;p&gt;</code> paragrafo</li>
+          <li><code>&lt;strong&gt;</code> enfasi forte</li>
+          <li><code>&lt;em&gt;</code> enfasi</li>
+          <li><code>&lt;br&gt;</code> a capo</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;h1&gt;Titolo&lt;/h1&gt;
+&lt;h2&gt;Sezione&lt;/h2&gt;
+&lt;p&gt;Testo con &lt;strong&gt;strong&lt;/strong&gt; e &lt;em&gt;em&lt;/em&gt;.&lt;br&gt;Seconda riga.&lt;/p&gt;</code></pre>
+      </section>
+
+      <section class="panel">
+        <h2>3) Entità (caratteri speciali)</h2>
+        <ul>
+          <li><code>&amp;lt;</code> → &lt;</li>
+          <li><code>&amp;gt;</code> → &gt;</li>
+          <li><code>&amp;le;</code> → ≤</li>
+          <li><code>&amp;ge;</code> → ≥</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;p&gt;2 &amp;lt; 3, 3 &amp;ge; 3, testo: &amp;lt;esempio&amp;gt;&lt;/p&gt;</code></pre>
+      </section>
+
+      <section class="panel">
+        <h2>4) Liste</h2>
+        <ul>
+          <li><code>&lt;ul&gt;</code> elenco puntato</li>
+          <li><code>&lt;ol&gt;</code> elenco numerato</li>
+          <li><code>&lt;li&gt;</code> elemento elenco</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;ul&gt;&lt;li&gt;A&lt;/li&gt;&lt;li&gt;B&lt;/li&gt;&lt;/ul&gt;
+&lt;ol&gt;&lt;li&gt;1&lt;/li&gt;&lt;li&gt;2&lt;/li&gt;&lt;/ol&gt;</code></pre>
+      </section>
+
+      <section class="panel">
+        <h2>5) Link</h2>
+        <ul>
+          <li><code>&lt;a&gt;</code> collegamento</li>
+          <li><code>href</code> destinazione</li>
+          <li><code>target="_blank"</code> nuova scheda</li>
+          <li><code>rel="noopener"</code> sicurezza (con target blank)</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;a href="https://esempio.it"&gt;Testo link&lt;/a&gt;
+&lt;a href="https://esempio.it" target="_blank" rel="noopener"&gt;Nuova scheda&lt;/a&gt;</code></pre>
+      </section>
+
+      <section class="panel">
+        <h2>6) Tabelle</h2>
+        <ul>
+          <li><code>&lt;table&gt;</code> tabella</li>
+          <li><code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code> sezioni</li>
+          <li><code>&lt;tr&gt;</code> riga</li>
+          <li><code>&lt;th&gt;</code> cella intestazione</li>
+          <li><code>&lt;td&gt;</code> cella dati</li>
+          <li><code>colspan</code> unisce colonne</li>
+          <li><code>rowspan</code> unisce righe</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;table border="1"&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;A&lt;/th&gt;&lt;th&gt;B&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+  &lt;tfoot&gt;&lt;tr&gt;&lt;td colspan="2"&gt;Nota&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+
+        <pre><code class="language-html">&lt;tr&gt;&lt;td rowspan="2"&gt;X&lt;/td&gt;&lt;td&gt;R1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;R2&lt;/td&gt;&lt;/tr&gt;</code></pre>
+      </section>
+
+      <section class="panel">
+        <h2>Checklist</h2>
+        <ul>
+          <li>Documento completo: doctype, html, head, body</li>
+          <li>Tag chiusi correttamente</li>
+          <li>Entità corrette per &lt; e &gt;</li>
+          <li>Liste: ul/ol contengono li</li>
+          <li>Tabella: tr contiene th/td; attenzione a rowspan/colspan</li>
+        </ul>
+      </section>
+
+      <footer class="small muted">
+        <p><a href="#top">Torna su</a></p>
+      </footer>
+
+    </div>
+  </main>
+</body>
+</html>
