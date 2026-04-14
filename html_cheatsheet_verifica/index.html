@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>HTML – Scheda di supporto per verifica</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+  <style>
+    :root{
+      --accent:#d97706;
+      --accent-soft:rgba(217,119,6,.10);
+      --line:#e7e5e4;
+      --ok:#166534;
+      --ok-bg:#dcfce7;
+      --warn:#92400e;
+      --warn-bg:#ffedd5;
+      --code-bg:#f8fafc;
+      --text-soft:#57534e;
+    }
+    body{margin:0;background:#f5f5f4}
+    main{max-width:1320px;margin:0 auto;padding:28px 24px 72px}
+    .hero,.box,.mini,.example,.legend,.toc a,.tag{border:1px solid var(--line);border-radius:20px}
+    .hero{padding:20px;background:linear-gradient(135deg,var(--accent-soft),transparent)}
+    .hero h1{margin:0 0 8px;font-size:2rem}
+    .hero p{margin:.35rem 0;color:var(--text-soft)}
+    .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+    .mini{padding:14px;background:#fff}
+    .mini strong{display:block;margin-bottom:6px}
+    .toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:20px 0}
+    .toc a{display:block;padding:12px 14px;text-decoration:none;color:inherit;background:#fff}
+    .toc a:hover{border-color:var(--accent)}
+    .grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.95fr);gap:22px;margin-top:18px;align-items:start}
+    @media (max-width:1080px){.grid{grid-template-columns:1fr}}
+    .box{padding:20px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.045)}
+    h2{margin:0 0 12px;font-size:1.35rem;padding-left:10px;border-left:5px solid var(--accent)}
+    h3{margin:18px 0 8px;font-size:1.05rem}
+    .list{display:grid;gap:10px}
+    .item{padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+    .tag{display:inline-block;padding:3px 8px;font-size:.82rem;margin-left:8px;background:#fafaf9;color:var(--text-soft)}
+    code, pre, kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    code{background:var(--code-bg);padding:2px 6px;border-radius:8px}
+    pre{margin:10px 0 0;padding:14px;border-radius:16px;background:var(--code-bg);overflow:auto;line-height:1.45;border:1px solid var(--line)}
+    .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:760px){.cols{grid-template-columns:1fr}}
+    .ok,.warn{padding:12px 14px;border-radius:16px;border:1px solid var(--line)}
+    .ok{background:var(--ok-bg)}
+    .warn{background:var(--warn-bg)}
+    table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.97rem}
+    th,td{border:1px solid var(--line);padding:10px;vertical-align:top;text-align:left}
+    th{background:#fafaf9}
+    .muted{color:var(--text-soft)}
+    .legend{padding:14px;background:#fff7ed;margin-top:18px}
+    .example{padding:14px;background:#fff}
+    .sticky{position:sticky;top:20px}
+    .print-note{margin-top:14px;font-size:.95rem;color:var(--text-soft)}
+    .footer-note{margin-top:20px;padding:14px 16px;border-left:5px solid var(--accent);background:#fff7ed;border-radius:16px}
+    @media print{
+      body{background:#fff}
+      main{max-width:none;padding:0}
+      .sticky{position:static}
+      .box,.hero,.mini,.example,.legend,.toc a,.tag,.item{box-shadow:none}
+      a{text-decoration:none;color:inherit}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>HTML – Scheda di supporto per verifica</h1>
+      <p>Materiale sintetico, ordinato e facile da consultare durante il ripasso o come aiuto guidato in verifica.</p>
+      <p><strong>Obiettivo:</strong> ricordare la struttura minima di una pagina, i tag più usati e gli errori da evitare.</p>
+      <div class="strip">
+        <div class="mini"><strong>Ricorda</strong> Apri e chiudi quasi tutti i tag correttamente.</div>
+        <div class="mini"><strong>Prima regola</strong> Usa HTML per la struttura e CSS per l'aspetto.</div>
+        <div class="mini"><strong>Attenzione</strong> Alcuni tag del foglio originale sono vecchi o sconsigliati.</div>
+        <div class="mini"><strong>Verifica veloce</strong> Controlla sempre annidamento, attributi e testi alternativi.</div>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="Indice rapido">
+      <a href="#struttura">Struttura base</a>
+      <a href="#testo">Testo e contenitori</a>
+      <a href="#link">Link e immagini</a>
+      <a href="#liste">Liste</a>
+      <a href="#tabelle">Tabelle</a>
+      <a href="#form">Form</a>
+      <a href="#moderni">Tag moderni / tag vecchi</a>
+      <a href="#errori">Errori frequenti</a>
+    </nav>
+
+    <div class="grid">
+      <div>
+        <section class="box" id="struttura">
+          <h2>1. Struttura base di una pagina</h2>
+          <div class="list">
+            <div class="item"><code>&lt;html&gt;</code> contiene tutto il documento.</div>
+            <div class="item"><code>&lt;head&gt;</code> contiene informazioni non visibili direttamente nella pagina, come <code>&lt;title&gt;</code>.</div>
+            <div class="item"><code>&lt;body&gt;</code> contiene ciò che l'utente vede.</div>
+          </div>
+          <pre>&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Titolo pagina&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  Contenuto visibile
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          <p class="print-note">Questa è la struttura minima più utile da ricordare.</p>
+        </section>
+
+        <section class="box" id="testo">
+          <h2>2. Tag di testo e contenitori</h2>
+          <table>
+            <thead>
+              <tr><th>Tag</th><th>A cosa serve</th><th>Nota rapida</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>&lt;h1&gt;...&lt;/h1&gt;</code> fino a <code>&lt;h6&gt;</code></td><td>Titoli e sottotitoli</td><td><code>h1</code> è il più importante</td></tr>
+              <tr><td><code>&lt;p&gt;</code></td><td>Paragrafo</td><td>Meglio di tanti <code>&lt;br&gt;</code></td></tr>
+              <tr><td><code>&lt;br&gt;</code></td><td>Va a capo</td><td>Usalo con moderazione</td></tr>
+              <tr><td><code>&lt;strong&gt;</code></td><td>Testo importante</td><td>Di solito appare in grassetto</td></tr>
+              <tr><td><code>&lt;em&gt;</code></td><td>Enfasi</td><td>Di solito appare in corsivo</td></tr>
+              <tr><td><code>&lt;div&gt;</code></td><td>Contenitore a blocco</td><td>Utile per organizzare sezioni</td></tr>
+              <tr><td><code>&lt;span&gt;</code></td><td>Contenitore inline</td><td>Utile dentro una riga di testo</td></tr>
+              <tr><td><code>&lt;pre&gt;</code></td><td>Testo preformattato</td><td>Mantiene spazi e a capo</td></tr>
+              <tr><td><code>&lt;code&gt;</code></td><td>Codice</td><td>Per piccoli frammenti di codice</td></tr>
+              <tr><td><code>&lt;blockquote&gt;</code></td><td>Citazione lunga</td><td>Rientrata</td></tr>
+            </tbody>
+          </table>
+          <div class="cols">
+            <div class="example">
+              <strong>Esempio</strong>
+              <pre>&lt;h1&gt;Benvenuti&lt;/h1&gt;
+&lt;p&gt;Questo è un paragrafo.&lt;/p&gt;
+&lt;p&gt;Qui c'è una parola &lt;strong&gt;importante&lt;/strong&gt;.
+E qui una parola &lt;em&gt;evidenziata&lt;/em&gt;.&lt;/p&gt;</pre>
+            </div>
+            <div class="example">
+              <strong>Quando usare div e span</strong>
+              <pre>&lt;div&gt;
+  &lt;p&gt;Testo con una parola &lt;span&gt;evidenziata&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;</pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="box" id="link">
+          <h2>3. Link e immagini</h2>
+          <h3>Link</h3>
+          <div class="list">
+            <div class="item"><code>&lt;a href="https://sito.it"&gt;Visita il sito&lt;/a&gt;</code></div>
+            <div class="item"><code>&lt;a href="mailto:nome@email.it"&gt;Scrivimi&lt;/a&gt;</code></div>
+            <div class="item"><code>&lt;a href="#fine"&gt;Vai in basso&lt;/a&gt;</code> collega a un punto della stessa pagina.</div>
+          </div>
+          <h3>Immagini</h3>
+          <div class="list">
+            <div class="item"><code>&lt;img src="foto.jpg" alt="Paesaggio"&gt;</code> <span class="tag">alt obbligatorio</span></div>
+            <div class="item">L'attributo <code>alt</code> serve per accessibilità e per descrivere l'immagine se non viene caricata.</div>
+          </div>
+          <pre>&lt;img src="gatto.jpg" alt="Gatto seduto sul divano"&gt;</pre>
+        </section>
+
+        <section class="box" id="liste">
+          <h2>4. Liste</h2>
+          <div class="cols">
+            <div class="example">
+              <strong>Lista non ordinata</strong>
+              <pre>&lt;ul&gt;
+  &lt;li&gt;Pane&lt;/li&gt;
+  &lt;li&gt;Latte&lt;/li&gt;
+  &lt;li&gt;Frutta&lt;/li&gt;
+&lt;/ul&gt;</pre>
+            </div>
+            <div class="example">
+              <strong>Lista ordinata</strong>
+              <pre>&lt;ol&gt;
+  &lt;li&gt;Accendi il PC&lt;/li&gt;
+  &lt;li&gt;Apri il browser&lt;/li&gt;
+  &lt;li&gt;Vai sul sito&lt;/li&gt;
+&lt;/ol&gt;</pre>
+            </div>
+          </div>
+          <p class="muted">Tag utili: <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>.</p>
+        </section>
+
+        <section class="box" id="tabelle">
+          <h2>5. Tabelle</h2>
+          <p>Le tabelle servono per <strong>dati tabellari</strong>, non per impaginare tutta la pagina.</p>
+          <table>
+            <thead>
+              <tr><th>Tag</th><th>Funzione</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>&lt;table&gt;</code></td><td>Inizia la tabella</td></tr>
+              <tr><td><code>&lt;tr&gt;</code></td><td>Riga</td></tr>
+              <tr><td><code>&lt;th&gt;</code></td><td>Cella di intestazione</td></tr>
+              <tr><td><code>&lt;td&gt;</code></td><td>Cella dati</td></tr>
+              <tr><td><code>rowspan</code></td><td>Una cella occupa più righe</td></tr>
+              <tr><td><code>colspan</code></td><td>Una cella occupa più colonne</td></tr>
+            </tbody>
+          </table>
+          <pre>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nome&lt;/th&gt;
+    &lt;th&gt;Età&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Luca&lt;/td&gt;
+    &lt;td&gt;10&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+        </section>
+
+        <section class="box" id="form">
+          <h2>6. Form</h2>
+          <table>
+            <thead>
+              <tr><th>Elemento</th><th>Uso</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>&lt;form&gt;</code></td><td>Contiene tutto il modulo</td></tr>
+              <tr><td><code>&lt;input type="text"&gt;</code></td><td>Casella di testo</td></tr>
+              <tr><td><code>&lt;input type="checkbox"&gt;</code></td><td>Scelta multipla</td></tr>
+              <tr><td><code>&lt;input type="radio"&gt;</code></td><td>Una sola scelta nel gruppo</td></tr>
+              <tr><td><code>&lt;textarea&gt;</code></td><td>Testo lungo</td></tr>
+              <tr><td><code>&lt;select&gt;</code> + <code>&lt;option&gt;</code></td><td>Menu a tendina</td></tr>
+              <tr><td><code>&lt;input type="submit"&gt;</code></td><td>Pulsante invio</td></tr>
+              <tr><td><code>&lt;input type="reset"&gt;</code></td><td>Pulsante reset</td></tr>
+            </tbody>
+          </table>
+          <pre>&lt;form&gt;
+  &lt;label&gt;Nome&lt;/label&gt;
+  &lt;input type="text" name="nome"&gt;
+
+  &lt;label&gt;Classe&lt;/label&gt;
+  &lt;select name="classe"&gt;
+    &lt;option&gt;3A&lt;/option&gt;
+    &lt;option&gt;3B&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;input type="submit" value="Invia"&gt;
+&lt;/form&gt;</pre>
+          <p class="muted">Nel foglio originale compaiono anche vari tipi HTML5: <code>email</code>, <code>url</code>, <code>number</code>, <code>range</code>, <code>date</code>, <code>search</code>, <code>color</code>.</p>
+        </section>
+      </div>
+
+      <aside class="sticky">
+        <section class="box" id="moderni">
+          <h2>7. Tag moderni e tag vecchi</h2>
+          <div class="ok">
+            <strong>Meglio usare</strong>
+            <ul>
+              <li><code>&lt;strong&gt;</code> al posto di <code>&lt;b&gt;</code> quando il testo è importante</li>
+              <li><code>&lt;em&gt;</code> al posto di <code>&lt;i&gt;</code> quando vuoi dare enfasi</li>
+              <li>CSS al posto di <code>&lt;font&gt;</code></li>
+              <li>CSS al posto di <code>align</code>, <code>bgcolor</code>, <code>border</code> usati per l'aspetto</li>
+            </ul>
+          </div>
+          <div class="warn" style="margin-top:12px;">
+            <strong>Nel foglio compaiono ma oggi sono sconsigliati</strong>
+            <ul>
+              <li><code>&lt;font&gt;</code></li>
+              <li>Attributi del <code>body</code> come <code>bgcolor</code>, <code>text</code>, <code>link</code></li>
+              <li>Attributi grafici su <code>&lt;img&gt;</code> come <code>align</code> e <code>border</code></li>
+              <li>Molti attributi di allineamento nelle tabelle</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="box" id="errori" style="margin-top:16px;">
+          <h2>8. Errori frequenti in verifica</h2>
+          <div class="list">
+            <div class="item">Dimenticare la chiusura di un tag: <code>&lt;p&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;li&gt;</code>.</div>
+            <div class="item">Scrivere un link senza <code>href</code>.</div>
+            <div class="item">Inserire un'immagine senza <code>alt</code>.</div>
+            <div class="item">Usare la tabella per fare l'intero layout della pagina.</div>
+            <div class="item">Confondere <code>&lt;ol&gt;</code> e <code>&lt;ul&gt;</code>.</div>
+            <div class="item">Mettere testo direttamente dentro <code>&lt;table&gt;</code> senza <code>&lt;tr&gt;</code> e <code>&lt;td&gt;</code>.</div>
+            <div class="item">Usare tanti <code>&lt;br&gt;</code> invece di creare paragrafi veri.</div>
+          </div>
+        </section>
+
+        <section class="box" style="margin-top:16px;">
+          <h2>9. Mini formulario</h2>
+          <pre>&lt;a href="..."&gt;...&lt;/a&gt;
+&lt;img src="..." alt="..."&gt;
+&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;
+&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;
+&lt;table&gt;&lt;tr&gt;&lt;td&gt;...&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;form&gt;&lt;input type="text"&gt;&lt;/form&gt;</pre>
+        </section>
+
+        <section class="legend">
+          <strong>Uso consigliato in verifica</strong>
+          <p style="margin:.5rem 0 0;">Fai tenere questa scheda accanto agli alunni come supporto di recupero. Aiuta a ricordare i tag senza sostituire il ragionamento.</p>
+        </section>
+      </aside>
+    </div>
+
+    <div class="footer-note">
+      Questa scheda riorganizza in modo didattico il contenuto del PDF originale, mantenendo i tag presenti ma segnalando quelli ormai superati o da usare con cautela.
+    </div>
+  </main>
+  <script src="/assets/theme.js"></script>
+</body>
+</html>
