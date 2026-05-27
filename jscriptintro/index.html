@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Introduzione a JavaScript - Rendere interattiva una pagina</title>
+
+  <link rel="icon" href="../../common/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../common/assets/style.css" />
+  <link rel="stylesheet" href="../../common/assets/theme.css" />
+  <link rel="stylesheet" href="../../common/assets/prism.css" />
+
+  <style>
+    .lesson-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:16px;
+      margin-top:14px;
+    }
+    .mini-card{
+      background:var(--bg);
+      border:1px solid var(--panel-border);
+      border-radius:14px;
+      padding:14px 16px;
+      box-shadow:var(--shadow);
+    }
+    .demo-area{
+      background:var(--bg);
+      border:2px dashed var(--panel-border);
+      border-radius:16px;
+      padding:18px;
+      margin:16px 0;
+    }
+    .demo-title{
+      margin-top:0;
+    }
+    .evidenziato-js{
+      background:#fff3bf;
+      color:#111;
+      border:2px solid #f08c00;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+    }
+    .output-box{
+      min-height:48px;
+      background:var(--panel);
+      border:1px solid var(--panel-border);
+      border-radius:12px;
+      padding:12px 14px;
+      margin-top:12px;
+    }
+    .small-list li{ margin-bottom:6px; }
+    .two-cols{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      gap:18px;
+    }
+    .two-cols > div{
+      min-width:0;
+    }
+    pre{
+      max-width:100%;
+      overflow-x:auto;
+    }
+    @media (max-width:900px){
+      .two-cols{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Salta al contenuto principale</a>
+
+  <header class="page-header">
+    <div class="container">
+      <div class="theme-controls">
+        <button id="themeToggle" class="btn btn-theme" type="button" aria-pressed="false" aria-label="Cambia tema">
+          <span class="btn-label">Tema scuro 🌙</span>
+        </button>
+        <button id="contrastToggle" class="btn btn-outline btn-contrast" type="button" aria-pressed="false" aria-label="Attiva/disattiva contrasto alto">
+          Contrasto alto ☀️
+        </button>
+      </div>
+
+      <p class="pill">⏱️ 1 ora • Classe: 3ª IT • Modalità: laboratorio</p>
+      <h1>Introduzione a JavaScript</h1>
+      <p class="subtitle">Come rendere interattiva una pagina HTML già formattata con CSS</p>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <section class="panel callout">
+      <h2>Obiettivo della lezione</h2>
+      <p>
+        Oggi non dovete imparare tutto JavaScript. Dovete capire una cosa fondamentale:
+        una pagina web può <strong>reagire</strong> alle azioni dell’utente.
+      </p>
+      <div class="lesson-grid" aria-label="Schema HTML CSS JavaScript">
+        <div class="mini-card">
+          <h3>HTML</h3>
+          <p>Definisce la <strong>struttura</strong>: titoli, paragrafi, immagini, tabelle, link.</p>
+        </div>
+        <div class="mini-card">
+          <h3>CSS</h3>
+          <p>Definisce l’<strong>aspetto</strong>: colori, spazi, font, bordi, layout.</p>
+        </div>
+        <div class="mini-card">
+          <h3>JavaScript</h3>
+          <p>Definisce il <strong>comportamento</strong>: click, modifiche, elementi mostrati o nascosti.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>1. L’idea di base</h2>
+      <p>
+        JavaScript può cercare un elemento della pagina, leggere o modificare il suo contenuto,
+        aggiungere o togliere una classe CSS, reagire a un evento come un click.
+      </p>
+
+      <div class="box">
+        <h3>Parole chiave di oggi</h3>
+        <ul class="small-list">
+          <li><code>id</code>: nome unico assegnato a un elemento HTML.</li>
+          <li><code>document.getElementById()</code>: cerca un elemento tramite il suo <code>id</code>.</li>
+          <li><code>addEventListener()</code>: collega un’azione a un evento, ad esempio un click.</li>
+          <li><code>textContent</code>: cambia il testo contenuto in un elemento.</li>
+          <li><code>classList.toggle()</code>: aggiunge o rimuove una classe CSS.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel exercise">
+      <h2>2. Primo esempio: cambiare un testo</h2>
+      <p>
+        Fate attenzione: il bottone non cambia da solo il titolo. Il bottone scatena un evento,
+        e JavaScript modifica il contenuto dell’elemento scelto.
+      </p>
+
+      <div class="demo-area" aria-label="Dimostrazione cambio testo">
+        <h3 id="titoloDemo" class="demo-title">Titolo iniziale della pagina</h3>
+        <button id="cambiaTitoloDemo" class="btn" type="button">Cambia titolo</button>
+      </div>
+
+      <h3>Codice dell’esempio</h3>
+      <pre><code class="language-html">&lt;h1 id=&quot;titolo&quot;&gt;Titolo iniziale della pagina&lt;/h1&gt;
+
+&lt;button id=&quot;pulsanteTitolo&quot; type=&quot;button&quot;&gt;Cambia titolo&lt;/button&gt;
+
+&lt;script&gt;
+  const pulsante = document.getElementById(&quot;pulsanteTitolo&quot;);
+  const titolo = document.getElementById(&quot;titolo&quot;);
+
+  pulsante.addEventListener(&quot;click&quot;, function() {
+    titolo.textContent = &quot;Titolo modificato con JavaScript!&quot;;
+  });
+&lt;/script&gt;</code></pre>
+
+      <details class="tip">
+        <summary>Perché usiamo <code>id</code>?</summary>
+        <p>
+          Perché JavaScript deve sapere quale elemento modificare. Se un elemento ha un <code>id</code>,
+          possiamo cercarlo in modo preciso.
+        </p>
+      </details>
+    </section>
+
+    <section class="panel exercise">
+      <h2>3. Secondo esempio: cambiare lo stile con una classe CSS</h2>
+      <p>
+        In questo esempio JavaScript non scrive direttamente il colore o il bordo.
+        Aggiunge o rimuove una classe CSS. Questa è una pratica molto usata nelle pagine web reali.
+      </p>
+
+      <div class="demo-area" aria-label="Dimostrazione classe CSS">
+        <p id="messaggioDemo">Questo paragrafo può essere evidenziato.</p>
+        <button id="evidenziaDemo" class="btn" type="button">Evidenzia / togli evidenza</button>
+      </div>
+
+      <div class="two-cols">
+        <div>
+          <h3>CSS</h3>
+          <pre><code class="language-css">.evidenziato {
+  background-color: yellow;
+  font-weight: bold;
+  padding: 10px;
+}</code></pre>
+        </div>
+        <div>
+          <h3>JavaScript</h3>
+          <pre><code class="language-javascript">const messaggio = document.getElementById(&quot;messaggio&quot;);
+const pulsante = document.getElementById(&quot;pulsanteEvidenzia&quot;);
+
+pulsante.addEventListener(&quot;click&quot;, function() {
+  messaggio.classList.toggle(&quot;evidenziato&quot;);
+});</code></pre>
+        </div>
+      </div>
+
+      <h3>HTML completo dell’esempio</h3>
+      <pre><code class="language-html">&lt;p id=&quot;messaggio&quot;&gt;Questo paragrafo può essere evidenziato.&lt;/p&gt;
+
+&lt;button id=&quot;pulsanteEvidenzia&quot; type=&quot;button&quot;&gt;
+  Evidenzia / togli evidenza
+&lt;/button&gt;</code></pre>
+    </section>
+
+    <section class="panel">
+      <h2>4. Mini-attività di laboratorio</h2>
+      <p>
+        Create una pagina chiamata <code>javascript_intro_cognome_nome.html</code>.
+        La pagina deve contenere HTML, CSS e un piccolo script JavaScript.
+      </p>
+
+      <ol class="steps">
+        <li>
+          Inserite un titolo principale con un <code>id</code>, ad esempio <code>id=&quot;titolo&quot;</code>.
+        </li>
+        <li>
+          Inserite un pulsante che, al click, cambi il testo del titolo.
+        </li>
+        <li>
+          Inserite un paragrafo con un <code>id</code>.
+        </li>
+        <li>
+          Create una classe CSS chiamata <code>.evidenziato</code> con colore di sfondo, bordo o testo in grassetto.
+        </li>
+        <li>
+          Inserite un secondo pulsante che aggiunga o tolga la classe <code>.evidenziato</code> al paragrafo.
+        </li>
+      </ol>
+
+      <div class="box">
+        <h3>Regola importante</h3>
+        <p>
+          Non copiate soltanto il codice: cambiate testi, colori e contenuti in modo personale.
+          L’obiettivo è capire il collegamento tra <strong>HTML</strong>, <strong>CSS</strong> e <strong>JavaScript</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section class="panel callout">
+      <h2>5. Cosa dovete ricordare</h2>
+      <ul>
+        <li>HTML costruisce gli elementi della pagina.</li>
+        <li>CSS stabilisce come gli elementi devono apparire.</li>
+        <li>JavaScript può modificare elementi HTML e classi CSS quando accade un evento.</li>
+        <li>Un evento molto comune è il <strong>click</strong> su un bottone.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>6. Domande finali</h2>
+      <ol>
+        <li>A cosa serve JavaScript in una pagina web?</li>
+        <li>Perché è utile assegnare un <code>id</code> a un elemento HTML?</li>
+        <li>Perché spesso JavaScript aggiunge o rimuove classi CSS invece di cambiare direttamente lo stile?</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="container small muted">
+    <p>Materiale didattico per uso interno. Pagina non indicizzabile dai motori di ricerca.</p>
+  </footer>
+
+  <script src="../../common/assets/theme.js" defer></script>
+  <script src="../../common/assets/prism.js" defer></script>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const titoloDemo = document.getElementById("titoloDemo");
+      const cambiaTitoloDemo = document.getElementById("cambiaTitoloDemo");
+      const messaggioDemo = document.getElementById("messaggioDemo");
+      const evidenziaDemo = document.getElementById("evidenziaDemo");
+
+      if (cambiaTitoloDemo && titoloDemo) {
+        cambiaTitoloDemo.addEventListener("click", () => {
+          titoloDemo.textContent = "Titolo modificato con JavaScript!";
+        });
+      }
+
+      if (evidenziaDemo && messaggioDemo) {
+        evidenziaDemo.addEventListener("click", () => {
+          messaggioDemo.classList.toggle("evidenziato-js");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
